@@ -1,0 +1,22 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopHub - Modern E-commerce Store</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    
+
+    {% include 'includes/navbar.html' %}
+    <!-- navbar -->
+
+    {% block contend%}
+    <!-- contend -->
+    {% endblock %}
+
+    {% include 'includes/footer.html' %}
+    <!-- footer -->
