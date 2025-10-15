@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'categories',
     'account',
+    'store',
 ]
 
 MIDDLEWARE = [
@@ -123,6 +124,12 @@ STATIC_ROOT = BASE_DIR /'static'
 STATICFILES_DIRS = [
     'website/static'
 ]
+
+# Media file configuration
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR /'media'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
