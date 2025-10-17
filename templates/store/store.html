@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contend %}
+
+    <header class="store-header">
+        <h1>Online Store</h1>
+        <div class="cart-info">Cart: <span id="cart-count">{{product_count}}</span> items</div>
+    </header>
+
+    <!-- Category Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <h3>Categories</h3>
+            <div class="category-filters">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="shirts">Shirts</button>
+                <button class="filter-btn" data-category="pants">Pants</button>
+                <button class="filter-btn" data-category="jackets">Jackets</button>
+                <button class="filter-btn" data-category="accessories">Accessories</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <!-- Product cards will be dynamically generated -->
+        {% for product in products %}
+        <div class="product-card" data-category="{{ product.category }}">
+            <img src="{{ product.image.url }}" alt="{{ product.product_name }}" class="product-image">
+            <div class="product-info">
+                <h2 class="product-title">{{ product.product_name }}</h2>
+                <p class="product-description">{{ product.description }}</p>
+                <div class="product-price">${{ product.price }}</div>
+                
+                <!-- Size Selection -->
+                <div class="size-selection">
+                    <label>Size:</label>
+                    <div class="size-options">
+                        <button class="size-btn" data-size="S">S</button>
+                        <button class="size-btn" data-size="M">M</button>
+                        <button class="size-btn" data-size="L">L</button>
+                        <button class="size-btn" data-size="XL">XL</button>
+                    </div>
+                </div>
+
+                <div class="product-actions">
+                    <button class="btn btn-add" data-product-id="{{ product.id }}" data-product-name="{{ product.product_name }}" data-product-price="{{ product.price }}">Add to Cart</button>
+                    <button class="btn btn-view" data-product-id="{{ product.id }}">View Details</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+
+    <footer class="store-footer">
+        <p>&copy; 2025 Online Store. All rights reserved.</p>
+    </footer>
+
+    <script src="{% static 'store.js' %}"></script>
+
+{% endblock %}
+
