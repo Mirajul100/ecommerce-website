@@ -23,11 +23,13 @@
         <div class="container">
             <h3>Categories</h3>
             <div class="category-filters">
-                <button class="filter-btn active" data-category="all">All</button>
-                <button class="filter-btn" data-category="shirts">Men</button>
-                <button class="filter-btn" data-category="pants">Women</button>
-                <button class="filter-btn" data-category="jackets">Home Appliances</button>
-                <button class="filter-btn" data-category="accessories">Electronics</button>
+                <button class="filter-btn" data-category="all">All</button>
+            </div>
+            <div>
+                {% for sub_category in sub_link %}
+                        <a class="filter-btn" href="{{ sub_category.get_sub_category_url }}">{{ sub_category.sub_category_name }}</a>
+                {% endfor %}
+
             </div>
         </div>
     </section>

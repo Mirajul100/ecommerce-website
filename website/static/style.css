@@ -131,6 +131,85 @@ body {
     width: 100%;
 }
 
+/* Filter Button Styles */
+.filter-btn {
+    background-color: #ffffff;
+    color: #333;
+    padding: 14px 35px;
+    font-size: 18px;
+    min-width: 150px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* Hover effect */
+.filter-btn:hover {
+    background-color: #667eea;
+    color: white;
+    border-color: #667eea;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+/* Active/selected state */
+.filter-btn.active {
+    background-color: #667eea;
+    color: white;
+    border-color: #667eea;
+    box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+}
+
+/* Focus state - Remove default outline but keep accessibility */
+.filter-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+.filter-btn:focus:not(:focus-visible) {
+    box-shadow: none;
+}
+
+/* Active click state */
+.filter-btn:active {
+    transform: translateY(0);
+}
+
+/* Spacing between buttons in flex container */
+.category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .filter-btn {
+        padding: 12px 28px;
+        font-size: 16px;
+        min-width: 130px;
+    }
+}
+
+@media (max-width: 480px) {
+    .filter-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+        min-width: 100px;
+    }
+    
+    .category-filters {
+        gap: 8px;
+    }
+}
+
 /* Categories */
 .categories {
     padding: 4rem 0;
@@ -212,8 +291,8 @@ body {
 
 .product-image {
     width: 100%;
-    height: 370px;
-    object-fit: cover;
+    height: 300px;
+    object-fit: contain;
 }
 
 .product-info {

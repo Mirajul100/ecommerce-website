@@ -29,6 +29,11 @@ class Product(models.Model):
         verbose_name = 'Product'
         verbose_name_plural = 'Products'
 
+    def save(self, *args, **kwargs):
+        # Convert product_name to title case before saving
+        self.product_name = self.product_name.title()
+        super().save(*args, **kwargs)
+
     def clean(self):
         # Optional: Add custom validation
         if self.price <= 0:
