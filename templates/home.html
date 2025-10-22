@@ -26,10 +26,9 @@
                 <button class="filter-btn" data-category="all">All</button>
             </div>
             <div>
-                {% for sub_category in sub_link %}
-                        <a class="filter-btn" href="{{ sub_category.get_sub_category_url }}">{{ sub_category.sub_category_name }}</a>
+                {% for category in links %}
+                        <a class="filter-btn" href="{{ category.get_url }}">{{ category.Category_name }}</a>
                 {% endfor %}
-
             </div>
         </div>
     </section>
@@ -50,10 +49,14 @@
                 <div class="size-selection">
                     <label>Size:</label>
                     <div class="size-options">
+                        {% if product.product_size is not none %}
+                        <button class="size-btn" data-size="S">{{product.product_size}}</button>
+                        {% else %}
                         <button class="size-btn" data-size="S">S</button>
                         <button class="size-btn" data-size="M">M</button>
                         <button class="size-btn" data-size="L">L</button>
                         <button class="size-btn" data-size="XL">XL</button>
+                        {% endif %}
                     </div>
                 </div>
 

@@ -1,23 +1,19 @@
-from django.shortcuts import render , get_object_or_404
-from .models import Product
-from categories.models import Category
+from django.shortcuts import render, get_object_or_404
+from store.models import Product
+from sub_categories.models import SubCategory
 
-def store (request , category_slug = None):
-
-    if category_slug != None:
-        categories = None
-        products = None
-
-        categories = get_object_or_404(Category , slug= category_slug)
-        products = Product.objects.filter(category= categories , is_available= True)
-        product_count = products.count()
-
-    else :
-        products = Product.objects.all().filter(is_available= True)
-        product_count = products.count()
+def store(request, sub_category_slug=None):
+    if sub_category_slug is not None:
+        sub_category = get_object_or_404(SubCategory, slug=sub_category_slug)
+        products = Product.objects.filter(sub_category=sub_category, is_available=True)
+        products_count = products.count()
+    else:
+        products = Product.objects.filter(is_available=True)
+        products_count = products.count()
 
     context = {
-        'products':products,
-        'product_count':product_count,  
+        'products': products,
+        'product_count': products_count,
     }
-    return render(request , "store/store.html" , context)
+
+    return render(request, "store/store.html", context)

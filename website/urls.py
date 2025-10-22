@@ -24,6 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("" , views.home , name="home"),
     path("store/" , include("store.urls")),
-    path("<slug:sub_category_slug>" , views.home , name="sub_category"),
+    path("<slug:category_slug>" , views.home , name="product_by_category"),
 
 ] + static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)
