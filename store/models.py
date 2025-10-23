@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 from categories.models import Category
 from sub_categories.models import SubCategory
+from django.urls import reverse
 
 class Product(models.Model):
     product_name = models.CharField(max_length=200, unique=True)
@@ -21,6 +22,10 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modify_date = models.DateTimeField(auto_now=True)
     product_size = models.IntegerField(null=True , blank=True)
+    product_feature_1 = models.CharField(max_length=30 , null=True ,  blank=True)
+    product_feature_2 = models.CharField(max_length=30 , null=True ,  blank=True)
+    product_feature_3 = models.CharField(max_length=30 , null=True ,  blank=True)
+
 
     def __str__(self):
         return self.product_name
@@ -33,7 +38,14 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         # Convert product_name to title case before saving
         self.product_name = self.product_name.title()
+        self.product_feature_1 = self.product_feature_1.title()
+        self.product_feature_2 = self.product_feature_2.title()
+        self.product_feature_3 = self.product_feature_3.title()
+        
         super().save(*args, **kwargs)
+
+    def get_product_url(self):
+        return reverse ('product_details' , args=[self.sub_category.slug , self.slug])
 
     def clean(self):
         # Optional: Add custom validation

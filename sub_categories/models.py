@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from categories.models import Category
 
 class SubCategory(models.Model):
     sub_category_name   = models.CharField(max_length=50 , unique= True)

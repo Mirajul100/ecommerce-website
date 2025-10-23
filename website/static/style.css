@@ -118,6 +118,7 @@ body {
 }
 
 .btn-primary {
+    text-decoration: none;
     background: white;
     color: #667eea;
 }
@@ -300,7 +301,7 @@ body {
 }
 
 .product-title {
-    font-size: 20px;
+    font-size: 24px;
     margin-bottom: 10px;
     color: #333;
     font-weight: 700;
@@ -314,7 +315,7 @@ body {
 }
 
 .product-price {
-    font-size: 24px;
+    font-size: 22px;
     color: #667eea;
     font-weight: 700;
     margin-bottom: 15px;
@@ -394,13 +395,13 @@ body {
     transform: none;
 }
 
-.btn-view {
+.btn-bay {
     background: white;
     color: #667eea;
     border: 2px solid #667eea;
 }
 
-.btn-view:hover {
+.btn-bay:hover {
     background: #f0f0f0;
 }
 
