@@ -45,10 +45,14 @@
                     </div>
                 </div>
 
-                <div class="product-actions">
-                    <button class="btn btn-bay" data-product-id="{{ product.id }}" data-product-name="{{ product.product_name }}" data-product-price="{{ product.price }}">Bay Now</button>
-                    <button class="btn btn-view" data-product-id="{{ product.id }}">View Details</button>
-                </div>
+                {% if product.stock <= 0 %}
+                <h2 class="stock_out">Out of Stock</h2>
+                {% else %}
+                    <div class="single-product-actions">
+                        <button class="btn single-btn-view" data-product-id="{{ product.id }}">Bay Now</button>
+                        <button class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart</button>
+                    </div>
+                {% endif %}
             </div>
         </div>
         {% endfor %}

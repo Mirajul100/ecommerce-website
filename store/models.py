@@ -38,9 +38,12 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         # Convert product_name to title case before saving
         self.product_name = self.product_name.title()
-        self.product_feature_1 = self.product_feature_1.title()
-        self.product_feature_2 = self.product_feature_2.title()
-        self.product_feature_3 = self.product_feature_3.title()
+        if self.product_feature_1:  # Only if not None or empty
+            self.product_feature_1 = self.product_feature_1.title()
+        if self.product_feature_2:
+            self.product_feature_2 = self.product_feature_2.title()
+        if self.product_feature_3:
+            self.product_feature_3 = self.product_feature_3.title()
         
         super().save(*args, **kwargs)
 

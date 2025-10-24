@@ -102,6 +102,17 @@
     margin-top: 35px;
 }
 
+.stock_out {
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 24px;
+    text-transform: uppercase;
+    animation: blink 1s infinite;
+    margin-top: 35px;
+    text-align: center;
+}
+
+
 .btn {
     flex: 1;
     padding: 12px 20px;
@@ -116,6 +127,8 @@
 .single-btn-add {
     background: #667eea;
     color: white;
+    text-decoration: none;
+    text-align: center;
 }
 
 .single-btn-add:hover {
@@ -130,9 +143,11 @@
 }
 
 .single-btn-view {
+    text-decoration: none;
     background: white;
     color: #667eea;
     border: 2px solid #667eea;
+    text-align: center;
 }
 
 .single-btn-view:hover {

@@ -68,10 +68,14 @@
                 </div>
             </div>
 
-            <div class="single-product-actions">
-                <button class="btn single-btn-view" data-product-id="{{ product.id }}">Bay Now</button>
-                <button class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart</button>
-            </div>
+            {% if single_product.stock <= 0 %}
+                <h2 class="stock_out">Out of Stock</h2>
+            {% else %}
+                <div class="single-product-actions">
+                    <button class="btn single-btn-view" data-product-id="{{ product.id }}">Bay Now</button>
+                    <button class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart</button>
+                </div>
+            {% endif %}
 
         </div>
     </div>

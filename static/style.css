@@ -362,49 +362,6 @@ body {
     border-color: #667eea;
 }
 
-/* Product Actions */
-.product-actions {
-    display: flex;
-    gap: 10px;
-}
-
-.btn {
-    flex: 1;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.btn-add {
-    background: #667eea;
-    color: white;
-}
-
-.btn-add:hover {
-    background: #5568d3;
-    transform: scale(1.05);
-}
-
-.btn-add:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-    transform: none;
-}
-
-.btn-bay {
-    background: white;
-    color: #667eea;
-    border: 2px solid #667eea;
-}
-
-.btn-bay:hover {
-    background: #f0f0f0;
-}
-
 /* Newsletter */
 .newsletter {
     background: #1f2937;

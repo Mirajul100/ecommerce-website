@@ -22,10 +22,10 @@
     <section class="filter-section">
         <div class="container">
             <h3>Categories</h3>
-            <div class="category-filters">
-                <a href="{% url 'home' %}" class="filter-btn" data-category="all">All</a>
-            </div>
             <div>
+                <div class="category-filters">
+                    <a href="{% url 'home' %}" class="filter-btn" data-category="all">All</a>
+                </div>
                 {% for category in links %}
                         <a class="filter-btn" href="{{ category.get_url }}">{{ category.Category_name }}</a>
                 {% endfor %}
@@ -59,10 +59,14 @@
                     </div>
                 </div>
 
-                <div class="product-actions">
-                    <button class="btn btn-bay" data-product-id="{{ product.id }}">Bay Now</button>
-                    <button class="btn btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart</button>
-                </div>
+                {% if product.stock <= 0 %}
+                <h2 class="stock_out">Out of Stock</h2>
+                {% else %}
+                    <div class="single-product-actions">
+                        <a href="{% url 'home' %}" class="btn single-btn-view" data-product-id="{{ product.id }}">Bay Now</a>
+                        <a href="{% url 'home' %}" class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart</a>
+                    </div>
+                {% endif %}
             </div>
         </div>
         {% endfor %}
