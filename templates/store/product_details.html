@@ -48,13 +48,13 @@
             <div class="size-selection">
                 <label>Size:</label>
                 <div class="size-options">
-                    {% if single_product.product_size is not none %}
-                    <button class="size-btn" data-size="S">{{single_product.product_size}}</button>
+                    {% if product.product_size is not none %}
+                    <button class="size-btn">{{product.product_size}}</button>
                     {% else %}
-                    <button class="size-btn" data-size="S">S</button>
-                    <button class="size-btn" data-size="M">M</button>
-                    <button class="size-btn" data-size="L">L</button>
-                    <button class="size-btn" data-size="XL">XL</button>
+                    <button class="size-btn" >S</button>
+                    <button class="size-btn" >M</button>
+                    <button class="size-btn" >L</button>
+                    <button class="size-btn" >XL</button>
                     {% endif %}
                 </div>
             </div>
@@ -72,12 +72,14 @@
                 <h2 class="stock_out">Out of Stock</h2>
             {% else %}
                 <div class="single-product-actions">
-                    <button class="btn single-btn-view" data-product-id="{{ product.id }}">Bay Now</button>
-                    <button class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart</button>
+                    <a href="{% url 'home' %}" class="btn single-btn-view" data-product-id="{{ product.id }}">Bay Now</a>
+                        <a href="{% url 'home' %}" class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart</a>
                 </div>
             {% endif %}
 
         </div>
+
+        <script src="{%static 'click.js'%}"></script>
     </div>
 
         <div class="rating-section">

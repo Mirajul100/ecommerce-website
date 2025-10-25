@@ -360,7 +360,9 @@ body {
     background: #667eea;
     color: white;
     border-color: #667eea;
+    box-shadow: 0 0 8px rgba(102, 126, 234, 0.5);
 }
+
 
 /* Newsletter */
 .newsletter {

@@ -49,12 +49,12 @@
                     <label>Size:</label>
                     <div class="size-options">
                         {% if product.product_size is not none %}
-                        <button class="size-btn" data-size="S">{{product.product_size}}</button>
+                        <button class="size-btn">{{product.product_size}}</button>
                         {% else %}
-                        <button class="size-btn" data-size="S">S</button>
-                        <button class="size-btn" data-size="M">M</button>
-                        <button class="size-btn" data-size="L">L</button>
-                        <button class="size-btn" data-size="XL">XL</button>
+                        <button class="size-btn" >S</button>
+                        <button class="size-btn" >M</button>
+                        <button class="size-btn" >L</button>
+                        <button class="size-btn" >XL</button>
                         {% endif %}
                     </div>
                 </div>
@@ -72,7 +72,7 @@
         {% endfor %}
     </section>
 
-    <script src="{% static 'store.js' %}"></script>
+    <script src="{% static 'click.js' %}"></script>
 
     <!-- Newsletter
     <section class="newsletter">

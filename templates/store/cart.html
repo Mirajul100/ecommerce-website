@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contend %}
+
+
+    <body>
+        <div class="container">
+            <div class="shopping-cart">
+                <h1>🛒 Shopping Cart</h1>
+            </div>
+            
+            <div class="cart-wrapper">
+                <div class="cart-items" id="cartItems">
+                    <img src="{% static 'image/pant.jpg' %}" alt="Product Image">
+                </div>
+
+                <div class="cart-summary">
+                    <div class="summary-title">Order Summary</div>
+                    
+                    <div class="summary-row">
+                        <span class="summary-label">Subtotal:</span>
+                        <span class="summary-value" id="subtotal">$0.00</span>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <span class="summary-label">Tax (10%):</span>
+                        <span class="summary-value" id="tax">$0.00</span>
+                    </div>
+                    
+                    <div class="summary-total">
+                        <span class="total-label">Total:</span>
+                        <span class="total-value" id="total">$0.00</span>
+                    </div>
+
+                    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+                    <button class="continue-btn" onclick="continueShopping()">Continue Shopping</button>
+
+                    <div class="payment-methods">
+                        <div class="payment-title">We Accept</div>
+                        <div class="payment-icons">
+                            <div class="payment-icon">VISA</div>
+                            <div class="payment-icon">MC</div>
+                            <div class="payment-icon">AMEX</div>
+                            <div class="payment-icon">PayPal</div>
+                            <div class="payment-icon">GPay</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+
+{% endblock %}
