@@ -1,6 +1,7 @@
 {% extends 'base.html'%}
 {% load static %}
 {% block contend %}
+
 <body>
     <!-- Cart Button -->
     <div class="cart-button" id="cartButton">
@@ -59,21 +60,12 @@
                 </div>
             </div>
 
-            <!-- Add to Cart Section -->
-            <div class="add-to-cart-section">
-                <div class="quantity-selector">
-                    <button class="qty-btn" id="decreaseQty">-</button>
-                    <input type="number" id="quantity" value="1" min="1" max="10" readonly>
-                    <button class="qty-btn" id="increaseQty">+</button>
-                </div>
-            </div>
-
             {% if single_product.stock <= 0 %}
                 <h2 class="stock_out">Out of Stock</h2>
             {% else %}
                 <div class="single-product-actions">
                     <a href="{% url 'home' %}" class="btn single-btn-view" data-product-id="{{ product.id }}">Bay Now</a>
-                        <a href="{% url 'home' %}" class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart</a>
+                        <a href="{% url 'add_cart' single_product.id %}" class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart</a>
                 </div>
             {% endif %}
 

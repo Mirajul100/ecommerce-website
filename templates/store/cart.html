@@ -2,54 +2,98 @@
 {% load static %}
 {% block contend %}
 
+<div class="container">
+    <div class="sc-title">🛒 Shopping Cart</div>
 
-    <body>
-        <div class="container">
-            <div class="shopping-cart">
-                <h1>🛒 Shopping Cart</h1>
+    <div class="sc-layout">
+      <!-- LEFT: Cart Items -->
+      <div class="cart-section">
+        <div class="cart-table">
+          <table class="sc-table">
+            <thead>
+              <tr>
+                <th class="sc-th-product">Product</th>
+                <th class="sc-th-qty">Quantity</th>
+                <th class="sc-th-price">Price</th>
+                <th class="sc-th-action">Action</th>
+              </tr>
+            </thead>
+            {% for cart_item in cart_items %}
+            <tbody>
+
+              <tr class="sc-item">
+                <td class="sc-product-info">
+                  <div class="sc-product-container">
+                    <img src="{{ cart_item.product.image.url }}" 
+                         alt="Premium Watch" class="sc-product-img">
+                    <div class="sc-product-details">
+                      <h3>{{ cart_item.product.product_name}}</h3>
+                      <p>Size: Medium</p>
+                      <p>Color: Silver</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="sc-qty-cell">
+                  <div class="sc-qty-box">
+                    <button class="sc-qty-btn">−</button>
+                    <input type="number" class="sc-qty-input" value="1" min="1" readonly>
+                    <button class="sc-qty-btn">+</button>
+                  </div>
+                </td>
+                <td class="sc-price-cell">
+                  <div class="sc-price-area">
+                    <span class="sc-price">$120.00</span>
+                    <span class="sc-unit-price">$120.00 each</span>
+                  </div>
+                </td>
+                <td class="sc-action-cell">
+                  <button class="sc-remove-btn">Remove</button>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+
+      <!-- RIGHT: Checkout Summary -->
+      <div class="checkout-section">
+        <div class="sc-summary">
+          <h2>Order Summary</h2>
+
+          <div class="sc-summary-row">
+            <span>Subtotal:</span>
+            <span id="sc-subtotal">$385.00</span>
+          </div>
+
+          <div class="sc-summary-row">
+            <span>Tax (5%):</span>
+            <span id="sc-tax">$19.25</span>
+          </div>
+
+          <div class="sc-summary-row">
+            <span>Shipping:</span>
+            <span id="sc-shipping">$10.00</span>
+          </div>
+
+          <div class="sc-summary-row total">
+            <span>Total:</span>
+            <span id="sc-total">$414.25</span>
+          </div>
+
+          <div class="sc-payment">
+            <p style="font-size: 0.875rem; color: #6c757d; margin-bottom: 5px; text-align: center;">We Accept</p>
+            <div class="sc-payment-icons">
+              <div class="sc-payment-icon">VISA</div>
+              <div class="sc-payment-icon">MC</div>
+              <div class="sc-payment-icon">AMEX</div>
+              <div class="sc-payment-icon">PP</div>
             </div>
-            
-            <div class="cart-wrapper">
-                <div class="cart-items" id="cartItems">
-                    <img src="{% static 'image/pant.jpg' %}" alt="Product Image">
-                </div>
+          </div>
 
-                <div class="cart-summary">
-                    <div class="summary-title">Order Summary</div>
-                    
-                    <div class="summary-row">
-                        <span class="summary-label">Subtotal:</span>
-                        <span class="summary-value" id="subtotal">$0.00</span>
-                    </div>
-                    
-                    <div class="summary-row">
-                        <span class="summary-label">Tax (10%):</span>
-                        <span class="summary-value" id="tax">$0.00</span>
-                    </div>
-                    
-                    <div class="summary-total">
-                        <span class="total-label">Total:</span>
-                        <span class="total-value" id="total">$0.00</span>
-                    </div>
-
-                    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
-                    <button class="continue-btn" onclick="continueShopping()">Continue Shopping</button>
-
-                    <div class="payment-methods">
-                        <div class="payment-title">We Accept</div>
-                        <div class="payment-icons">
-                            <div class="payment-icon">VISA</div>
-                            <div class="payment-icon">MC</div>
-                            <div class="payment-icon">AMEX</div>
-                            <div class="payment-icon">PayPal</div>
-                            <div class="payment-icon">GPay</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          <button class="sc-btn-checkout">Proceed to Checkout</button>
+          <button class="sc-btn-continue">Continue Shopping</button>
         </div>
-
-        <script src="script.js"></script>
-    </body>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}
