@@ -581,12 +581,6 @@ body {
         padding: 20px;
     }
 
-    .store-header {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-
     .category-filters {
         justify-content: center;
     }

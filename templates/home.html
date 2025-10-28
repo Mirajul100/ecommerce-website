@@ -3,111 +3,105 @@
 {% block contend %}
 
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h2 class="hero-title">Discover Your Style</h2>
-                <p class="hero-subtitle">Exclusive collection of premium products at amazing prices</p>
-                <a href="{% url 'store' %}" class="btn btn-primary">Shop Now</a>
-            </div>
-        </div>
-    </section>
-
-    <header class="store-header">
-        <h1>Online Store</h1>
-        <div class="cart-info">Cart: <span id="cart-count">{{product_count}}</span> items</div>
-    </header>
-
-   <!-- Category Filter Section -->
-    <section class="filter-section">
-        <div class="container">
-            <h3>Categories</h3>
-            <div>
-                <div class="category-filters">
-                    <a href="{% url 'home' %}" class="filter-btn" data-category="all">All</a>
-                </div>
-                {% for category in links %}
-                        <a class="filter-btn" href="{{ category.get_url }}">{{ category.Category_name }}</a>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
-
-    
-        <!-- Products Section -->
-    <section class="products" id="products">
-        <!-- Product cards will be dynamically generated -->
-        {% for product in products %}
-        <div class="product-card" data-category="{{ product.category }}">
-            <a href="{{product.get_product_url}}"><img src="{{ product.image.url }}" alt="{{ product.product_name }}" class="product-image"></a>
-            <div class="product-info">
-                <h2 class="product-title">{{ product.product_name }}</h2>
-                <div class="product-price">{{ product.price }} tk</div>
-                
-                <!-- Size Selection -->
-                <div class="size-selection">
-                    <label>Size:</label>
-                    <div class="size-options">
-                        {% if product.product_size is not none %}
-                        <button class="size-btn">{{product.product_size}}</button>
-                        {% else %}
-                        <button class="size-btn" >S</button>
-                        <button class="size-btn" >M</button>
-                        <button class="size-btn" >L</button>
-                        <button class="size-btn" >XL</button>
-                        {% endif %}
-                    </div>
-                </div>
-
-                {% if product.stock <= 0 %}
-                <h2 class="stock_out">Out of Stock</h2>
-                {% else %}
-                    <div class="single-product-actions">
-                        <a href="{% url 'home' %}" class="btn single-btn-view" data-product-id="{{ product.id }}">Bay Now</a>
-                        <a href="{% url 'home' %}" class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart</a>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-        {% endfor %}
-    </section>
-
-    <script src="{% static 'click.js' %}"></script>
-
-    <!-- Newsletter
-    <section class="newsletter">
-        <div class="container">
-            <h2>Subscribe to Our Newsletter</h2>
-            <p>Get the latest updates on new products and exclusive offers</p>
-            <form class="newsletter-form">
-                <input type="email" placeholder="Enter your email" required>
-                <button type="submit" class="btn btn-primary">Subscribe</button>
-            </form>
-        </div>
-    </section> -->
-
-    <!-- Cart Modal -->
-    <div class="modal" id="cartModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Shopping Cart</h3>
-                <button class="close-btn">&times;</button>
-            </div>
-            <div class="modal-body" id="cartItems">
-                <p class="empty-cart">Your cart is empty</p>
-            </div>
-            <div class="modal-footer">
-                <div class="cart-total">
-                    <span>Total:</span>
-                    <span id="cartTotal">$0.00</span>
-                </div>
-                <button class="btn btn-primary btn-block">Checkout</button>
-            </div>
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h2 class="hero-title">Discover Your Style</h2>
+            <p class="hero-subtitle">Exclusive collection of premium products at amazing prices</p>
+            <a href="{% url 'store' %}" class="btn btn-primary">Shop Now</a>
         </div>
     </div>
+</section>
 
-    <script src="{% static 'data.js' %}"></script>
-</body>
+<!-- Category Filter Section -->
+<section class="filter-section">
+    <div class="container">
+        <h3>Categories</h3>
+        <div>
+            <div class="category-filters">
+                <a href="{% url 'home' %}" class="filter-btn" data-category="all">All</a>
+            </div>
+            {% for category in links %}
+                    <a class="filter-btn" href="{{ category.get_url }}">{{ category.Category_name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+    <!-- Products Section -->
+<section class="products" id="products">
+    <!-- Product cards will be dynamically generated -->
+    {% for product in products %}
+    <div class="product-card" data-category="{{ product.category }}">
+        <a href="{{product.get_product_url}}"><img src="{{ product.image.url }}" alt="{{ product.product_name }}" class="product-image"></a>
+        <div class="product-info">
+            <a href="{{product.get_product_url}}" style="text-decoration: none"> <h2 class="product-title">{{ product.product_name }}</h2></a>
+            <div class="product-price">{{ product.price }} tk</div>
+            
+            <!-- Size Selection -->
+            <div class="size-selection">
+                <label>Size:</label>
+                <div class="size-options">
+                    {% if product.product_size is not none %}
+                    <button class="size-btn">{{product.product_size}}</button>
+                    {% else %}
+                    <button class="size-btn" >S</button>
+                    <button class="size-btn" >M</button>
+                    <button class="size-btn" >L</button>
+                    <button class="size-btn" >XL</button>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if product.stock <= 0 %}
+            <h2 class="stock_out">Out of Stock</h2>
+            {% else %}
+                <div class="single-product-actions">
+                    <a href="{% url 'home' %}" class="btn single-btn-view" style="text-decoration: none" data-product-id="{{ product.id }}">Bay Now</a>
+                    <a href="{% url 'add_cart' product.id %}" class="btn single-btn-add" style="text-decoration: none" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</section>
+
+<script src="{% static 'click.js' %}"></script>
+
+<!-- Newsletter
+<section class="newsletter">
+    <div class="container">
+        <h2>Subscribe to Our Newsletter</h2>
+        <p>Get the latest updates on new products and exclusive offers</p>
+        <form class="newsletter-form">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+    </div>
+</section> -->
+
+<!-- Cart Modal -->
+<div class="modal" id="cartModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-btn">&times;</button>
+        </div>
+        <div class="modal-body" id="cartItems">
+            <p class="empty-cart">Your cart is empty</p>
+        </div>
+        <div class="modal-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button class="btn btn-primary btn-block">Checkout</button>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'data.js' %}"></script>
 </html>
 
 {% endblock %}

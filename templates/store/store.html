@@ -3,11 +3,6 @@
 
 {% block contend %}
 
-    <header class="store-header">
-        <h1>Online Store</h1>
-        <div class="cart-info">Cart: <span id="cart-count">{{product_count}}</span> items</div>
-    </header>
-
     <!-- Category Filter Section -->
     <section class="filter-section">
         <div class="container">
@@ -27,7 +22,7 @@
         <div class="product-card" data-category="{{ product.category }}">
             <a href="{{product.get_product_url}}"><img src="{{ product.image.url }}" alt="{{ product.product_name }}" class="product-image"></a>
             <div class="product-info">
-                <h2 class="product-title">{{ product.product_name }}</h2>
+                <a href="{{product.get_product_url}}" style="text-decoration: none"><h2 class="product-title">{{ product.product_name }}</h2></a>
                 <div class="product-price">{{ product.price }}tk</div>
                 
                 <!-- Size Selection -->
@@ -49,18 +44,14 @@
                 <h2 class="stock_out">Out of Stock</h2>
                 {% else %}
                     <div class="single-product-actions">
-                        <a href="{% url 'home' %}" class="btn single-btn-view" data-product-id="{{ product.id }}">Bay Now</a>
-                        <a href="{% url 'home' %}" class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart</a>
+                        <a href="{% url 'home' %}" class="btn single-btn-view" style="text-decoration: none" data-product-id="{{ product.id }}">Bay Now</a>
+                        <a href="{% url 'add_cart' product.id %}" class="btn single-btn-add" style="text-decoration: none" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart</a>
                     </div>
                 {% endif %}
             </div>
         </div>
         {% endfor %}
     </section>
-
-    <footer class="store-footer">
-        <p>&copy; 2025 Online Store. All rights reserved.</p>
-    </footer>
 
     <script src="{% static 'click.js' %}"></script>
 

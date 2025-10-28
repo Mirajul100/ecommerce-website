@@ -2,9 +2,16 @@
 {% load static %}
 {% block contend %}
 
+{% if not cart_items %}
+<!-- message -->
+<div class="sc-title-empty">🛒 Shopping Cart Is Empty</div>
+<br>
+<div class="text-center">
+  <a href="{% url 'store' %}" class="sc-empty" style="text-decoration: none">Continue Shopping</a>
+</div>
+{% else %}
 <div class="container">
-    <div class="sc-title">🛒 Shopping Cart</div>
-
+  <div class="sc-title">🛒 Shopping Cart</div>
     <div class="sc-layout">
       <!-- LEFT: Cart Items -->
       <div class="cart-section">
@@ -18,16 +25,17 @@
                 <th class="sc-th-action">Action</th>
               </tr>
             </thead>
-            {% for cart_item in cart_items %}
             <tbody>
-
+              {% for cart_item in cart_items %}
+              <!-- Cart Item 1 -->
               <tr class="sc-item">
                 <td class="sc-product-info">
                   <div class="sc-product-container">
-                    <img src="{{ cart_item.product.image.url }}" 
-                         alt="Premium Watch" class="sc-product-img">
+                    <a href="{{ cart_item.product.get_product_url }}" ><img src="{{cart_item.product.image.url}}" 
+                         alt="{{cart_item.product.product_name}}" class="sc-product-img">
+                    </a>
                     <div class="sc-product-details">
-                      <h3>{{ cart_item.product.product_name}}</h3>
+                      <h3>{{cart_item.product.product_name}}</h3>
                       <p>Size: Medium</p>
                       <p>Color: Silver</p>
                     </div>
@@ -35,24 +43,28 @@
                 </td>
                 <td class="sc-qty-cell">
                   <div class="sc-qty-box">
-                    <button class="sc-qty-btn">−</button>
-                    <input type="number" class="sc-qty-input" value="1" min="1" readonly>
-                    <button class="sc-qty-btn">+</button>
+                    <a href="{% url 'remove_cart' cart_item.product.id %}" class="sc-qty-btn" style="text-decoration: none">−</a>
+                    <input type="number" class="sc-qty-input" value="{{cart_item.quantity}}" min="1" readonly>
+                    <a href="{% url 'add_cart' cart_item.product.id %}" class="sc-qty-btn" style="text-decoration: none" >+</a>
                   </div>
                 </td>
                 <td class="sc-price-cell">
                   <div class="sc-price-area">
-                    <span class="sc-price">$120.00</span>
-                    <span class="sc-unit-price">$120.00 each</span>
+                    <span class="sc-price">{{cart_item.sub_total}} tk</span>
+                    <span class="sc-unit-price">{{cart_item.product.price}} tk</span>
                   </div>
                 </td>
                 <td class="sc-action-cell">
-                  <button class="sc-remove-btn">Remove</button>
+                  <a href="{% url 'remove_cart_item' cart_item.product_id %}" class="sc-remove-btn" style="text-decoration: none;">Remove</a>
                 </td>
               </tr>
-              {% endfor %}
+
+              {% endfor%}
+
             </tbody>
-        </table>
+          </table>
+        </div>
+      </div>
 
       <!-- RIGHT: Checkout Summary -->
       <div class="checkout-section">
@@ -60,23 +72,23 @@
           <h2>Order Summary</h2>
 
           <div class="sc-summary-row">
-            <span>Subtotal:</span>
-            <span id="sc-subtotal">$385.00</span>
+            <span>Total price :</span>
+            <span id="sc-subtotal">{{total}} tk</span>
           </div>
 
           <div class="sc-summary-row">
-            <span>Tax (5%):</span>
-            <span id="sc-tax">$19.25</span>
+            <span>Tax :</span>
+            <span id="sc-tax">{{tax}} tk</span>
           </div>
 
           <div class="sc-summary-row">
-            <span>Shipping:</span>
-            <span id="sc-shipping">$10.00</span>
+            <span>Shipping :</span>
+            <span id="sc-shipping">None</span>
           </div>
 
           <div class="sc-summary-row total">
-            <span>Total:</span>
-            <span id="sc-total">$414.25</span>
+            <span>Total :</span>
+            <span id="sc-total">{{grand_total}} tk</span>
           </div>
 
           <div class="sc-payment">
@@ -89,11 +101,12 @@
             </div>
           </div>
 
-          <button class="sc-btn-checkout">Proceed to Checkout</button>
-          <button class="sc-btn-continue">Continue Shopping</button>
+          <a href="{% url 'store'%}" class="sc-btn-checkout" role="button">Proceed to Checkout</a>
+          <a href="{% url 'store'%}" class="sc-btn-continue" role="button">Continue Shopping</a>
         </div>
       </div>
     </div>
-  </div>
+</div>
 
+{% endif %}
 {% endblock %}

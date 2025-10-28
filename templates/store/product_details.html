@@ -2,119 +2,93 @@
 {% load static %}
 {% block contend %}
 
-<body>
-    <!-- Cart Button -->
-    <div class="cart-button" id="cartButton">
-        🛒
-        <span class="cart-count" id="cartCount">0</span>
+<div class="single-product-section">
+    <div class="single-product-image">
+        <img src="{{ single_product.image.url }}" 
+        alt="{{ single_product.product_name }}" 
+        class="single-product-img">
+    </div>
+    <div class="single-product-info">
+        <h1>{{ single_product.product_name }}</h1>
+        <div class="single-product-price">{{ single_product.price}} tk</div>
+        <p class="single-product-description">
+            {{ single_product.description }}
+        </p>
+        <ul class="single-product-features">
+            <li>{{ single_product.product_feature_1 }}</li>
+            <li>{{ single_product.product_feature_2 }}</li>
+            <li>{{ single_product.product_feature_3 }}</li>
+        </ul>
+
+        <!-- Size Selection -->
+        <div class="size-selection">
+            <label>Size:</label>
+            <div class="size-options">
+                {% if product.product_size is not none %}
+                <button class="size-btn">{{product.product_size}}</button>
+                {% else %}
+                <button class="size-btn" >S</button>
+                <button class="size-btn" >M</button>
+                <button class="size-btn" >L</button>
+                <button class="size-btn" >XL</button>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if single_product.stock <= 0 %}
+            <h2 class="stock_out">Out of Stock</h2>
+        {% else %}
+            <div class="single-product-actions">
+                <a href="{% url 'home' %}" class="btn single-btn-view" style="text-decoration: none" data-product-id="{{ product.id }}">Bay Now</a>
+                    <a href="{% url 'add_cart' single_product.id %}" style="text-decoration: none" class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart</a>
+            </div>
+        {% endif %}
+
     </div>
 
-    <!-- Cart Sidebar -->
-    <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h2>Shopping Cart</h2>
-            <button class="close-cart" id="closeCart">✕</button>
-        </div>
-        <div class="cart-items" id="cartItems">
-            <p class="empty-cart">Your cart is empty</p>
-        </div>
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span>Total:</span>
-                <span id="cartTotal">$0.00</span>
+    <script src="{%static 'click.js'%}"></script>
+</div>
+
+    <div class="rating-section">
+        <h2>Rate This Product</h2>
+        <div class="rating-container">
+            <div class="stars" id="starRating">
+                <span class="star" data-rating="1">★</span>
+                <span class="star" data-rating="2">★</span>
+                <span class="star" data-rating="3">★</span>
+                <span class="star" data-rating="4">★</span>
+                <span class="star" data-rating="5">★</span>
             </div>
-            <button class="checkout-btn">Proceed to Checkout</button>
+            <div class="rating-text" id="ratingText">Click to rate</div>
+            
+            <form class="review-form" id="reviewForm">
+                <textarea placeholder="Write your review here..." id="reviewInput"></textarea>
+                <button type="submit" class="submit-btn">Submit Review</button>
+            </form>
+        </div>
+
+        <div class="reviews-list" id="reviewsList">
+            <h3>Customer Reviews</h3>
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="review-stars">★★★★★</div>
+                    <div class="review-date">2 days ago</div>
+                </div>
+                <div class="review-text">
+                    Amazing sound quality! The noise cancellation works perfectly on my daily commute.
+                </div>
+            </div>
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="review-stars">★★★★☆</div>
+                    <div class="review-date">1 week ago</div>
+                </div>
+                <div class="review-text">
+                    Great headphones overall. Very comfortable for long listening sessions. Battery life is impressive.
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="single-product-section">
-        <div class="single-product-image">
-            <img src="{{ single_product.image.url }}" 
-            alt="{{ single_product.product_name }}" 
-            class="single-product-img">
-        </div>
-        <div class="single-product-info">
-            <h1>{{ single_product.product_name }}</h1>
-            <div class="single-product-price">{{ single_product.price}} tk</div>
-            <p class="single-product-description">
-                {{ single_product.description }}
-            </p>
-            <ul class="single-product-features">
-                <li>{{ single_product.product_feature_1 }}</li>
-                <li>{{ single_product.product_feature_2 }}</li>
-                <li>{{ single_product.product_feature_3 }}</li>
-            </ul>
-
-            <!-- Size Selection -->
-            <div class="size-selection">
-                <label>Size:</label>
-                <div class="size-options">
-                    {% if product.product_size is not none %}
-                    <button class="size-btn">{{product.product_size}}</button>
-                    {% else %}
-                    <button class="size-btn" >S</button>
-                    <button class="size-btn" >M</button>
-                    <button class="size-btn" >L</button>
-                    <button class="size-btn" >XL</button>
-                    {% endif %}
-                </div>
-            </div>
-
-            {% if single_product.stock <= 0 %}
-                <h2 class="stock_out">Out of Stock</h2>
-            {% else %}
-                <div class="single-product-actions">
-                    <a href="{% url 'home' %}" class="btn single-btn-view" data-product-id="{{ product.id }}">Bay Now</a>
-                        <a href="{% url 'add_cart' single_product.id %}" class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart</a>
-                </div>
-            {% endif %}
-
-        </div>
-
-        <script src="{%static 'click.js'%}"></script>
-    </div>
-
-        <div class="rating-section">
-            <h2>Rate This Product</h2>
-            <div class="rating-container">
-                <div class="stars" id="starRating">
-                    <span class="star" data-rating="1">★</span>
-                    <span class="star" data-rating="2">★</span>
-                    <span class="star" data-rating="3">★</span>
-                    <span class="star" data-rating="4">★</span>
-                    <span class="star" data-rating="5">★</span>
-                </div>
-                <div class="rating-text" id="ratingText">Click to rate</div>
-                
-                <form class="review-form" id="reviewForm">
-                    <textarea placeholder="Write your review here..." id="reviewInput"></textarea>
-                    <button type="submit" class="submit-btn">Submit Review</button>
-                </form>
-            </div>
-
-            <div class="reviews-list" id="reviewsList">
-                <h3>Customer Reviews</h3>
-                <div class="review-item">
-                    <div class="review-header">
-                        <div class="review-stars">★★★★★</div>
-                        <div class="review-date">2 days ago</div>
-                    </div>
-                    <div class="review-text">
-                        Amazing sound quality! The noise cancellation works perfectly on my daily commute.
-                    </div>
-                </div>
-                <div class="review-item">
-                    <div class="review-header">
-                        <div class="review-stars">★★★★☆</div>
-                        <div class="review-date">1 week ago</div>
-                    </div>
-                    <div class="review-text">
-                        Great headphones overall. Very comfortable for long listening sessions. Battery life is impressive.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    <script src="{% static 'product.js'%}"></script>
-</body>
+<script src="{% static 'product.js'%}"></script>
 {% endblock %}
