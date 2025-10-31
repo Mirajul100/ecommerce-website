@@ -1,6 +1,6 @@
 /* Filter Section */
 .filter-section {
-    background: rgb(141, 32, 163);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     padding: 25px 0;
     margin-bottom: 30px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
@@ -34,7 +34,7 @@ button.filter-btn {
 
 a.filter-btn {
     display: inline-block;
-    padding: 10px 25px;
+    padding: 6px 20px;
     border: 2px solid #667eea;
     border-radius: 25px;
     background-color: white;
