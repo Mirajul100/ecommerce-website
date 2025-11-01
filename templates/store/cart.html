@@ -91,21 +91,31 @@
             <span id="sc-total">{{grand_total}} tk</span>
           </div>
 
-          <div class="sc-payment">
-            <p style="font-size: 0.875rem; color: #6c757d; margin-bottom: 5px; text-align: center;">We Accept</p>
-            <div class="sc-payment-icons">
-              <div class="sc-payment-icon">VISA</div>
-              <div class="sc-payment-icon">MC</div>
-              <div class="sc-payment-icon">AMEX</div>
-              <div class="sc-payment-icon">PP</div>
-            </div>
+          <!-- Payment Methods -->
+                    <h3>Payment Method</h3>
+          <div class="payment-methods">
+              <button class="payment-option">
+                  <img src="{% static 'image/pyment/bkash.png' %}" alt="Bkash">
+              </button>
+              <button class="payment-option">
+                  <img src="{% static 'image/pyment/Rocket.png' %}" alt="Nagad">
+              </button>
+              <button class="payment-option">
+                  <img src="{% static 'image/pyment/nogod.png' %}" alt="Rocket">
+              </button>
+              <button class="payment-option">
+                  <span class="payment-text">Credit Card</span>
+              </button>
           </div>
+
+
 
           <a href="{% url 'store'%}" class="sc-btn-checkout" role="button">Proceed to Checkout</a>
           <a href="{% url 'store'%}" class="sc-btn-continue" role="button">Continue Shopping</a>
         </div>
       </div>
     </div>
+  </div>
 </div>
 
 {% endif %}
