@@ -271,13 +271,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 12px;
+    padding: 3px;
     background: #fefffe;
     border: 2px solid #e0e0e0;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
-    min-height: 70px;
+    min-height: 30px;
     position: relative;
 }
 
