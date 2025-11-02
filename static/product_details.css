@@ -105,7 +105,10 @@
     background: white;
     color: #667eea;
     border: 2px solid #667eea;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
 .single-btn-view:hover {
