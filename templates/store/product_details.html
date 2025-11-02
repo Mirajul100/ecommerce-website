@@ -38,10 +38,23 @@
         {% if single_product.stock <= 0 %}
             <h2 class="stock_out">Out of Stock</h2>
         {% else %}
-            <div class="single-product-actions">
-                <a href="{% url 'home' %}" class="btn single-btn-view" style="text-decoration: none" data-product-id="{{ product.id }}">Bay Now</a>
+            {% if in_cart %}
+
+                <div class="single-product-actions">
+                    <a href="#" style="text-decoration: none" class="btn single-btn-view" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">
+                        Added to Cart  ✅
+                    </a>
+                    <a href="{% url 'cart' %}" style="text-decoration: none" class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">View Details  👁️</a>
+                </div>
+
+            {% else%}
+
+                <div class="single-product-actions">
+                    <a href="{% url 'home' %}" class="btn single-btn-view" style="text-decoration: none" data-product-id="{{ product.id }}">Bay Now</a>
                     <a href="{% url 'add_cart' single_product.id %}" style="text-decoration: none" class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart</a>
-            </div>
+                </div>
+
+            {% endif%}
         {% endif %}
 
     </div>

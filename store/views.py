@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from store.models import Product
 from sub_categories.models import SubCategory
+from carts.models import CartItem
+from carts.views import _cart_id
 
 def store(request, sub_category_slug=None):
     if sub_category_slug is not None:
@@ -21,11 +23,14 @@ def store(request, sub_category_slug=None):
 def product_details(request , sub_category_slug ,product_slug ):
     try:
         single_product = Product.objects.get(sub_category__slug = sub_category_slug , slug = product_slug)
+        in_cart = CartItem.objects.filter(cart__cart_id = _cart_id(request) , product= single_product).exists()
+
     except Exception as e:
         raise e
     
     context = {
         'single_product':single_product,
+        'in_cart':in_cart,
     }
 
     return render(request , "store/product_details.html" , context)
