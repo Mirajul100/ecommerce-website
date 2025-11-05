@@ -3,18 +3,26 @@ from store.models import Product
 from sub_categories.models import SubCategory
 from carts.models import CartItem
 from carts.views import _cart_id
+from django.core.paginator import PageNotAnInteger , EmptyPage , Paginator
+from django.db.models import Q
 
 def store(request, sub_category_slug=None):
     if sub_category_slug is not None:
         sub_category = get_object_or_404(SubCategory, slug=sub_category_slug)
         products = Product.objects.filter(sub_category=sub_category, is_available=True)
+        paginator = Paginator(products , 4)
+        page = request.GET.get('page')
+        page_products = paginator.get_page(page)
         products_count = products.count()
     else:
-        products = Product.objects.filter(is_available=True)
+        products = Product.objects.all().filter(is_available=True).order_by('id')
+        paginator = Paginator(products , 4)
+        page = request.GET.get('page')
+        page_products = paginator.get_page(page)
         products_count = products.count()
 
     context = {
-        'products': products,
+        'products': page_products,
         'product_count': products_count,
     }
 
@@ -34,3 +42,18 @@ def product_details(request , sub_category_slug ,product_slug ):
     }
 
     return render(request , "store/product_details.html" , context)
+
+
+def search(request):
+    if 'keyword' in request.GET:
+        keyword = request.GET['keyword']
+        if keyword:
+            products = Product.objects.order_by('-modify_date').filter(Q(description__icontains=keyword) | Q(product_name__icontains=keyword))
+            products_count = products.count()
+
+    context = {
+        'products': products,
+        'products_count':products_count,
+    }
+
+    return render(request , "store/store.html" , context)

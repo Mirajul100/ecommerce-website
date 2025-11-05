@@ -16,8 +16,9 @@
     </section>
 
     <!-- Products Section -->
-    <section class="products" id="products">
-        <!-- Product cards will be dynamically generated -->
+    <!-- Product cards will be dynamically generated -->
+    {% if products %}
+    <section class="products" style="margin-bottom : 25px" id="products">
         {% for product in products %}
         <div class="product-card" data-category="{{ product.category }}">
             <a href="{{product.get_product_url}}"><img src="{{ product.image.url }}" alt="{{ product.product_name }}" class="product-image"></a>
@@ -52,6 +53,71 @@
         </div>
         {% endfor %}
     </section>
+        {% else %}
+        <div class="sc-title-empty" style="margin-bottom: 70px; margin-top: 58px"><a href="{% url 'store' %}" style="text-decoration :none;">🔍 Search Results Is Not Found Try Again</a></div>
+        {% endif %}
+{% if products.has_other_pages %}
+<section class="pagination-section">
+    <div class="container">
+
+        <div class="pagination">
+            <!-- Previous Button -->
+            {% if products.has_previous %}
+            <a href="?page={{products.previous_page_number}}" class="pagination-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Prev
+            </a>
+            {% else %}
+            <a href="#" class="pagination-btn disabled">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Prev
+            </a>
+            {% endif %}
+
+            <!-- Page Numbers -->
+             {% for i in products.paginator.page_range %}
+                {% if products.number == i%}
+                    <div class="pagination-numbers">
+                        <a href="#" class="pagination-number active">{{i}}</a>
+                    </div>
+                {% else %}
+                    <div class="pagination-numbers">
+                        <a href="?page={{i}}" class="pagination-number">{{i}}</a>
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+
+            <!-- Next Button -->
+             {% if products.has_next %}
+                <a href="?page={{products.next_page_number}}" class="pagination-btn">
+                    Next
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </a>
+            {% else %}
+                <a href="#" class="pagination-btn disabled">
+                    Next
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </a>
+            {% endif %}
+        </div>
+        
+        <!-- Pagination Info -->
+        <div class="pagination-info">
+            <p>Showing <span>1-{{products.number}}</span> of <span>{{products.number}}</span> results</p>
+        </div>
+        
+    </div>
+</section>
+{% endif %}
 
     <script src="{% static 'click.js' %}"></script>
 

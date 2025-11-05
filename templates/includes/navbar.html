@@ -1,3 +1,6 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'search.css' %}">
 <!-- Header -->
     <header class="header">
         <div class="container">
@@ -12,12 +15,15 @@
                     <a href="#contact">Contact</a>
                 </nav>
                 <div class="header-actions">
-                    <button class="icon-btn search-btn">
+                    <form class="search-container" action="{% url 'search'%}" method="get">
+                        <input type="text" name="keyword" class="search-input" placeholder="Search..." required>
+                        <button type="submit" class="icon-btn search-btn">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="11" cy="11" r="8"></circle>
                             <path d="m21 21-4.35-4.35"></path>
                         </svg>
-                    </button>
+                        </button>
+                    </form>
                     <a href="{% url 'cart' %}" class="icon-btn cart-btn" style="text-decoration: none">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="9" cy="21" r="1"></circle>
