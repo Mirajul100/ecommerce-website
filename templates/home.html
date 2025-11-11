@@ -2,8 +2,10 @@
 {% load static %}
 {% block contend %}
 
-    <!-- Hero Section -->
+<!-- Hero Section -->
 <section class="hero">
+    <img src="{% static 'image/banner.jpg' %}" alt="Fashion Store Banner" class="hero-banner-img">
+    <div class="hero-overlay"></div>
     <div class="container">
         <div class="hero-content">
             <h2 class="hero-title">Discover Your Style</h2>
@@ -31,43 +33,21 @@
 
     <!-- Products Section -->
 <section class="products" id="products">
-    <!-- Product cards will be dynamically generated -->
     {% for product in products %}
-    <div class="product-card" data-category="{{ product.category }}">
-        <a href="{{product.get_product_url}}"><img src="{{ product.image.url }}" alt="{{ product.product_name }}" class="product-image"></a>
-        <div class="product-info">
-            <a href="{{product.get_product_url}}" style="text-decoration: none"> <h2 class="product-title">{{ product.product_name }}</h2></a>
-            <div class="product-price">{{ product.price }} tk</div>
-            
-            <!-- Size Selection -->
-            <div class="size-selection">
-                <label>Size:</label>
-                <div class="size-options">
-                    {% if product.product_size is not none %}
-                    <button class="size-btn">{{product.product_size}}</button>
-                    {% else %}
-                    <button class="size-btn" >S</button>
-                    <button class="size-btn" >M</button>
-                    <button class="size-btn" >L</button>
-                    <button class="size-btn" >XL</button>
-                    {% endif %}
-                </div>
+    <a href="{{ product.get_product_url }}" class="product-card-link">
+        <div class="product-card" data-category="{{ product.category }}">
+            <img src="{{ product.image.url }}" alt="{{ product.product_name }}" class="product-image">
+            <div class="product-info">
+                <h2 class="product-title">{{ product.product_name }}</h2>
+                <div class="product-price">{{ product.price }} tk</div>
+                {% if product.stock <= 0 %}
+                <h2 class="stock_out">Out of Stock</h2>
+                {% endif %}
             </div>
-
-            {% if product.stock <= 0 %}
-            <h2 class="stock_out">Out of Stock</h2>
-            {% else %}
-                <div class="single-product-actions">
-                    <a href="{% url 'home' %}" class="btn single-btn-view" style="text-decoration: none" data-product-id="{{ product.id }}">Bay Now</a>
-                    <a href="{% url 'add_cart' product.id %}" class="btn single-btn-add" style="text-decoration: none" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart</a>
-                </div>
-            {% endif %}
         </div>
-    </div>
+    </a>
     {% endfor %}
 </section>
-
-<script src="{% static 'click.js' %}"></script>
 
 <!-- Newsletter
 <section class="newsletter">

@@ -87,51 +87,6 @@ body {
     font-weight: 600;
 }
 
-/* Hero Section */
-.hero {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 40px;
-    text-align: center;
-}
-
-.hero-title {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
-}
-
-.hero-subtitle {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
-}
-
-.btn {
-    padding: 0.875rem 2rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.btn-primary {
-    text-decoration: none;
-    background: white;
-    color: #667eea;
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-}
-
-.btn-block {
-    width: 100%;
-}
-
 /* Filter Button Styles */
 .filter-btn {
     background-color: #ffffff;
@@ -271,6 +226,7 @@ body {
     padding: 20px 40px;
     max-width: 1400px;
     margin: 0 auto;
+    margin-bottom: 15px;
 }
 
 .product-card {
@@ -279,11 +235,6 @@ body {
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .product-card.hidden {
