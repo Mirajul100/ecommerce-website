@@ -8,63 +8,83 @@
         alt="{{ single_product.product_name }}" 
         class="single-product-img">
     </div>
-    <div class="single-product-info">
-        <h1>{{ single_product.product_name }}</h1>
-        <div class="single-product-price">{{ single_product.price}} tk</div>
-        <p class="single-product-description">
-            {{ single_product.description }}
-        </p>
-        <ul class="single-product-features">
-            <li>{{ single_product.product_feature_1 }}</li>
-            <li>{{ single_product.product_feature_2 }}</li>
-            <li>{{ single_product.product_feature_3 }}</li>
-        </ul>
-        
-        {% if single_product.stock <= 0 %}
-        <h2 class="stock_out">Out of Stock</h2>
-        {% else %}
-        {% if in_cart %}
-        
-        <div class="single-product-actions">
-            <a href="#" style="text-decoration: none" class="btn single-btn-view" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">
-                Added to Cart  ✅
-            </a>
-            <a href="{% url 'cart' %}" style="text-decoration: none" class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">View Details  👁️</a>
+
+    <form action="{% url 'add_cart' single_product.id %}"  method="GET">
+        <div class="single-product-info">
+            <h1>{{ single_product.product_name }}</h1>
+            <div class="single-product-price">{{ single_product.price}} tk</div>
+            <p class="single-product-description">
+                {{ single_product.description }}
+            </p>
+            <ul class="single-product-features">
+                <li>{{ single_product.product_feature_1 }}</li>
+                <li>{{ single_product.product_feature_2 }}</li>
+                <li>{{ single_product.product_feature_3 }}</li>
+            </ul>
+            
+            {% if single_product.stock <= 0 %}
+            <h2 class="stock_out">Out of Stock</h2>
+            {% else %}
+            {% if in_cart %}
+            
+            <div class="single-product-actions">
+                <a href="#" style="text-decoration: none" class="btn single-btn-view" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">
+                    Added to Cart  ✅
+                </a>
+                <a href="{% url 'cart' %}" style="text-decoration: none" class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">View Details  👁️</a>
+            </div>
+            
+            {% else%}
+            <!-- Size Selection -->
+                    <div class="size-selection" required>
+                        <label>Choose Color:</label>
+                        <div class="size-options">
+                            {% for i in single_product.variation_set.all %}
+                            <label class="size-btn">
+                                <input type="radio" name="color" value="{{ i.variation_value }}" required hidden>
+                                {{ i.variation_value }}
+                            </label>
+                            {% endfor %}
+                        </div>
+
+
+                        <label>Select Size:</label>
+                        <div class="size-options">
+                            {% if single_product.product_size %}
+                                <label class="size-btn">
+                                    <input type="radio" name="size" value="{{ single_product.product_size }}" required hidden>
+                                    {{ single_product.product_size }}
+                                </label>
+                            {% else %}
+                                <label class="size-btn">
+                                        <input type="radio" name="size" value="S" required hidden>
+                                        S
+                                </label>
+                                <label class="size-btn">
+                                        <input type="radio" name="size" value="M" required hidden>
+                                        M
+                                </label>
+                                <label class="size-btn">
+                                        <input type="radio" name="size" value="L" required hidden>
+                                        L
+                                </label>
+                                <label class="size-btn">
+                                        <input type="radio" name="size" value="XL" required hidden>
+                                        XL
+                                </label>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="single-product-actions">
+                        <a href="{% url 'home' %}" class="btn single-btn-view" style="text-decoration: none" data-product-id="{{ product.id }}">Bay Now</a>
+                        <button type="submit" class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart</button>
+                    </div>
+
+                {% endif%}
+            {% endif %}
         </div>
-        
-        {% else%}
-        <!-- Size Selection -->
-                <div class="size-selection">
-                    <label>Color:</label>
-                    <div class="size-options">
-                        <button class="size-btn" >Red</button>
-                        <button class="size-btn" >Yellow</button>
-                        <button class="size-btn" >Green</button>
-                        <button class="size-btn" >Black</button>
-                    </div>
-
-                    <label>Size:</label>
-                    <div class="size-options">
-                        {% if product.product_size is not none %}
-                            <button class="size-btn">{{single_product.product_size}}</button>
-                        {% else %}
-                            <button class="size-btn" >S</button>
-                            <button class="size-btn" >M</button>
-                            <button class="size-btn" >L</button>
-                            <button class="size-btn" >XL</button>
-                        {% endif %}
-                    </div>
-                </div>
-
-                <div class="single-product-actions">
-                    <a href="{% url 'home' %}" class="btn single-btn-view" style="text-decoration: none" data-product-id="{{ product.id }}">Bay Now</a>
-                    <a href="{% url 'add_cart' single_product.id %}" style="text-decoration: none" class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart</a>
-                </div>
-
-            {% endif%}
-        {% endif %}
-
-    </div>
+    </form>
 
     <script src="{%static 'click.js'%}"></script>
 </div>
