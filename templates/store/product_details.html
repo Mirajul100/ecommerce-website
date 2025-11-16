@@ -9,7 +9,8 @@
         class="single-product-img">
     </div>
 
-    <form action="{% url 'add_cart' single_product.id %}"  method="GET">
+    <form action="{% url 'add_cart' single_product.id %}"  method="POST">
+        {% csrf_token %}
         <div class="single-product-info">
             <h1>{{ single_product.product_name }}</h1>
             <div class="single-product-price">{{ single_product.price}} tk</div>
@@ -35,19 +36,19 @@
             </div>
             
             {% else%}
-            <!-- Size Selection -->
+            <!-- Color Selection -->
                     <div class="size-selection" required>
                         <label>Choose Color:</label>
-                        <div class="size-options">
-                            {% for i in single_product.variation_set.all %}
-                            <label class="size-btn">
-                                <input type="radio" name="color" value="{{ i.variation_value }}" required hidden>
-                                {{ i.variation_value }}
-                            </label>
+                        <div class="size-options-color">
+                            {% for i in single_product.variation_set.colors %}
+                                <label class="size-btn-color">
+                                    <input type="radio" name="color" value="{{ i.variation_value | lower }}" required hidden >
+                                    {{ i.variation_value | capfirst }}
+                                </label>
                             {% endfor %}
                         </div>
 
-
+            <!-- Size section -->
                         <label>Select Size:</label>
                         <div class="size-options">
                             {% if single_product.product_size %}
@@ -56,22 +57,12 @@
                                     {{ single_product.product_size }}
                                 </label>
                             {% else %}
-                                <label class="size-btn">
-                                        <input type="radio" name="size" value="S" required hidden>
-                                        S
-                                </label>
-                                <label class="size-btn">
-                                        <input type="radio" name="size" value="M" required hidden>
-                                        M
-                                </label>
-                                <label class="size-btn">
-                                        <input type="radio" name="size" value="L" required hidden>
-                                        L
-                                </label>
-                                <label class="size-btn">
-                                        <input type="radio" name="size" value="XL" required hidden>
-                                        XL
-                                </label>
+                                {% for i in single_product.variation_set.sizes %}
+                                    <label class="size-btn">
+                                            <input type="radio" name="size" value="{{i.variation_value | lower }}" required hidden>
+                                            {{i.variation_value | capfirst }}
+                                    </label>
+                                {% endfor %}
                             {% endif %}
                         </div>
                     </div>

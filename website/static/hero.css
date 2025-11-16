@@ -63,14 +63,14 @@
 
 .btn-primary {
     display: inline-block;
-    background: #007bff;
-    color: #fff;
-    padding: 12px 28px;
+    background: #6841ea;
+    color: #9E6;
+    padding: 8px 28px;
     border-radius: 6px;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     text-decoration: none;
-    transition: 0.3s ease;
+    transition: 0.3s 
 }
 
 .btn-primary:hover {

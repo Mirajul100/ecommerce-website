@@ -21,7 +21,6 @@ class Product(models.Model):
     sub_category = models.ForeignKey('sub_categories.SubCategory', on_delete=models.CASCADE, null=True, blank=True)  # Made nullable
     created_at = models.DateTimeField(auto_now_add=True)
     modify_date = models.DateTimeField(auto_now=True)
-    product_size = models.IntegerField(null=True , blank=True)
     product_feature_1 = models.CharField(max_length=30 , null=True ,  blank=True)
     product_feature_2 = models.CharField(max_length=30 , null=True ,  blank=True)
     product_feature_3 = models.CharField(max_length=30 , null=True ,  blank=True)
@@ -55,6 +54,11 @@ class Product(models.Model):
         if self.price <= 0:
             raise ValidationError({'price': 'Price must be greater than zero.'})
         
+class VariationManager(models.Manager):
+    def colors(self):
+        return super(VariationManager , self).filter(variation_category='color' , is_active=True)
+    def sizes(self):
+        return super(VariationManager , self).filter(variation_category='size' , is_active=True)
 
 variation_category_choice = (
     ('color' , 'color'),
@@ -69,5 +73,7 @@ class Variation(models.Model):
     is_active = models.BooleanField(default=True)
     create_date = models.DateTimeField(auto_now=True)
 
-    def __unicode__(self):
-        return self.product
+    objects = VariationManager()
+
+    def __str__(self):
+        return self.variation_value

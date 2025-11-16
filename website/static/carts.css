@@ -146,6 +146,7 @@
   font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.2s;
+  text-align: center;
 }
 
 .sc-qty-btn:hover {
