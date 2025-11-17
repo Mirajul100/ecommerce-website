@@ -28,7 +28,7 @@ body {
 
 .nav-wrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding: 1rem 0;
 }
@@ -341,7 +341,7 @@ body {
     color: #667eea;
 }
 
-.size-btn-color.selected {
+.size-btn-color.selected{
     background: #667eea;
     color: white;
     border-color: #667eea;

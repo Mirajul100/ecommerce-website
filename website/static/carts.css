@@ -576,7 +576,7 @@ img {
   }
 
   .payment-option {
-    width: 50px;
+    width: 100%;
     height: 35px;
     font-size: 0.65rem;
   }
