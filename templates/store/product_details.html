@@ -69,7 +69,7 @@
 
                     <div class="single-product-actions">
                         <a href="{% url 'home' %}" class="btn single-btn-view" style="text-decoration: none" data-product-id="{{ product.id }}">Bay Now</a>
-                        <button type="submit" class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart</button>
+                        <button type="submit" class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart<i class="fa-solid fa-cart-shopping"></i></button>
                     </div>
 
                 {% endif%}

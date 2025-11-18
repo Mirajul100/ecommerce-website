@@ -16,9 +16,8 @@
                     <a href="#products">Products</a>
                     <a href="#about">About</a>
                     <a href="#contact">Contact</a>
-                    <a href="#">Login</a>
-                    <a href="#">Register</a>
                 </nav>
+                
                 <div class="header-actions">
                     <form class="search-container" action="{% url 'search'%}" method="get">
                         <input type="text" name="keyword" class="search-input" placeholder="Search..." required>
@@ -38,6 +37,16 @@
                     </svg>
                     <span class="cart-count">{{cart_count}}</span>
                 </a>
+
+                <nav class="nav" style="gap:10px; text-align:center;">
+                    <div class="payment-option" style="width:120px; height:45px;">
+                        <a href="#"><i class="fa-solid fa-right-to-bracket"></i>Login</a>
+                    </div>
+                    <div class="payment-option" style="width:120px; height:45px;">
+                        <a href="#"><i class="fa-regular fa-address-card"></i>Register</a>
+                    </div>
+                </nav>
+
                 <!-- HAMBURGER BUTTON -->
                 <div class="hamburger" id="hamburger">
                     <span></span>
@@ -48,11 +57,11 @@
                 <div id="sideMenu" class="side-menu">
                     <a  href="{% url 'home' %}"><i class="fa-duotone fa-solid fa-house"></i>Home</a>
                     <a href="{% url 'store' %}"><i class="fa-duotone fa-solid fa-store"></i>Store</a>
-                    <a href="#products"><i class="fa-brands fa-product-hunt"></i>Products</a>
-                    <a href="#">About</a>
-                    <a href="#">Contact</a>
-                    <a href="#">Login</a>
-                    <a href="#">Register</a>
+                    <a href="#products"><i class="fa-solid fa-box-open"></i>Products</a>
+                    <a href="#"><i class="fa-solid fa-circle-info"></i>About</a>
+                    <a href="#"><i class="fa-solid fa-phone"></i>Contact</a>
+                    <a href="#"><i class="fa-solid fa-right-to-bracket"></i>Login</a>
+                    <a href="#"><i class="fa-regular fa-address-card"></i>Register</a>
                 </div>
 
                 <!-- OVERLAY -->

@@ -540,10 +540,14 @@ body {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+
+@media (max-width: 1050px) {
     .nav {
         display: none;
     }
+}
+
+@media (max-width: 768px) {
     
     .hero-title {
         font-size: 2rem;

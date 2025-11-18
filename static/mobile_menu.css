@@ -80,33 +80,6 @@
         padding-left: 10px;
     }
 
-    .fa-duotone.fa-solid.fa-house{
-        text-align: left;
-        margin-right: 8px;
-    }
-    .fa-duotone.fa-solid.fa-store{
-        text-align: left;
-        margin-right: 8px;
-    }
-     .fa-brands.fa-product-hunt {
-        text-align: left;
-        margin-right: 10px;
-    }
-
-    .fa-solid.fa-shop {
-        text-align: left;
-        margin-right: 8px;
-    }
-
-    /* .fa-duotone.fa-solid.fa-house{
-        text-align: left;
-        margin-right: 8px;
-    }
-    .fa-duotone.fa-solid.fa-house{
-        text-align: left;
-        margin-right: 8px;
-    }  */
-
     /* OVERLAY */
     .overlay {
         position: fixed;
