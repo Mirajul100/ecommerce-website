@@ -13,6 +13,7 @@
         background: #6841ea;
         border-radius: 5px;
         transition: 0.4s;
+        margin-top:5px;
     }
 
     .hamburger span:nth-child(1) {
@@ -29,15 +30,15 @@
 
     /* Animation to X when active */
     .hamburger.active span:nth-child(1) {
-        transform: translateY(13px) rotate(45deg);
+        transform: translateY(5px) rotate(55deg);
     }
 
     .hamburger.active span:nth-child(2) {
-        opacity: 0;
+        transform:translateY(-4px)
     }
 
     .hamburger.active span:nth-child(3) {
-        transform: translateY(-13px) rotate(-45deg);
+        transform: translateY(-13px) rotate(-55deg);
     }
 
     /* SIDE MENU */
@@ -75,9 +76,36 @@
 
     .side-menu a:hover {
         background: rgba(255,255,255,0.15);
-        color:#ffffff;
+        color:#20262e;
         padding-left: 10px;
     }
+
+    .fa-duotone.fa-solid.fa-house{
+        text-align: left;
+        margin-right: 8px;
+    }
+    .fa-duotone.fa-solid.fa-store{
+        text-align: left;
+        margin-right: 8px;
+    }
+     .fa-brands.fa-product-hunt {
+        text-align: left;
+        margin-right: 10px;
+    }
+
+    .fa-solid.fa-shop {
+        text-align: left;
+        margin-right: 8px;
+    }
+
+    /* .fa-duotone.fa-solid.fa-house{
+        text-align: left;
+        margin-right: 8px;
+    }
+    .fa-duotone.fa-solid.fa-house{
+        text-align: left;
+        margin-right: 8px;
+    }  */
 
     /* OVERLAY */
     .overlay {
