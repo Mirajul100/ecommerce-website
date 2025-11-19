@@ -155,10 +155,10 @@
 }
 
 .sc-qty-input {
-  width: 50px;
+  width: 38px;
   height: 35px;
   border: none;
-  text-align: center;
+  text-align: right;
   font-weight: 600;
   font-size: 0.95rem;
   color: #212529;

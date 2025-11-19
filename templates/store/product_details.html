@@ -26,16 +26,7 @@
             {% if single_product.stock <= 0 %}
             <h2 class="stock_out">Out of Stock</h2>
             {% else %}
-            {% if in_cart %}
-            
-            <div class="single-product-actions">
-                <a href="#" style="text-decoration: none" class="btn single-btn-view" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">
-                    Added to Cart  ✅
-                </a>
-                <a href="{% url 'cart' %}" style="text-decoration: none" class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">View Details  👁️</a>
-            </div>
-            
-            {% else%}
+        
             <!-- Color Selection -->
                     <div class="size-selection" required>
                         <label>Choose Color:</label>
@@ -43,7 +34,7 @@
                             {% for i in single_product.variation_set.colors %}
                                 <label class="size-btn-color">
                                     <input type="radio" name="color" value="{{ i.variation_value | lower }}" required hidden >
-                                    {{ i.variation_value | capfirst }}
+                                    <span>{{ i.variation_value | capfirst }}</span>
                                 </label>
                             {% endfor %}
                         </div>
@@ -54,13 +45,13 @@
                             {% if single_product.product_size %}
                                 <label class="size-btn">
                                     <input type="radio" name="size" value="{{ single_product.product_size }}" required hidden>
-                                    {{ single_product.product_size }}
+                                    <span>{{ single_product.product_size }}</span>
                                 </label>
                             {% else %}
                                 {% for i in single_product.variation_set.sizes %}
                                     <label class="size-btn">
                                             <input type="radio" name="size" value="{{i.variation_value | lower }}" required hidden>
-                                            {{i.variation_value | capfirst }}
+                                            <span>{{i.variation_value | capfirst }}</span>
                                     </label>
                                 {% endfor %}
                             {% endif %}
@@ -68,11 +59,10 @@
                     </div>
 
                     <div class="single-product-actions">
-                        <a href="{% url 'home' %}" class="btn single-btn-view" style="text-decoration: none" data-product-id="{{ product.id }}">Bay Now</a>
-                        <button type="submit" class="btn single-btn-add" data-product-id="{{ product.id }}" data-product-price="{{ product.price }}">Add to Cart<i class="fa-solid fa-cart-shopping"></i></button>
+                        <button type="submit" class="btn single-btn-view" style="text-decoration: none" data-product-id="{{ single_product.id }}">Bay Now</button>
+                        <button type="submit" class="btn single-btn-add" data-product-id="{{ single_product.id }}" data-product-price="{{ single_product.price }}">Add to Cart<i class="fa-solid fa-cart-shopping"></i></button>
                     </div>
 
-                {% endif%}
             {% endif %}
         </div>
     </form>
