@@ -66,11 +66,15 @@
                   </div>
                 </td>
                 <td class="sc-action-cell">
-                  <a href="{% url 'remove_cart_item' cart_item.product_id cart_item.id %}" class="sc-remove-btn" style="text-decoration: none;">Remove</a>
+                  <a href="javascript:void(0);" 
+                    class="sc-remove-btn" 
+                    data-url="{% url 'remove_cart_item' cart_item.product_id cart_item.id %}"
+                    style="text-decoration: none;">
+                    Remove
+                  </a>
                 </td>
               </tr>
               {% endfor%}
-
             </tbody>
           </table>
         </div>
@@ -128,7 +132,7 @@
   </div>
 </div>
 
-{% static 'alert.js' %}
+<script src="{% static 'js/alert.js' %}"></script>
 
 {% endif %}
 {% endblock %}

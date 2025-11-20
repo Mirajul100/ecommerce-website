@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const deleteButtons = document.querySelectorAll('sc-remove-btn');
+    const deleteButtons = document.querySelectorAll('.sc-remove-btn');
 
     deleteButtons.forEach(button => {
         button.addEventListener('click', function () {
