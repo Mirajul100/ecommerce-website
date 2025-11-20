@@ -37,10 +37,10 @@
 
                 <nav class="nav" style="gap:10px; text-align:center;">
                     <div class="payment-option" style="width:120px; height:45px;">
-                        <a href="#"><i class="fa-solid fa-right-to-bracket"></i>Login</a>
+                        <a href="{% url 'login' %}" style="width:120px;height:45px;display:inline-flex;align-items:center;justify-content:center;"><i class="fa-solid fa-right-to-bracket"></i>Login</a>
                     </div>
                     <div class="payment-option" style="width:120px; height:45px;">
-                        <a href="#"><i class="fa-regular fa-address-card"></i>Register</a>
+                        <a href="{% url 'register' %}" style="width:120px;height:45px;display:inline-flex;align-items:center;justify-content:center;"><i class="fa-regular fa-address-card"></i>Register</a>
                     </div>
                 </nav>
 
@@ -57,8 +57,8 @@
                     <a href="#products"><i class="fa-solid fa-box-open"></i>Products</a>
                     <a href="#"><i class="fa-solid fa-circle-info"></i>About</a>
                     <a href="#"><i class="fa-solid fa-phone"></i>Contact</a>
-                    <a href="#"><i class="fa-solid fa-right-to-bracket"></i>Login</a>
-                    <a href="#"><i class="fa-regular fa-address-card"></i>Register</a>
+                    <a href="{% url 'login' %}"><i class="fa-solid fa-right-to-bracket"></i>Login</a>
+                    <a href="{% url 'register' %}"><i class="fa-regular fa-address-card"></i>Register</a>
                 </div>
 
                 <!-- OVERLAY -->

@@ -25,6 +25,8 @@ urlpatterns = [
     path("" , views.home , name="home"),
     path("store/" , include("store.urls")),
     path('cart/' , include("carts.urls")),
+    path("account/" , include("account.urls")),
+    # Show the category in home section
     path("<slug:category_slug>/" , views.home , name="product_by_category"),
 
 ] + static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)

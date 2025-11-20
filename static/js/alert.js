@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const url = this.dataset.url;
 
             Swal.fire({
-                title: 'Are you sure?',
-                text: "This action cannot be undone!",
+                title: 'Are you sure ?',
+                text: "Do you really want to remove this product from your cart ?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: 'rgba(213, 67, 67, 1)',    // Red button
