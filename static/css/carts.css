@@ -446,7 +446,6 @@ img {
 /* MOBILE RESPONSIVENESS */
 @media (max-width: 768px) {
   body {
-    padding: 15px;
     overflow-x: hidden;
   }
 
