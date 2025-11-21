@@ -96,7 +96,7 @@
     /* RESPONSIVE */
     @media (max-width: 480px) {
         .side-menu {
-            width: 85%;
+            width: 40%;
         }
 
     }

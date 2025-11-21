@@ -9,42 +9,46 @@
             <p>Join us today and get started</p>
         </div>
 
-        <form action="#" method="POST">
+        <form action="{% url 'register' %}" method="POST">
+
+            {% csrf_token %}
+            {% include 'includes/alert.html' %}
+
             <div class="form-row">
                 <div class="form-group">
                     <label for="firstName">First Name</label>
-                    <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
+                    {{form.first_name}}
                 </div>
                 <div class="form-group">
                     <label for="lastName">Last Name</label>
-                    <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+                    {{ form.last_name}}
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" placeholder="name@example.com" required>
+                    {{form.email}}
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Phon Number">
+                    {{form.phone_number}}
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required minlength="8">
+                    {{form.password}}
                 </div>
                 <div class="form-group">
                     <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required minlength="8">
+                    {{form.confirms_password}}
                 </div>
             </div>
 
-            <div class="checkbox-group">
+            <!-- <div class="checkbox-group">
                 <input type="checkbox" id="terms" name="terms" required>
                 <label for="terms">I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a></label>
-            </div>
+            </div> -->
 
             <button type="submit" class="submit-btn">Create Account</button>
 
@@ -69,6 +73,9 @@
                     Facebook
                 </a>
             </div>
+
+            {{form.email.errors}}
+            {{form.non_field_errors}}
 
             <div class="footer-text">
                 Already have an account? <a href="#">Sign In</a>

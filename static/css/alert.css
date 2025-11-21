@@ -1,0 +1,77 @@
+/* Main alert box */
+.alert {
+    padding: 12px 16px;
+    margin: 10px 0;
+    border-radius: 8px;
+    font-size: 15px;
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Success alert */
+.alert-success {
+    background-color: #d1fae5;
+    color: #065f46;
+    border: 1px solid #34d399;
+}
+
+/* Error / danger alert */
+.alert-error,
+.alert-danger {
+    background-color: #fee2e2;
+    color: #7f1d1d;
+    border: 1px solid #f87171;
+}
+
+/* Warning alert */
+.alert-warning {
+    background-color: #fef3c7;
+    color: #78350f;
+    border: 1px solid #facc15;
+}
+
+/* Info alert */
+.alert-info {
+    background-color: #dbeafe;
+    color: #1e3a8a;
+    border: 1px solid #60a5fa;
+}
+
+/* Close button */
+.btn-close {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: inherit;
+}
+
+/* × icon for close button */
+.btn-close::before {
+    content: "×";
+}
+
+/* Fade animation */
+.fade {
+    opacity: 1;
+}
+
+.show {
+    opacity: 1;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
