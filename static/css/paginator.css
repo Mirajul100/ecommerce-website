@@ -123,9 +123,15 @@
 
 /* Container */
 .container {
-    max-width: 1200px;
+    max-width: 1350px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 10px;
+}
+
+@media (max-width: 1115px){
+    .container{
+        max-width: 800px;
+    }
 }
 
 /* Responsive Design for Tablets */

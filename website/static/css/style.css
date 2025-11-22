@@ -14,7 +14,7 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 10px;
 }
 
 /* Header */
@@ -28,7 +28,7 @@ body {
 
 .nav-wrapper {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     padding: 1rem 0;
 }
@@ -543,7 +543,7 @@ body {
 
 /* Responsive */
 
-@media (max-width: 1050px) {
+@media (max-width: 1115px) {
     .nav {
         display: none;
     }

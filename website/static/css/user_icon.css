@@ -1,0 +1,39 @@
+.heder-user {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.user-icon {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    border: 1px solid #667eea;
+    margin: 0 auto;     /* horizontal center */
+    display: block;
+}
+
+.user-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    text-align: center;
+}
+
+.user-text {
+    text-align: center;
+}
+
+.welcome-text {
+    font-size: 10px;
+    color: #333;
+}
+
+.user-name {
+    font-size: 8px;
+    color: #667eea;
+}
