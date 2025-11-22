@@ -42,7 +42,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     user_name       = models.CharField(max_length=50, unique=True)
     email           = models.EmailField(max_length=100, unique=True)
     phone_number    = models.CharField(max_length=50)  # Fixed typo
-    user_image      =models.ImageField(upload_to='photos/user', null=True, blank=True)
+    user_image      = models.ImageField(upload_to='photos/user', null=True, blank=True)
 
     date_joined     = models.DateTimeField(auto_now_add=True)  # Renamed for convention
     last_login      = models.DateTimeField(auto_now=True)  # Changed to DateTimeField
