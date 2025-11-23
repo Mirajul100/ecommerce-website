@@ -6,6 +6,7 @@ from .forms import RegistrationsForms
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage
 from django.http import HttpResponse
+from django.urls import reverse
 
 # Email Verification 
 
@@ -37,7 +38,7 @@ def register(request):
             # User verification
             current_site = get_current_site(request)
             mail_subject = 'Please Activate Your Account'
-            message = render_to_string('accounts/activation_email.html',{
+            message = render_to_string('account/activation_email.html',{
                 'user':user,
                 'domain':current_site,
                 'uid':urlsafe_base64_encode(force_bytes(user.pk)),
@@ -48,7 +49,8 @@ def register(request):
             send_mail = EmailMessage(mail_subject , message , to=[to_email])
             send_mail.send()
             # messages.success(request , 'Registration successful! Please check your email to activate your account.')
-            return redirect('account/login/?command=verification&email='+email)
+            return redirect(reverse('login')+'?command=verification&email='+email)
+        
 
     else:
         form = RegistrationsForms()
@@ -56,7 +58,7 @@ def register(request):
     context= {
         'form':form,
     }
-    return render (request , 'accounts/register.html' , context)
+    return render (request , 'account/register.html' , context)
 
 def login(request):
     if request.method == 'POST':
@@ -72,10 +74,10 @@ def login(request):
         
         else:
             messages.error(request , 'Invalid Login Credential')
-            return redirect('login')
+            return redirect('register')
 
 
-    return render (request , 'accounts/login.html')
+    return render (request , 'account/login.html')
 
 @login_required(login_url='login')
 def logout(request):

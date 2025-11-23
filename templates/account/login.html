@@ -4,16 +4,15 @@
 
 <div class="register-page">
     {% if request.GET.command == 'verification' %}
-
-        <div class="alert-info alert-dismissible fade show " style="height: 50px; width:100px" role="alert">
+    
+        <div class="alert-info alert-dismissible fade show " style="width:650px; text-align:center;" role="alert">
             Registration successful! Please check your email to activate your account. [{{request.GET.email}}]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             <br><br>
             <div class="footer-text">
                 Already Verified <a href="{% url 'login' %}">Login</a>
             </div>
         </div>
-
+    
     {% else %}
 
         <div class="login-container">
