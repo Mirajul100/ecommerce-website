@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Dashboard html code -->
+ <div class="dashboard-page">
+     {% include 'includes/alert.html' %}
+     <div class="order-dashboard">
+        <main class="dashboard-content">
+            <div class="page-header">
+                <div class="order-details">
+                    <h2>Order ID: 6123456789</h2>
+                    <p class="date-info">Order Date: 16 December 2018</p>
+                </div>
+            </div>
+
+            <div class="info-cards">
+                <div class="info-card">
+                    <h3>Delivery to</h3>
+                    <div class="info-body">
+                        <p><strong>Michael Jackson</strong></p>
+                        <p>Phone: +1234567890</p>
+                        <p>Email: myname@pixsellz.com</p>
+                        <p>Location: Home number, Building name, Street 123, Tashkent, UZB</p>
+                        <p>P.O. Box: 100123</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Payment</h3>
+                    <div class="info-body">
+                        <div class="card-badge">
+                            <span>Visa</span>
+                            <span>**** 4216</span>
+                        </div>
+                        <div class="amount-row">
+                            <span>Subtotal:</span>
+                            <span>$356</span>
+                        </div>
+                        <div class="amount-row">
+                            <span>Shipping fee:</span>
+                            <span>$56</span>
+                        </div>
+                        <div class="amount-row final-amount">
+                            <span>Total:</span>
+                            <span>$456</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-items">
+                <div class="order-card">
+                    <div class="item-image">📦</div>
+                    <div class="item-info">
+                        <h4>Product name goes here</h4>
+                        <p>USD 145</p>
+                    </div>
+                    <div class="vendor-info">
+                        <p class="vendor-label">Seller</p>
+                        <p class="vendor-name">Nike clothing</p>
+                    </div>
+                    <div class="card-actions">
+                        <button class="button button-filled">Track order</button>
+                        <button class="button button-outline">Details</button>
+                    </div>
+                </div>
+
+                <div class="order-card">
+                    <div class="item-image">📱</div>
+                    <div class="item-info">
+                        <h4>Another name goes here</h4>
+                        <p>USD 15</p>
+                    </div>
+                    <div class="vendor-info">
+                        <p class="vendor-label">Seller</p>
+                        <p class="vendor-name">ABC shop</p>
+                    </div>
+                    <div class="card-actions">
+                        <button class="button button-filled">Track order</button>
+                        <button class="button button-outline">Details</button>
+                    </div>
+                </div>
+
+                <div class="order-card">
+                    <div class="item-image">🛍️</div>
+                    <div class="item-info">
+                        <h4>The name of the product goes here</h4>
+                        <p>USD 145</p>
+                    </div>
+                    <div class="vendor-info">
+                        <p class="vendor-label">Seller</p>
+                        <p class="vendor-name">Wallmart</p>
+                    </div>
+                    <div class="card-actions">
+                        <button class="button button-filled">Track order</button>
+                        <button class="button button-outline">Details</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}

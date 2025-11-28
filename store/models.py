@@ -4,7 +4,6 @@ from django.core.validators import MinValueValidator
 from categories.models import Category
 from sub_categories.models import SubCategory
 from django.urls import reverse
-from rembg import remove
 import os
 
 class Product(models.Model):
