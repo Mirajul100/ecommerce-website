@@ -6,7 +6,10 @@ urlpatterns = [
     path('login' , views.login , name='login'),
     path('logout' , views.logout , name='logout'),
     path('dashboard' , views.dashboard , name='dashboard'),
+    path('forgot_password' , views.forgot_password , name='forgot_password'),
+    path('reset_password' , views.reset_password , name='reset_password'),
 
-
+    # Activation Email url
     path('activate/<uidb64>/<token>/', views.activate , name='activate'),
+    path('reset_password_valid/<uidb64>/<token>/' , views.reset_password_valid , name='reset_password_valid'),
 ]
