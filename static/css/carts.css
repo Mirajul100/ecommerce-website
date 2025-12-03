@@ -508,7 +508,6 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #f8f9fa;
   }
 
   .sc-qty-cell::before {
@@ -537,7 +536,6 @@ img {
   .sc-action-cell {
     padding: 15px;
     text-align: center;
-    background: #f8f9fa;
   }
 
   .sc-remove-btn {
