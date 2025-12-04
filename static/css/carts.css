@@ -180,7 +180,7 @@
 
 .sc-price {
   font-size: 1.125rem;
-  font-weight: 700;
+  font-weight: 400;
   color: #212529;
 }
 
@@ -527,10 +527,6 @@ img {
     content: "Price:";
     font-weight: 600;
     color: #495057;
-  }
-
-  .sc-price-area {
-    align-items: flex-end;
   }
 
   .sc-action-cell {

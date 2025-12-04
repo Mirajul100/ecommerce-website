@@ -92,3 +92,8 @@
     text-align: left;
     margin-right: 8px;
 }
+
+.fa-solid.fa-truck-arrow-right{
+    text-align: right;
+    margin-left: 10px;
+}

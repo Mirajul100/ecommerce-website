@@ -5,7 +5,7 @@
   <div class="sc-title-empty">Checkout</div>
 
   <div class="payment-grid">
-    <div class="billing-section">
+    <div class="billing-section" style="height: 940px">
       <form action="{% url 'home' %}" method="POST">
         {% csrf_token %}
         <div class="input-section">
@@ -82,57 +82,87 @@
           />
         </div>
 
-        <button type="submit" class="sc-btn-checkout">Complete Order</button>
-      </form>
+        <button type="submit" class="sc-btn-checkout">Complete Order<i class="fa-solid fa-truck-arrow-right"></i></button>
+        <a href="{% url 'store'%}" class="sc-btn-continue" role="button"
+        >Continue Shopping<i class="fa-solid fa-cart-arrow-down"></i
+          ></a>
+        </form>
     </div>
 
     <div class="cart-details">
       <h2 class="checkout">
         <thead>
           <tr>
-            <th class="sc-th-product">Product ------------</th>
-            <th class="sc-th-qty">Quantity ------------</th>
-            <th class="sc-th-price">Price</th>
+            <th class="sc-th-product">Order Summary</th>
           </tr>
         </thead>
       </h2>
 
-      <td class="sc-product-info">
-        <div class="sc-product-container">
-          <a href="{{ cart_item.product.get_product_url }}"
-            ><img
-              src="{{cart_item.product.image.url}}"
-              alt="{{cart_item.product.product_name}}"
-              class="sc-product-img"
-            />
-          </a>
-          <div class="sc-product-details">
-            <h3>{{cart_item.product.product_name}}</h3>
-            <p>
-              {% for item in cart_item.variations.all %} {{
-              item.variation_category | capfirst}} : {{ item.variation_value |
-              capfirst }} <br />
-              {% endfor %}
-            </p>
-          </div>
-        </div>
-      </td>
+      <tbody>
+        {% for cart_item in cart_items %}
+        <!-- Cart Item 1 -->
+        <tr class="sc-item">
+          <td class="sc-product-info">
+            <div class="sc-product-container">
+              <a href="{{ cart_item.product.get_product_url }}"
+                ><img
+                  src="{{cart_item.product.image.url}}"
+                  alt="{{cart_item.product.product_name}}"
+                  class="sc-product-img"
+                />
+              </a>
+              <div class="sc-product-details">
+                <h3>{{cart_item.product.product_name}}</h3>
+                <p>
+                  {% for item in cart_item.variations.all %} 
+                    {{item.variation_category | capfirst}} : {{ item.variation_value | capfirst }} <br />
+                  {% endfor %}
+                </p>
+              </div>
+            </div>
+          </td>
+          <td class="sc-qty-cell">
+            <span class="sc-price"
+              >Product Quantity : {{ cart_item.quantity }}</span
+            >
+          </td>
+          <td class="sc-price-cell">
+            <div class="sc-price-area">
+              <span class="sc-price">Total Product Price : {{cart_item.sub_total}} tk</span>
+              <span
+                class="sc-unit-price"
+                style="border-bottom: 1px solid #e9ecef; margin-bottom: 10px"
+                >Unit price = {{cart_item.product.price}} tk</span
+              >
+            </div>
+          </td>
+        </tr>
+        {% endfor%}
+      </tbody>
+
+      <h2 class="checkout">
+        <thead>
+          <tr>
+            <th class="sc-th-product">Order Details</th>
+          </tr>
+        </thead>
+      </h2>
 
       <div class="price-row">
-        <span>Subtotal</span>
-        <span>$319.96</span>
+        <span>Total Price : </span>
+        <span>{{total}} tk</span>
       </div>
       <div class="price-row">
-        <span>Shipping</span>
-        <span>$9.99</span>
+        <span>Shipping : </span>
+        <span>40 tk</span>
       </div>
       <div class="price-row">
-        <span>Tax</span>
-        <span>$26.40</span>
+        <span>Tax : </span>
+        <span>{{tax}} tk</span>
       </div>
       <div class="price-row grand-total">
-        <span>Total</span>
-        <span>$356.35</span>
+        <span>Total : </span>
+        <span>{{ grand_total }} tk</span>
       </div>
     </div>
   </div>
