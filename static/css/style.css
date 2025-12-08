@@ -33,10 +33,30 @@ body {
     padding: 1rem 0;
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Space between image and text */
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+}
+
 .logo h1 {
     font-size: 1.8rem;
     color: #6366f1;
     font-weight: 700;
+    font-style: oblique;
+}
+
+.logo img{
+    height: 35px;
+    width: auto;
+    display: block;
 }
 
 .nav {
@@ -542,6 +562,16 @@ body {
 }
 
 /* Responsive */
+@media (max-width:1250px)
+{
+    .logo img{
+        height: 25px;
+        display: block;
+    }
+    .logo h1{
+        font-size: 1.5rem;
+    }
+}
 
 @media (max-width: 1115px) {
     .nav {
