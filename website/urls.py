@@ -29,4 +29,7 @@ urlpatterns = [
     # Show the category in home section
     path("<slug:category_slug>/" , views.home , name="product_by_category"),
 
+    # Order urls
+    path('orders/' , include('orders.urls')),
+
 ] + static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)

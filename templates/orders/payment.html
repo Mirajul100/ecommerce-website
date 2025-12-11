@@ -1,0 +1,128 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<!-- Checkout html -->
+<div class="main-wrapper">
+  {% include 'includes/alert.html' %}
+  <div class="sc-title-empty">Review Your Order and Make Payment</div>
+
+  <div class="payment-grid">
+    <div class="billing-section">
+      <div class="input-section">
+        <h2 class="checkout">Billing Address</h2>
+        <div class="sc-product-details">
+          <p>{{order.full_name}}</p>
+          <p>{{order.full_address}}</p>
+          <p>{{order.country}}</p>
+          <p>{{order.city}}, {{order.state}}</p>
+          <p>{{order.full_address}}</p>
+          <p>{{order.email}}</p>
+          <p>{{order.phone}}</p>
+          {% if order.order_note %}
+          <b>Order Note: </b>{{order.order_note}} {% endif %}
+        </div>
+      </div>
+      <div class="input-section">
+        <h2 class="checkout">Payment Method</h2>
+        <div class="sc-product-details">
+          <p>Bkash</p>
+        </div>
+      </div>
+      <div class="input-section">
+        <h2 class="checkout">Review Product</h2>
+        <div class="sc-product-details">
+          <tr class="sc-item">
+            <td class="sc-product-info">
+              <div class="sc-product-container">
+                <a href="{{ cart_item.product.get_product_url }}"
+                  ><img
+                    src="{{cart_item.product.image.url}}"
+                    alt="{{cart_item.product.product_name}}"
+                    class="sc-product-img"
+                  />
+                </a>
+                <div class="sc-product-details">
+                  <h3>{{cart_item.product.product_name}}</h3>
+                  <p>
+                    {% for item in cart_item.variations.all %}
+                    {{item.variation_category | capfirst}} : 
+                    {{item.variation_value | capfirst }} <br />
+                    {% endfor %}
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td class="sc-qty-cell">
+              <span class="sc-price"
+                >Product Quantity : {{ cart_item.quantity }}</span
+              >
+            </td>
+            <td class="sc-price-cell">
+              <div class="sc-price-area">
+                <span class="sc-price"
+                  >Total Product Price : {{cart_item.sub_total}} tk</span
+                >
+                <span
+                  class="sc-unit-price"
+                  style="border-bottom: 1px solid #e9ecef; margin-bottom: 10px"
+                  >Unit price = {{cart_item.product.price}} tk</span
+                >
+              </div>
+            </td>
+          </tr>
+        </div>
+      </div>
+    </div>
+
+    <div class="checkout-section">
+      <div class="sc-summary">
+        <h2>Order Summary</h2>
+
+        <div class="sc-summary-row">
+          <span>Total price :</span>
+          <span id="sc-subtotal">{{total}} tk</span>
+        </div>
+
+        <div class="sc-summary-row">
+          <span>Tax :</span>
+          <span id="sc-tax">{{tax}} tk</span>
+        </div>
+
+        <div class="sc-summary-row">
+          <span>Shipping :</span>
+          <span id="sc-shipping">40 tk</span>
+        </div>
+
+        <div class="sc-summary-row total">
+          <span>Total :</span>
+          <span id="sc-total">{{grand_total}} tk</span>
+        </div>
+
+        <!-- Payment Methods -->
+        <h3>Payment Method</h3>
+        <div class="payment-methods">
+          <button class="payment-option">
+            <img src="{% static 'image/pyment/bkash.png' %}" alt="Bkash" />
+          </button>
+          <button class="payment-option">
+            <img src="{% static 'image/pyment/Rocket.png' %}" alt="Rocket" />
+          </button>
+          <button class="payment-option">
+            <img src="{% static 'image/pyment/nogod.png' %}" alt="Nogod" />
+          </button>
+          <button class="payment-option">
+            <span class="payment-text">Credit Card</span>
+          </button>
+        </div>
+
+        <a href="{% url 'checkout'%}" class="sc-btn-checkout" role="button"
+          >Proceed to Checkout<i class="fa-regular fa-credit-card"></i
+        ></a>
+        <a href="{% url 'store'%}" class="sc-btn-continue" role="button"
+          >Continue Shopping<i class="fa-solid fa-cart-arrow-down"></i
+        ></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
