@@ -222,6 +222,8 @@
   border-radius: 12px;
   padding: 25px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  position:sticky;
+  top:90px;
 }
 
 .sc-summary h2 {
