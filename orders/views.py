@@ -53,7 +53,7 @@ def place_order(request, total=0, quantity=0):
             order = Order.objects.get(user=current_user , is_ordered=False , order_number=order_number)
             context = {
                 'order': order,
-                'carts_items': cart_items,
+                'cart_items': cart_items,
                 'total': total,
                 'tax': tax,
                 'grand_total': grand_total,

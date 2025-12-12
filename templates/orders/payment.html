@@ -30,45 +30,53 @@
       <div class="input-section">
         <h2 class="checkout">Review Product</h2>
         <div class="sc-product-details">
-          <tr class="sc-item">
-            <td class="sc-product-info">
-              <div class="sc-product-container">
-                <a href="{{ cart_item.product.get_product_url }}"
-                  ><img
-                    src="{{cart_item.product.image.url}}"
-                    alt="{{cart_item.product.product_name}}"
-                    class="sc-product-img"
-                  />
-                </a>
-                <div class="sc-product-details">
-                  <h3>{{cart_item.product.product_name}}</h3>
-                  <p>
-                    {% for item in cart_item.variations.all %}
-                    {{item.variation_category | capfirst}} : 
-                    {{item.variation_value | capfirst }} <br />
-                    {% endfor %}
-                  </p>
+          <tbody>
+            {% for cart_item in cart_items %}
+            <!-- Cart Item 1 -->
+            <tr class="sc-item">
+              <td class="sc-product-info">
+                <div class="sc-product-container">
+                  <a href="{{ cart_item.product.get_product_url }}"
+                    ><img
+                      src="{{cart_item.product.image.url}}"
+                      alt="{{cart_item.product.product_name}}"
+                      class="sc-product-img"
+                    />
+                  </a>
+                  <div class="sc-product-details">
+                    <h3>{{cart_item.product.product_name}}</h3>
+                    <p>
+                      {% for item in cart_item.variations.all %}
+                      {{item.variation_category | capfirst}} : 
+                      {{ item.variation_value | capfirst }} <br />
+                      {% endfor %}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </td>
-            <td class="sc-qty-cell">
-              <span class="sc-price"
-                >Product Quantity : {{ cart_item.quantity }}</span
-              >
-            </td>
-            <td class="sc-price-cell">
-              <div class="sc-price-area">
+              </td>
+              <td class="sc-qty-cell">
                 <span class="sc-price"
-                  >Total Product Price : {{cart_item.sub_total}} tk</span
+                  >Product Quantity : {{ cart_item.quantity }}</span
                 >
-                <span
-                  class="sc-unit-price"
-                  style="border-bottom: 1px solid #e9ecef; margin-bottom: 10px"
-                  >Unit price = {{cart_item.product.price}} tk</span
-                >
-              </div>
-            </td>
-          </tr>
+              </td>
+              <td class="sc-price-cell">
+                <div class="sc-price-area">
+                  <span class="sc-price"
+                    >Total Product Price : {{cart_item.sub_total}} tk</span
+                  >
+                  <span
+                    class="sc-unit-price"
+                    style="
+                      border-bottom: 1px solid #e9ecef;
+                      margin-bottom: 10px;
+                    "
+                    >Unit price = {{cart_item.product.price}} tk</span
+                  >
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
         </div>
       </div>
     </div>
