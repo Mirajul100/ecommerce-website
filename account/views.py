@@ -112,6 +112,7 @@ def login(request):
             except:
                 pass
 
+            # This is return to user visited page
             auth.login(request , user)
             messages.success(request , 'Your Logged In Successfully')
             url = request.META.get('HTTP_REFERER')

@@ -154,3 +154,8 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'python3436@gmail.com'
 EMAIL_HOST_PASSWORD = 'yjlr bvao uuio mcpr'
 EMAIL_USE_TLS = True
+
+# SSL payment method
+SSLCOMMERZ_STORE_ID = "shopn6951221642a3b"
+SSLCOMMERZ_STORE_PASS = "shopn6951221642a3b@ssl"
+SSLCOMMERZ_SANDBOX = True

@@ -83,6 +83,9 @@
 
     <div class="checkout-section">
       <div class="sc-summary">
+        <form action="{% url 'checkout' %}" method="POST">
+        {% csrf_token %}
+
         <h2>Order Summary</h2>
 
         <div class="sc-summary-row">
@@ -122,12 +125,13 @@
           </button>
         </div>
 
-        <a href="{% url 'checkout'%}" class="sc-btn-checkout" role="button"
-          >Proceed to Checkout<i class="fa-regular fa-credit-card"></i
-        ></a>
+        <button type="submit" class="sc-btn-checkout" 
+          >Make Payment<i class="fa-regular fa-credit-card"></i
+        ></button>
         <a href="{% url 'store'%}" class="sc-btn-continue" role="button"
           >Continue Shopping<i class="fa-solid fa-cart-arrow-down"></i
         ></a>
+        </form>
       </div>
     </div>
   </div>

@@ -4,8 +4,30 @@ from carts.models import CartItem
 from .forms import OrderForm
 from .models import Order
 import datetime
+from decimal import Decimal
+from website import settings
+from decimal import Decimal
+from sslcommerz_python_api import SSLCSession
 
 def payment(request):
+    if settings.SSLCOMMERZ_SANDBOX:
+        store_id = settings.SSLCOMMERZ_STORE_ID
+        store_pass = settings.SSLCOMMERZ_STORE_PASS
+
+        mypayment = SSLCSession(
+            sslc_is_sandbox=True,
+            sslc_store_id=store_id,
+            sslc_store_pass=store_pass
+            )
+        mypayment.set_urls(
+            success_url='example.com/success',
+            fail_url='example.com/failed',
+            cancel_url='example.com/cancel',
+            ipn_url='example.com/payment_notification'
+            )
+        pass
+    else:
+        pass
     return render(request , 'orders/payment.html')
 
 def place_order(request, total=0, quantity=0):
