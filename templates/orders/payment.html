@@ -83,7 +83,7 @@
 
     <div class="checkout-section">
       <div class="sc-summary">
-        <form action="{% url 'checkout' %}" method="POST">
+        <form action="{% url 'payment' order.order_number %}" method="POST">
         {% csrf_token %}
 
         <h2>Order Summary</h2>
