@@ -2,14 +2,16 @@ from django.shortcuts import render , redirect
 from django.http import HttpResponse
 from carts.models import CartItem
 from .forms import OrderForm
-from .models import Order
-import datetime
+from .models import Order , Payment , OrderProduct
 from django.conf import settings
 from decimal import Decimal
 from sslcommerz_python_api import SSLCSession
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
+from account.models import Account
+from django.contrib import messages
 
+import datetime
 
 def payment(request, order_number):
     order = Order.objects.get(user=request.user, order_number=order_number, is_ordered=False)
@@ -59,6 +61,12 @@ def payment(request, order_number):
         country=order.country
     )
 
+    sslc.set_additional_values(
+        value_a=str(request.user.id),
+        value_b=str(order.id)
+    )
+
+
     response = sslc.init_payment()
 
     if response.get('status') == 'SUCCESS':
@@ -68,11 +76,52 @@ def payment(request, order_number):
 
 @ csrf_exempt
 def payment_success(request):
-    current_user = request.user
-    context={
-        'current_user':current_user,
-    }
-    return render(request , 'orders/pay_success.html' , context)
+
+    if request.method == "POST":
+
+        tran_id = request.POST.get('tran_id')
+        payment_method = request.POST.get('card_type')
+        amount = request.POST.get('amount')
+        status = request.POST.get('status')
+        user_id = request.POST.get('value_a')
+        order_id = request.POST.get('value_b')
+
+        if not tran_id or not user_id:
+            return render(request, 'orders/pay_fail.html')
+
+        # Check payment is valid 
+        if status != "VALID":
+            return render(request, 'orders/pay_fail.html')
+
+        try:
+            user = Account.objects.get(id=user_id)
+        except Account.DoesNotExist:
+            return render(request, 'orders/pay_fail.html')
+        
+        try:
+            order = Order.objects.get(id=order_id , user=user , is_ordered=False)
+        except Order.DoesNotExist:
+            return render(request, 'orders/pay_fail.html')
+        
+        if not Payment.objects.filter(payment_id=tran_id).exists():
+            payment = Payment(
+                user=user,
+                payment_id=tran_id,
+                payment_method=payment_method,
+                amount_paid=amount,
+                status=status,
+            )
+            payment.save()
+            order.payment = payment
+            order.is_ordered = True
+            order.status = 'Accepted'
+            order.save()
+
+        messages.success(request , "Payment Successful")
+        return redirect('order_completed' , order_number=order.order_number)
+
+    return render(request, 'orders/pay_fail.html')
+
 
 @ csrf_exempt
 def payment_failed(request):
@@ -86,6 +135,14 @@ def payment_cancel(request):
 def payment_ipn(request):
     return HttpResponse("IPN Received")
 
+def order_completed(request , order_number):
+    order = Order.objects.get(order_number=order_number)
+    cart_items = CartItem.objects.filter(user=order.user)
+    context = {
+        'order': order,
+        'cart_items': cart_items,
+    }
+    return render(request, 'orders/order_completed.html', context)
 
 def place_order(request, total=0, quantity=0):
     shipping = 40
