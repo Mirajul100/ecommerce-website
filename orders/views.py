@@ -10,6 +10,7 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from account.models import Account
 from django.contrib import messages
+from store.models import Product
 
 import datetime
 
@@ -138,6 +139,36 @@ def payment_ipn(request):
 def order_completed(request , order_number):
     order = Order.objects.get(order_number=order_number)
     cart_items = CartItem.objects.filter(user=order.user)
+
+    # Mode cart item to database
+    for item in cart_items:
+        order_product = OrderProduct(
+            user=order.user,
+            order=order,
+            payment=order.payment,
+            product=item.product,
+            quantity=item.quantity,
+            product_price=item.product.price,
+            ordered=True,
+        )
+        order_product.save()
+
+        cart_item = CartItem.objects.get(id=item.id)
+        product_variation = cart_item.variations.all()
+        order_product = OrderProduct.objects.get(id=order_product.id)
+        order_product.variations.set(product_variation)
+        order_product.save()
+
+        # Reduce the quantity of ordered product
+        product = Product.objects.get(id=item.product_id)
+        product.stock -= item.quantity
+        product.save()
+
+    # Deleted the user cart item
+    cart_items.delete()
+
+
+
     context = {
         'order': order,
         'cart_items': cart_items,
