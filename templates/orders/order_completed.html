@@ -36,17 +36,59 @@
       </div>
     </div>
 
+    <!-- Ordered product information -->
+    <table class="sc-table" style="text-align:left;">
+      <tbody>
+        {% for cart_item in order_product %}
+        <tr class="sc-item">
+          <td class="sc-product-info">
+            <div class="sc-product-container">
+              <a href="{{ cart_item.product.get_product_url }}">
+                <img
+                  src="{{ cart_item.product.image.url }}"
+                  alt="{{ cart_item.product.product_name }}"
+                  class="sc-product-img"
+                />
+              </a>
+              <div class="sc-product-details">
+                <h3>{{ cart_item.product.product_name }}</h3>
+                <p>
+                  {% for item in cart_item.variations.all %}
+                    {{ item.variation_category|capfirst }} :
+                    {{ item.variation_value|capfirst }} <br />
+                  {% endfor %}
+                </p>
+              </div>
+            </div>
+          </td>
+
+          <td class="sc-qty-cell">
+            Product Quantity : {{ cart_item.quantity }}
+          </td>
+
+          <td class="sc-price-cell">
+            <div class="sc-price-area" style="flex-direction: row;">
+              <span>Total Product Price : {{amount}} tk</span><br />
+              <span>Unit price : {{ cart_item.product.price }} tk</span>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
     <div class="notification-box">
       <p>
         <strong><i class="fa-solid fa-envelope"></i> Confirmation email sent!</strong><br />
-        We've sent a confirmation email to your registered email address <b>{{user}}</b> with
+        We've sent a confirmation email to your registered email address <b>{{user}},</b> with
         your order details and tracking information.
       </p>
     </div>
 
     <div class="action-buttons">
       <a href="#" class="action-btn primary-btn">Track Order</a>
-      <a href="#" class="action-btn secondary-btn">Continue Shopping</a>
+      <a href="{% url 'store' %}" class="action-btn secondary-btn">Continue Shopping</a>
     </div>
   </div>
 </div>

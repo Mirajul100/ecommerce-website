@@ -90,21 +90,21 @@ def payment_success(request):
         order_id = request.POST.get('value_b')
 
         if not tran_id or not user_id:
-            return render(request, 'orders/pay_fail.html')
+            return redirect('checkout')
 
         # Check payment is valid 
         if status != "VALID":
-            return render(request, 'orders/pay_fail.html')
+            return redirect('checkout')
 
         try:
             user = Account.objects.get(id=user_id)
         except Account.DoesNotExist:
-            return render(request, 'orders/pay_fail.html')
+            return redirect('checkout')
         
         try:
             order = Order.objects.get(id=order_id , user=user , is_ordered=False)
         except Order.DoesNotExist:
-            return render(request, 'orders/pay_fail.html')
+            return redirect('checkout')
         
         if not Payment.objects.filter(payment_id=tran_id).exists():
             payment = Payment(
@@ -123,12 +123,12 @@ def payment_success(request):
         messages.success(request , "Payment Successful")
         return redirect('order_completed' , order_number=order.order_number)
 
-    return render(request, 'orders/pay_fail.html')
+    return redirect('checkout')
 
 
 @ csrf_exempt
 def payment_failed(request):
-    return render(request , 'orders/pay_fail.html')
+   return redirect('checkout')
 
 @ csrf_exempt
 def payment_cancel(request):
@@ -170,13 +170,16 @@ def order_completed(request , order_number):
     # Deleted the user cart item
     cart_items.delete()
 
+    order_product = OrderProduct.objects.filter(order=order)
+
     # Send a email for order received
     mail_subject = 'Thank you for your oder'
     message = render_to_string('orders/order_received_email.html' , {
         'user': order.user,
         'order':order,
+        'order_product':order_product,
     })
-    to_email = order.user
+    to_email = order.user.email
     send_email = EmailMessage(mail_subject , message , to=[to_email])
     send_email.send()
 
@@ -184,9 +187,10 @@ def order_completed(request , order_number):
         'order': order.order_number,
         'cart_items': cart_items,
         'payment': order.payment,
-        'created_at':order.created_at,
+        'order_product':order_product,
         'amount': order.order_total,
         'user':order.user,
+        'created_at':order.created_at,
     }
     return render(request, 'orders/order_completed.html', context)
 
