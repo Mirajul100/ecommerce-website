@@ -1,0 +1,220 @@
+.success-wrapper {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 730px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.content-section {
+    padding: 50px 40px;
+    text-align: center;
+}
+
+.success-badge {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #74e552 0%, #5ae50a 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 30px;
+    animation: badgeScale 0.5s ease-out;
+}
+
+.success-icon {
+    width: 50px;
+    height: 50px;
+    border: 4px solid white;
+    border-top: none;
+    border-right: none;
+    transform: rotate(-45deg);
+    animation: iconDraw 0.5s ease-out 0.3s both;
+}
+
+@keyframes badgeScale {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes iconDraw {
+    from {
+        width: 0;
+        height: 0;
+    }
+    to {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+.main-heading {
+    color: #2d3748;
+    font-size: 2rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.heading-subtitle {
+    color: #718096;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.purchase-details {
+    background: #f7fafc;
+    border-radius: 12px;
+    padding: 25px;
+    margin: 30px 0;
+    text-align: left;
+}
+
+.details-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.details-row:last-child {
+    border-bottom: none;
+}
+
+.row-label {
+    color: #718096;
+    font-weight: 500;
+}
+
+.row-value {
+    color: #2d3748;
+    font-weight: 600;
+}
+
+.notification-box {
+    background: #edf2f7;
+    border-left: 4px solid #667eea;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 25px 0;
+    text-align: left;
+}
+
+.notification-box p {
+    color: #4a5568;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    flex: 1;
+    min-width: 150px;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.primary-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+.secondary-btn {
+    background: white;
+    color: #667eea;
+    border: 2px solid #667eea;
+}
+
+.secondary-btn:hover {
+    background: #f7fafc;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .content-section {
+        padding: 30px 20px;
+    }
+
+    .main-heading {
+        font-size: 1.6rem;
+    }
+
+    .heading-subtitle {
+        font-size: 1rem;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .action-btn {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .success-badge {
+        width: 80px;
+        height: 80px;
+    }
+
+    .success-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    @keyframes iconDraw {
+        from {
+            width: 0;
+            height: 0;
+        }
+        to {
+            width: 40px;
+            height: 40px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .content-section {
+        padding: 25px 15px;
+    }
+
+    .main-heading {
+        font-size: 1.4rem;
+    }
+
+    .purchase-details {
+        padding: 20px 15px;
+    }
+
+    .details-row {
+        flex-direction: column;
+        gap: 5px;
+    }
+}

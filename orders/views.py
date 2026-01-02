@@ -11,6 +11,8 @@ from django.views.decorators.csrf import csrf_exempt
 from account.models import Account
 from django.contrib import messages
 from store.models import Product
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 
 import datetime
 
@@ -159,19 +161,32 @@ def order_completed(request , order_number):
         order_product.variations.set(product_variation)
         order_product.save()
 
-        # Reduce the quantity of ordered product
+        # Reduce the quantity of ordered product Bug
         product = Product.objects.get(id=item.product_id)
         product.stock -= item.quantity
         product.save()
 
+
     # Deleted the user cart item
     cart_items.delete()
 
-
+    # Send a email for order received
+    mail_subject = 'Thank you for your oder'
+    message = render_to_string('orders/order_received_email.html' , {
+        'user': order.user,
+        'order':order,
+    })
+    to_email = order.user
+    send_email = EmailMessage(mail_subject , message , to=[to_email])
+    send_email.send()
 
     context = {
-        'order': order,
+        'order': order.order_number,
         'cart_items': cart_items,
+        'payment': order.payment,
+        'created_at':order.created_at,
+        'amount': order.order_total,
+        'user':order.user,
     }
     return render(request, 'orders/order_completed.html', context)
 

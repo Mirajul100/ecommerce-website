@@ -1,0 +1,10 @@
+{% load static %}
+{% load i18n %}
+{% autoescape off %}
+
+Hi, {{user.first_name}} {{user.last_name}}
+
+YOUR ORDER HAS BEEN RECEIVED
+Order Number: {{order.order_number}}
+
+{% endautoescape %}

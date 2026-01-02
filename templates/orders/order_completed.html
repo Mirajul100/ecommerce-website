@@ -1,8 +1,55 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %} 
 
-{% include 'includes/alert.html' %}
-<h1>Payment Successful</h1>
+<div class="register-page">
+<div class="success-wrapper">
+  <!-- Content Section -->
+  <div class="content-section">
+    {% include 'includes/alert.html' %}
+    <div class="success-badge">
+      <div class="success-icon"></div>
+    </div>
+
+    <h1 class="main-heading">Payment Successful!</h1>
+    <p class="heading-subtitle">
+      Thank you for your purchase. Your order has been confirmed and is being
+      processed.
+    </p>
+
+    <div class="purchase-details">
+      <div class="details-row">
+        <span class="row-label">Order Number:</span>
+        <span class="row-value">{{order}}</span>
+      </div>
+      <div class="details-row">
+        <span class="row-label">Transaction ID:</span>
+        <span class="row-value">{{payment}}</span>
+      </div>
+      <div class="details-row">
+        <span class="row-label">Date:</span>
+        <span class="row-value">{{created_at}}</span>
+      </div>
+      <div class="details-row">
+        <span class="row-label">Total Amount:</span>
+        <span class="row-value">{{amount}} tk</span>
+      </div>
+    </div>
+
+    <div class="notification-box">
+      <p>
+        <strong><i class="fa-solid fa-envelope"></i> Confirmation email sent!</strong><br />
+        We've sent a confirmation email to your registered email address <b>{{user}}</b> with
+        your order details and tracking information.
+      </p>
+    </div>
+
+    <div class="action-buttons">
+      <a href="#" class="action-btn primary-btn">Track Order</a>
+      <a href="#" class="action-btn secondary-btn">Continue Shopping</a>
+    </div>
+  </div>
+</div>
+</div>
 
 {% endblock %}
