@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="main-wrapper">
+  {% include 'includes/alert.html' %}
+  <div class="sc-title-empty">Edit Profile</div>
+
+  <div class="payment-grid">
+    <div class="billing-section">
+      <form action="{% url 'edit_profile' %}" method="POST"  enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="input-section">
+          <h2 class="checkout">User Information</h2>
+
+          <div class="form-group">
+            <label>Profile Picture</label>
+            {{profile_form.profile_picture}}
+          </div>
+
+          <div class="form-group">
+            <label>Phone Number</label>
+            {{user_form.phone_number}}
+          </div>
+        </div>
+
+        <div class="input-section">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              {{user_form.first_name}}
+            </div>
+
+            <div class="form-group">
+              <label>Last Name</label>
+              {{user_form.last_name}}
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Address Line 1</label>
+              {{profile_form.address_line_1}}
+            </div>
+
+            <div class="form-group">
+              <label>Address Line 2</label>
+              {{profile_form.address_line_2}}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Country</label>
+          {{profile_form.country}}
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>City</label>
+            {{profile_form.city}}
+          </div>
+
+          <div class="form-group">
+            <label>State</label>
+            {{profile_form.state}}
+          </div>
+        </div>
+
+        <button type="submit" class="sc-btn-checkout">
+          Save Profile<i class="fa-solid fa-user"></i>
+        </button>
+      </form>
+    </div>
+
+    <div class="cart-details">
+      <h2 class="checkout">
+        <thead>
+          <tr>
+            <th class="sc-th-product">User Profile</th>
+          </tr>
+        </thead>
+      </h2>
+        {% if  user_profile.profile_picture %}
+        <div class="user-icon" style="width: 150px; height: 150px; border: 3px solid #667eea;">
+            <img src="{{ user_profile.profile_picture.url }}" alt="{{user.first_name}}">
+        </div>
+        {% else %}
+        <div class="user-icon" style="width: 150px; height: 150px; border: 3px solid #667eea;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                <path d="M240 192C240 147.8 275.8 112 320 112C364.2 112 400 147.8 400 192C400 236.2 364.2 272 320 272C275.8 272 240 236.2 240 192zM448 192C448 121.3 390.7 64 320 64C249.3 64 192 121.3 192 192C192 262.7 249.3 320 320 320C390.7 320 448 262.7 448 192zM144 544C144 473.3 201.3 416 272 416L368 416C438.7 416 496 473.3 496 544L496 552C496 565.3 506.7 576 520 576C533.3 576 544 565.3 544 552L544 544C544 446.8 465.2 368 368 368L272 368C174.8 368 96 446.8 96 544L96 552C96 565.3 106.7 576 120 576C133.3 576 144 565.3 144 552L144 544z"/>
+            </svg>
+        </div>
+        {% endif %}
+        <div class="user-text">
+            <div class="welcome-text" style="font-size: 20px; margin-top: 10px">Welcome</div>
+            <div class="user-name" style="font-size: 20px;">{{user.first_name}}</div>
+        </div>
+    </div>
+
+      <tbody>
+        {% for cart_item in cart_items %}
+        <!-- Cart Item 1 -->
+        <tr class="sc-item">
+          <td class="sc-product-info">
+            <div class="sc-product-container">
+              <a href="{{ cart_item.product.get_product_url }}"
+                ><img
+                  src="{{cart_item.product.image.url}}"
+                  alt="{{cart_item.product.product_name}}"
+                  class="sc-product-img"
+                />
+              </a>
+              <div class="sc-product-details">
+                <h3>{{cart_item.product.product_name}}</h3>
+                <p>
+                  {% for item in cart_item.variations.all %}
+                  {{item.variation_category | capfirst}} : 
+                  {{ item.variation_value | capfirst }} <br />
+                  {% endfor %}
+                </p>
+              </div>
+            </div>
+          </td>
+          <td class="sc-qty-cell">
+            <span class="sc-price"
+              >Product Quantity : {{ cart_item.quantity }}</span
+            >
+          </td>
+          <td class="sc-price-cell">
+            <div class="sc-price-area">
+              <span class="sc-price"
+                >Total Product Price : {{cart_item.sub_total}} tk</span
+              >
+              <span
+                class="sc-unit-price"
+                style="border-bottom: 1px solid #e9ecef; margin-bottom: 10px"
+                >Unit price = {{cart_item.product.price}} tk</span
+              >
+            </div>
+          </td>
+        </tr>
+        {% endfor%}
+      </tbody>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

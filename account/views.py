@@ -1,12 +1,13 @@
 from django.shortcuts import render , redirect
-from .forms import RegistrationsForms
-from .models import Account
+from .forms import RegistrationsForms , UserForm , UserProfileForm
+from .models import Account , UserProfile
 from django.contrib import messages , auth
 from .forms import RegistrationsForms
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage
 from django.http import HttpResponse
 from django.urls import reverse
+from django.shortcuts import get_object_or_404
 
 from carts.models import Cart , CartItem
 from carts.views import _cart_id
@@ -231,3 +232,26 @@ def product_history(request):
         'order_product':order_product,
     }
     return render(request , 'account/product_history.html' , context)
+
+def edit_profile(request):
+    user_profile , create = UserProfile.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        user_form = UserForm(request.POST , instance=request.user)
+        profile_form = UserProfileForm(request.POST , request.FILES , instance=user_profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request , 'Your Profile Hax Been Updated')
+            return redirect('edit_profile')
+        
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = UserProfileForm(instance=user_profile)
+
+    context = {
+        'user_form':user_form,
+        'profile_form':profile_form,
+        'user_profile':user_profile,
+    }
+    
+    return render(request , 'account/edit_profile.html' , context)

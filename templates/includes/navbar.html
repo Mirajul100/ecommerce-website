@@ -53,10 +53,10 @@
                         <a href="{% url 'dashboard' %}" style="width:120px;height:45px;display:inline-flex;align-items:center;justify-content:center;"><i class="fa-solid fa-chalkboard-user"></i>Dashboard</a>
                     </div>
                 </nav>
-                <a href="#" style="text-decoration: none;" ><div class="header-user">
-                    {% if user.user_image %}
+                <a href="{% url 'edit_profile' %}" style="text-decoration: none;" ><div class="header-user">
+                    {% if user_profile.profile_picture %}
                     <div class="user-icon">
-                        <img src="{{ user.user_image.url }}" alt="{{user.first_name}}">
+                        <img src="{{ user_profile.profile_picture.url }}" alt="{{user.first_name}}">
                     </div>
                     {% else %}
                     <div class="user-icon">
@@ -89,12 +89,12 @@
                     {% else %}
                         <a  href="{% url 'home' %}"><i class="fa-duotone fa-solid fa-house"></i>Home</a>
                         <a href="{% url 'store' %}"><i class="fa-duotone fa-solid fa-store"></i>Store</a>
+                        <a href="{% url 'edit_profile' %}"><i class="fa-solid fa-user-pen"></i>Edit Profile</a>
                         <a href="{% url 'product_history' %}"><i class="fa-solid fa-table-cells"></i>History</a>
                         <a href="#"><i class="fa-solid fa-arrow-right-arrow-left"></i>Transaction</a>
                         <a href="#"><i class="fa-solid fa-arrows-rotate"></i>Return</a>
                         <a href="#"><i class="fa-solid fa-box-archive"></i>Selling</a>
                         <a href="#"><i class="fa-solid fa-clipboard-check"></i>Received</a>
-                        <a href="#"><i class="fa-solid fa-gear"></i>Setting</a>
                         <a href="{% url 'dashboard' %}"><i class="fa-solid fa-chalkboard-user"></i>Dashboard</a>
                         <a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
                     {% endif %}

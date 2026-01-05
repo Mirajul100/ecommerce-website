@@ -42,7 +42,6 @@ class Account(AbstractBaseUser, PermissionsMixin):
     user_name       = models.CharField(max_length=50, unique=True)
     email           = models.EmailField(max_length=100, unique=True)
     phone_number    = models.CharField(max_length=50)  # Fixed typo
-    user_image      = models.ImageField(upload_to='photos/user', null=True, blank=True)
 
     date_joined     = models.DateTimeField(auto_now_add=True)  # Renamed for convention
     last_login      = models.DateTimeField(auto_now=True)  # Changed to DateTimeField
@@ -64,3 +63,17 @@ class Account(AbstractBaseUser, PermissionsMixin):
     
     def has_module_perms(self, app_label):
         return True  # Simplified; can be expanded with PermissionsMixin
+    
+class UserProfile(models.Model):
+    user = models.OneToOneField(Account , on_delete=models.CASCADE)
+    profile_picture = models.ImageField(upload_to='user_profile' , blank=True)
+    address_line_1 = models.CharField(max_length=50)
+    address_line_2 = models.CharField(max_length=50 , blank=True)
+    country = models.CharField(max_length=50)
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.user.first_name
+    def full_address(self):
+        return f'{self.address_line_1} {self.address_line_2}'

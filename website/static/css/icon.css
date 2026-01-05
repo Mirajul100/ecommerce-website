@@ -78,7 +78,7 @@
     margin-right: 8px;
 }
 
-.fa-solid.fa-gear{
+.fa-solid.fa-user-pen{
     text-align: left;
     margin-right: 8px;
 }
@@ -100,4 +100,8 @@
 .fa-solid.fa-envelope{
     text-align: left;
     margin-right: 10px;
+}
+.fa-solid.fa-user{
+    text-align: right;
+    margin-left: 10px;
 }

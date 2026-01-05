@@ -14,4 +14,6 @@ urlpatterns = [
     path('reset_password_valid/<uidb64>/<token>/' , views.reset_password_valid , name='reset_password_valid'),
     # Order history
     path('product_history/' , views.product_history , name='product_history'),
+    # Edit profile
+    path('edit_profile/' , views.edit_profile , name='edit_profile'),
 ]

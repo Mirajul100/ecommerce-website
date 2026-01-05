@@ -1,5 +1,5 @@
 from django import forms
-from .models import Account
+from .models import Account , UserProfile
 from django.contrib import messages
 
 class RegistrationsForms(forms.ModelForm):
@@ -15,6 +15,7 @@ class RegistrationsForms(forms.ModelForm):
     class Meta:
         model = Account
         fields = ['first_name' , 'last_name' , 'email' , 'phone_number' ,'password']
+
     def __init__(self , *args , **kwargs):
         # Input fields connect to html
         super(RegistrationsForms , self).__init__(*args , **kwargs)
@@ -32,3 +33,28 @@ class RegistrationsForms(forms.ModelForm):
             raise forms.ValidationError(
                 "password does't match!"
             )
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = Account
+        fields = ('first_name', 'last_name', 'phone_number')
+        
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-group'
+
+
+class UserProfileForm(forms.ModelForm):
+
+    # Remove the default profile_picture url
+    profile_picture = forms.ImageField(
+        required=False,  # optional
+        widget=forms.FileInput(attrs={
+            'class': 'form-control'  # optional CSS class
+        })
+    )
+    class Meta:
+        model = UserProfile
+        fields = ('profile_picture','address_line_1','address_line_2','country','city','state' )
+
