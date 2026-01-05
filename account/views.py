@@ -11,6 +11,7 @@ from django.urls import reverse
 from carts.models import Cart , CartItem
 from carts.views import _cart_id
 from carts.views import checkout
+from orders.models import Order , OrderProduct
 
 # Email Verification 
 
@@ -222,3 +223,11 @@ def reset_password(request):
         
     else:
         return render(request , 'account/reset_password.html')
+    
+def product_history(request):
+    order = Order.objects.filter(user=request.user , is_ordered=True).order_by('-created_at')
+    order_product = OrderProduct.objects.filter(order__in=order)
+    context = {
+        'order_product':order_product,
+    }
+    return render(request , 'account/product_history.html' , context)

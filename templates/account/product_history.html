@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% if not order_product %}
+<div class="sc-title-empty">Order History Is Empty !</div>
+<br>
+<div class="text-center">
+  <a href="{% url 'store' %}" class="sc-empty" style="text-decoration: none">Continue Shopping<i class="fa-solid fa-cart-arrow-down"></i></a>
+</div>
+{% else %}
+<div class="sc-title-empty">Order History</div>
+<div class="register-page">
+<div class="success-wrapper" style="max-width: 950px;">
+<div class="cart-details">
+      <h2 class="checkout">
+        <thead>
+          <tr>
+            <th class="sc-th-product">My Order History</th>
+          </tr>
+        </thead>
+      </h2>
+      {% for cart_item in order_product %}
+      <div class="purchase-details">
+      <div class="details-row">
+        <span class="row-label">Order Number:</span>
+        <span class="row-value">{{cart_item.order.order_number}}</span>
+      </div>
+      <div class="details-row">
+        <span class="row-label">Billing:</span>
+        <span class="row-value">{{cart_item.order.full_name}}</span>
+      </div>
+      <div class="details-row">
+        <span class="row-label">Date:</span>
+        <span class="row-value">{{cart_item.created_at|date:"F d, Y"}}</span>
+      </div>
+    </div>
+
+      <tbody>
+        <!-- Cart Item 1 -->
+        <tr class="sc-item">
+          <td class="sc-product-info">
+            <div class="sc-product-container">
+              <a href="{{ cart_item.product.get_product_url }}"
+                ><img
+                  src="{{cart_item.product.image.url}}"
+                  alt="{{cart_item.product.product_name}}"
+                  class="sc-product-img"
+                />
+              </a>
+              <div class="sc-product-details">
+                <h3>{{cart_item.product.product_name}}</h3>
+                <p>
+                  {% for item in cart_item.variations.all %}
+                  {{item.variation_category | capfirst}} : 
+                  {{ item.variation_value | capfirst }} <br />
+                  {% endfor %}
+                </p>
+              </div>
+            </div>
+          </td>
+          <td class="sc-qty-cell">
+            <span class="sc-price"
+              >Product Quantity : {{ cart_item.quantity }}</span
+            >
+          </td>
+          <td class="sc-price-cell">
+            <div class="sc-price-area">
+              <span class="sc-price"
+                >Total Product Price : {{cart_item.sub_total}} tk</span
+              >
+              <span
+                class="sc-unit-price"
+                style="border-bottom: 1px solid #e9ecef; margin-bottom: 10px"
+                >Unit price = {{cart_item.product.price}} tk</span
+              >
+            </div>
+          </td>
+        </tr>
+        {% endfor%}
+      </tbody>
+</div>
+</div>
+</div>
+{% endif %}
+{% endblock %}

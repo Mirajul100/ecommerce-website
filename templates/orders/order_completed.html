@@ -28,7 +28,7 @@
       </div>
       <div class="details-row">
         <span class="row-label">Date:</span>
-        <span class="row-value">{{created_at}}</span>
+        <span class="row-value">{{created_at|date:"F d, Y"}}</span>
       </div>
       <div class="details-row">
         <span class="row-label">Total Amount:</span>
@@ -68,7 +68,7 @@
 
           <td class="sc-price-cell">
             <div class="sc-price-area" style="flex-direction: row;">
-              <span>Total Product Price : {{amount}} tk</span><br />
+              <span>Total Product Price : {{cart_item.sub_total}} tk</span><br />
               <span>Unit price : {{ cart_item.product.price }} tk</span>
             </div>
           </td>

@@ -12,4 +12,6 @@ urlpatterns = [
     # Activation Email url
     path('activate/<uidb64>/<token>/', views.activate , name='activate'),
     path('reset_password_valid/<uidb64>/<token>/' , views.reset_password_valid , name='reset_password_valid'),
+    # Order history
+    path('product_history/' , views.product_history , name='product_history'),
 ]
