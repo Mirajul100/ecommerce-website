@@ -41,7 +41,7 @@ def product_details(request , sub_category_slug ,product_slug ):
         raise e
     
     try :
-        order_product = OrderProduct.objects.filter(user=request.user , product_id=single_product.id).exists()
+        order_product = OrderProduct.objects.filter(user=request.user.id , product_id=single_product.id).exists()
     except OrderProduct.DoesNotExist:
         order_product = None
 
