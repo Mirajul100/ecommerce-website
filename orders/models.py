@@ -65,7 +65,7 @@ class OrderProduct(models.Model):
 
     def __str__(self):
         return self.product.product_name
-    
+
     @property
     def sub_total(self):
         return self.product_price * self.quantity

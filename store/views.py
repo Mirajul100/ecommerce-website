@@ -5,6 +5,7 @@ from carts.models import CartItem
 from carts.views import _cart_id
 from django.core.paginator import PageNotAnInteger , EmptyPage , Paginator
 from django.db.models import Q
+from .models import ProductGallery
 
 def store(request, sub_category_slug=None):
     if sub_category_slug is not None:
@@ -36,9 +37,13 @@ def product_details(request , sub_category_slug ,product_slug ):
     except Exception as e:
         raise e
     
+    # Get product gallery
+    product_gallery = ProductGallery.objects.filter(product_id=single_product.id)
+
     context = {
         'single_product':single_product,
         'in_cart':in_cart,
+        'product_gallery':product_gallery,
     }
 
     return render(request , "store/product_details.html" , context)

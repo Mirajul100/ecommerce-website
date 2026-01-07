@@ -3,12 +3,26 @@
 {% block content %}
 
 <div class="single-product-section">
-    <div class="single-product-image">
+    <div class="single-product-image main_image">
         <img src="{{ single_product.image.url }}" 
         alt="{{ single_product.product_name }}" 
         class="single-product-img">
+        <ul class="thumb">
+            <li>
+                <a href="{{single_product.image.url}}" target="main_image">
+                    <img src="{{single_product.image.url}}" alt="{{ single_product.product_name }}">
+                </a>
+                {% for i in product_gallery %}
+                <a href="{{i.image.url}}" target="main_image">
+                    <img src="{{i.image.url}}" alt="product image">
+                </a>
+                {% endfor %}
+            </li>
+        </ul>
     </div>
+    <script src="{% static 'js/main_image.js'%}"></script>
 
+    
     <form action="{% url 'add_cart' single_product.id %}"  method="POST">
         {% csrf_token %}
         <div class="single-product-info">
