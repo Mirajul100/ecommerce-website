@@ -211,21 +211,30 @@
 
 .stars {
     display: flex;
-    gap: 10px;
-    font-size: 50px;
-    cursor: pointer;
+    gap:5px;
+    flex-direction: row-reverse; /* IMPORTANT */
+    justify-content: flex-start;
 }
 
 .star {
+    font-size: 50px;
     color: #cbd5e0;
+    cursor: pointer;
     transition: all 0.3s ease;
 }
 
+/* Hover effect */
 .star:hover,
-.star.active {
+.star:hover ~ .star {
     color: #fbbf24;
     transform: scale(1.2);
 }
+
+/* Checked (selected) stars */
+.star-input:checked ~ .star {
+    color: #fbbf24;
+}
+
 
 .rating-text {
     font-size: 18px;
@@ -307,6 +316,10 @@
 
 .review-stars {
     color: #fbbf24;
+}
+
+.icon-rating{
+    display: flex;
 }
 
 .review-date {

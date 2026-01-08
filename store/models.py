@@ -5,6 +5,7 @@ from categories.models import Category
 from sub_categories.models import SubCategory
 from django.urls import reverse
 from account.models import Account
+from django.db.models import Avg , Count
 import os
 
 class Product(models.Model):
@@ -30,6 +31,14 @@ class Product(models.Model):
 
     def __str__(self):
         return self.product_name
+    
+    def average_review(self):
+        reviews = ReviewProduct.objects.filter(product=self , status=True).aggregate(average=Avg('rating'))
+        return reviews['average'] or 0
+    
+    def count_review(self):
+        review = ReviewProduct.objects.filter(product=self , status=True).aggregate(count=Count('id'))
+        return review['count'] or 0
 
     class Meta:
         ordering = ['product_name']

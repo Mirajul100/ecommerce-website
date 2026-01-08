@@ -39,6 +39,13 @@
             <img src="{{ product.image.url }}" alt="{{ product.product_name }}" class="product-image">
             <div class="product-info">
                 <h2 class="product-title">{{ product.product_name }}</h2>
+                <div class="review-stars">
+                    {% if product.average_review >= 1 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
+                    {% if product.average_review >= 2 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
+                    {% if product.average_review >= 3 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
+                    {% if product.average_review >= 4 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
+                    {% if product.average_review >= 5 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
+                </div>
                 <div class="product-price">{{ product.price }} tk</div>
                 {% if product.stock <= 0 %}
                 <h2 class="stock_out">Out of Stock</h2>

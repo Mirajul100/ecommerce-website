@@ -309,6 +309,10 @@
     color: #fbbf24;
 }
 
+.star-rating{
+    display: flex;
+}
+
 .review-date {
     color: #a0aec0;
     font-size: 14px;

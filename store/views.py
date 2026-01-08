@@ -45,14 +45,20 @@ def product_details(request , sub_category_slug ,product_slug ):
     except OrderProduct.DoesNotExist:
         order_product = None
 
+
     # Get product gallery
     product_gallery = ProductGallery.objects.filter(product_id=single_product.id)
+
+    # Get user Profile
+    reviews = ReviewProduct.objects.filter(product=single_product, status=True).select_related('user__userprofile')
+
 
     context = {
         'single_product':single_product,
         'in_cart':in_cart,
         'product_gallery':product_gallery,
         'order_product':order_product,
+        'reviews':reviews,
     }
 
     return render(request , "store/product_details.html" , context)

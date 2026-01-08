@@ -5,28 +5,35 @@
 <div class="single-product-section">
     <div class="single-product-image main_image">
         <img src="{{ single_product.image.url }}" 
-        alt="{{ single_product.product_name }}" 
-        class="single-product-img">
+             alt="{{ single_product.product_name }}" 
+             class="single-product-img">
         <ul class="thumb">
             <li>
-                <a href="{{single_product.image.url}}" target="main_image">
-                    <img src="{{single_product.image.url}}" alt="{{ single_product.product_name }}">
+                <a href="{{ single_product.image.url }}" target="main_image">
+                    <img src="{{ single_product.image.url }}" alt="{{ single_product.product_name }}">
                 </a>
                 {% for i in product_gallery %}
-                <a href="{{i.image.url}}" target="main_image">
-                    <img src="{{i.image.url}}" alt="product image">
-                </a>
+                    <a href="{{ i.image.url }}" target="main_image">
+                        <img src="{{ i.image.url }}" alt="product image">
+                    </a>
                 {% endfor %}
             </li>
         </ul>
     </div>
     <script src="{% static 'js/main_image.js'%}"></script>
 
-    
-    <form action="{% url 'add_cart' single_product.id %}"  method="POST">
+    <form action="{% url 'add_cart' single_product.id %}" method="POST">
         {% csrf_token %}
         <div class="single-product-info">
             <h1>{{ single_product.product_name }}</h1>
+            <span>Average Review</span>
+            <div class="review-stars" style="margin-bottom:20px;">
+                {% if single_product.average_review >= 1 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
+                {% if single_product.average_review >= 2 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
+                {% if single_product.average_review >= 3 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
+                {% if single_product.average_review >= 4 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
+                {% if single_product.average_review >= 5 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
+            </div>
             <div class="single-product-price">{{ single_product.price}} tk</div>
             <p class="single-product-description">
                 {{ single_product.description }}
@@ -36,139 +43,155 @@
                 <li>{{ single_product.product_feature_2 }}</li>
                 <li>{{ single_product.product_feature_3 }}</li>
             </ul>
-            
+
             {% if single_product.stock <= 0 %}
-            <h2 class="stock_out">Out of Stock</h2>
+                <h2 class="stock_out">Out of Stock</h2>
             {% else %}
-        
-            <!-- Color Selection -->
-                    <div class="size-selection" required>
-                        <label>Choose Color:</label>
-                        <div class="size-options-color">
-                            {% for i in single_product.variation_set.colors %}
-                                <label class="size-btn-color">
-                                    <input type="radio" name="color" value="{{ i.variation_value | lower }}" required hidden >
+                <!-- Color Selection -->
+                <div class="size-selection" required>
+                    <label>Choose Color:</label>
+                    <div class="size-options-color">
+                        {% for i in single_product.variation_set.colors %}
+                            <label class="size-btn-color">
+                                <input type="radio" name="color" value="{{ i.variation_value | lower }}" required hidden>
+                                <span>{{ i.variation_value | capfirst }}</span>
+                            </label>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Size section -->
+                    <label>Select Size:</label>
+                    <div class="size-options">
+                        {% if single_product.product_size %}
+                            <label class="size-btn">
+                                <input type="radio" name="size" value="{{ single_product.product_size }}" required hidden>
+                                <span>{{ single_product.product_size }}</span>
+                            </label>
+                        {% else %}
+                            {% for i in single_product.variation_set.sizes %}
+                                <label class="size-btn">
+                                    <input type="radio" name="size" value="{{ i.variation_value | lower }}" required hidden>
                                     <span>{{ i.variation_value | capfirst }}</span>
                                 </label>
                             {% endfor %}
-                        </div>
-
-            <!-- Size section -->
-                        <label>Select Size:</label>
-                        <div class="size-options">
-                            {% if single_product.product_size %}
-                                <label class="size-btn">
-                                    <input type="radio" name="size" value="{{ single_product.product_size }}" required hidden>
-                                    <span>{{ single_product.product_size }}</span>
-                                </label>
-                            {% else %}
-                                {% for i in single_product.variation_set.sizes %}
-                                    <label class="size-btn">
-                                            <input type="radio" name="size" value="{{i.variation_value | lower }}" required hidden>
-                                            <span>{{i.variation_value | capfirst }}</span>
-                                    </label>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
+                        {% endif %}
                     </div>
+                </div>
 
-                    <div class="single-product-actions">
-                        <button type="submit" class="btn single-btn-view" style="text-decoration: none" data-product-id="{{ single_product.id }}">Bay Now</button>
-                        <button type="submit" class="btn single-btn-add" data-product-id="{{ single_product.id }}" data-product-price="{{ single_product.price }}">Add to Cart<i class="fa-solid fa-cart-shopping"></i></button>
-                    </div>
-
+                <div class="single-product-actions">
+                    <button type="submit" class="btn single-btn-view" style="text-decoration: none" data-product-id="{{ single_product.id }}">Bay Now</button>
+                    <button type="submit" class="btn single-btn-add" data-product-id="{{ single_product.id }}" data-product-price="{{ single_product.price }}">Add to Cart<i class="fa-solid fa-cart-shopping"></i></button>
+                </div>
             {% endif %}
         </div>
     </form>
-
 </div>
 
 <form action="{% url 'submit_review' single_product.id %}" method="POST">
     {% csrf_token %}
-
     <div class="rating-section">
         {% include 'includes/alert.html' %}
         <h2>Rate This Product</h2>
-
         <div class="rating-container">
             <div class="stars">
-
-                <input type="radio" name="rating" value="1" id="star1" class="star-input" hidden required>
-                <label for="star1" class="star" data-rating="1">★</label>
-
-                <input type="radio" name="rating" value="2" id="star2" class="star-input" hidden required>
-                <label for="star2" class="star" data-rating="2">★</label>
-
-                <input type="radio" name="rating" value="3" id="star3" class="star-input" hidden required>
-                <label for="star3" class="star" data-rating="3">★</label>
-
-                <input type="radio" name="rating" value="4" id="star4" class="star-input" hidden required>
-                <label for="star4" class="star" data-rating="4">★</label>
-
-                <input type="radio" name="rating" value="5" id="star5" class="star-input" hidden required>
+                <input type="radio" name="rating" value="5" id="star5" class="star-input" required hidden>
                 <label for="star5" class="star" data-rating="5">★</label>
 
+                <input type="radio" name="rating" value="4" id="star4" class="star-input" required hidden>
+                <label for="star4" class="star" data-rating="4">★</label>
+
+                <input type="radio" name="rating" value="3" id="star3" class="star-input" required hidden>
+                <label for="star3" class="star" data-rating="3">★</label>
+
+                <input type="radio" name="rating" value="2" id="star2" class="star-input" required hidden>
+                <label for="star2" class="star" data-rating="2">★</label>
+
+                <input type="radio" name="rating" value="1" id="star1" class="star-input" required hidden>
+                <label for="star1" class="star" data-rating="1">★</label>
             </div>
 
             <div class="rating-text">Click to rate</div>
 
             <div class="review-form">
                 <label class="review-label">Subject
-                    <textarea class="subject" name="subject" required
-                        style="min-height:75px; margin-bottom:10px"
-                        placeholder="Write your Subject..."></textarea>
+                    <textarea class="subject" name="subject" required style="min-height:75px; margin-bottom:10px" placeholder="Write your Subject..."></textarea>
                 </label>
 
                 <label class="review-label">Review
-                    <textarea name="review" required
-                        placeholder="Write your review here..."></textarea>
+                    <textarea name="review" required placeholder="Write your review here..."></textarea>
                 </label>
+
                 {% if user.is_authenticated %}
                     {% if order_product %}
-                    <button type="submit" class="submit-btn">Submit Review</button>
+                        <button type="submit" class="submit-btn">Submit Review</button>
                     {% else %}
-                    <p>You must be perches first to post a review.</p>
+                        <p>You must be perches first to post a review.</p>
                     {% endif %}
                 {% else %}
-                    <p>You must be logged in to post a review. </p><span><a href="{% url 'login' %}" style="text-decoration:none;"><b>Login now</b></a></span>
+                    <p>You must be logged in to post a review. </p>
+                    <span><a href="{% url 'login' %}" style="text-decoration:none;"><b>Login now</b></a></span>
                 {% endif %}
             </div>
-            
         </div>
     </div>
 </form>
 
 
-    <div class="reviews-list" id="reviewsList">
-        <h3>Customer Reviews</h3>
+{% if reviews %}
+<div class="reviews-list" id="reviewsList">
+    <h3>Customer Reviews</h3>
+    <span>Total Review for this product: {{ single_product.count_review }}</span>
+    <br>
+    <span>Average Review</span>
+    <div class="review-stars" style="margin-bottom:20px;">
+        {% if single_product.average_review >= 1 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
+        {% if single_product.average_review >= 2 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
+        {% if single_product.average_review >= 3 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
+        {% if single_product.average_review >= 4 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
+        {% if single_product.average_review >= 5 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
+    </div>
+        {% for review in reviews %}
         <div class="review-item">
             <a href="#" style="text-decoration: none;">
                 <div class="header-user" style="display:ruby;">
-                    {% if user_profile.profile_picture %}
-                    <div class="user-icon">
-                        <img src="{{ user_profile.profile_picture.url }}" alt="{{user.first_name}}">
-                    </div>
+                    {% if review.user.userprofile.profile_picture %}
+                        <div class="user-icon">
+                            <img src="{{ review.user.userprofile.profile_picture.url }}" alt="{{user.first_name}}">
+                        </div>
                     {% else %}
-                    <div class="user-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                            <path d="M240 192C240 147.8 275.8 112 320 112C364.2 112 400 147.8 400 192C400 236.2 364.2 272 320 272C275.8 272 240 236.2 240 192zM448 192C448 121.3 390.7 64 320 64C249.3 64 192 121.3 192 192C192 262.7 249.3 320 320 320C390.7 320 448 262.7 448 192zM144 544C144 473.3 201.3 416 272 416L368 416C438.7 416 496 473.3 496 544L496 552C496 565.3 506.7 576 520 576C533.3 576 544 565.3 544 552L544 544C544 446.8 465.2 368 368 368L272 368C174.8 368 96 446.8 96 544L96 552C96 565.3 106.7 576 120 576C133.3 576 144 565.3 144 552L144 544z"/>
-                        </svg>
-                    </div>
+                        <div class="user-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                <path d="M240 192C240 147.8 275.8 112 320 112C364.2 112 400 147.8 400 192C400 236.2 364.2 272 320 272C275.8 272 240 236.2 240 192zM448 192C448 121.3 390.7 64 320 64C249.3 64 192 121.3 192 192C192 262.7 249.3 320 320 320C390.7 320 448 262.7 448 192zM144 544C144 473.3 201.3 416 272 416L368 416C438.7 416 496 473.3 496 544L496 552C496 565.3 506.7 576 520 576C533.3 576 544 565.3 544 552L544 544C544 446.8 465.2 368 368 368L272 368C174.8 368 96 446.8 96 544L96 552C96 565.3 106.7 576 120 576C133.3 576 144 565.3 144 552L144 544z"/>
+                            </svg>
+                        </div>
                     {% endif %}
                     <div class="user-text">
-                        <div class="user-name" style="font-size: 12px; margin-left: 3px; position:relative; top:-7px; margin-bottom: 10px;">{{user.first_name}} {{user.last_name}}</div>
+                        <div class="user-name" style="font-size: 12px; margin-left: 3px; position:relative; top:-7px; margin-bottom: 10px;">
+                            {{ review.user.first_name }} {{ review.user.last_name }}
+                        </div>
                     </div>
                 </div>
             </a>
             <div class="review-header">
-                <div class="review-stars">★★★★★</div>
-                <div class="review-date">2 days ago</div>
+                <div class="icon-rating">
+                    <div class="review-stars">
+                        {% if review.rating >= 1 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
+                        {% if review.rating >= 2 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
+                        {% if review.rating >= 3 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
+                        {% if review.rating >= 4 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
+                        {% if review.rating >= 5 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
+                    </div>
+                </div>
+                <div class="review-date">{{ review.updated_at|date:'F,d,Y - h:i A' }}</div>
             </div>
+            <h4 style="margin-bottom: 10px;">{{ review.subject }}</h4>
             <div class="review-text">
-                Amazing sound quality! The noise cancellation works perfectly on my daily commute.
+                {{ review.review }}
             </div>
         </div>
-    </div>
+        {% endfor %}
+    {% endif %}
 </div>
-    <script src="{% static 'js/rating.js'%}"></script>
+
+<script src="{% static 'js/rating.js'%}"></script>
 {% endblock %}
