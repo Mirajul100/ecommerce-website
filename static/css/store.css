@@ -57,3 +57,18 @@ button.filter-btn.active a.filter-btn {
     color: white;
 }
 
+/* Responsive Design */
+@media (max-width: 768px) {
+    .filter-section {
+        padding: 15px 0;
+    }
+    
+    .filter-section h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    
+    .filter-btn {
+        font-size: 14px;
+    }
+}
