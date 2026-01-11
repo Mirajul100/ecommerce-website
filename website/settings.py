@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +21,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-nq8p05@fd8ra-8&59+e_z_6!3jn$k6^=u3kxu)ecv63!s+utyk'
-
+SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -150,13 +150,13 @@ MESSAGE_TAGS = {
 }
 
 # Email verification
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'python3436@gmail.com'
-EMAIL_HOST_PASSWORD = 'yjlr bvao uuio mcpr'
-EMAIL_USE_TLS = True
+EMAIL_HOST = config('EMAIL_HOST', default='localhost')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=False, cast=bool)
 
 # SSL payment method
-SSLCOMMERZ_STORE_ID = "shopn6951221642a3b"
-SSLCOMMERZ_STORE_PASS = "shopn6951221642a3b@ssl"
-SSLCOMMERZ_SANDBOX = True
+SSLCOMMERZ_STORE_ID = config('SSLCOMMERZ_STORE_ID')
+SSLCOMMERZ_STORE_PASS = config('SSLCOMMERZ_STORE_PASS')
+SSLCOMMERZ_SANDBOX = config('SSLCOMMERZ_SANDBOX' , cast=bool , default=True)

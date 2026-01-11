@@ -56,9 +56,8 @@
 }
 
 .thumb li {
-    display: flex;
+    display: grid;
     gap: 12px;
-    flex-wrap: wrap;
 }
 
 .thumb a {
