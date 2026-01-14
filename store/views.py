@@ -94,8 +94,7 @@ def submit_review(request, product_id):
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Thank you! Your review has been updated')
-                print("not review")
-            print ("error")
+                
             return redirect(url)
 
         except ReviewProduct.DoesNotExist:
@@ -110,8 +109,7 @@ def submit_review(request, product_id):
                 data.user_id = request.user.id
                 data.save()
                 messages.success(request, 'Thank you! Your review has been submitted')
-                print ("review")
-            print (form.errors)
+
             return redirect(url)
         
     return redirect(url)

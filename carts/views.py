@@ -4,6 +4,7 @@ from store.models import Product , Variation
 from .models import Cart , CartItem
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 def _cart_id(request):
 
@@ -221,6 +222,7 @@ def cart(request , total=0 ,quantity=0 , cart_items= None):
     
     except ObjectDoesNotExist:
         pass
+    
 
     context = {
         'total': total,
@@ -244,11 +246,14 @@ def checkout(request , total=0 , quantity=0 , cart_items = None):
         else:
             cart = Cart.objects.get(cart_id = _cart_id(request))
             cart_items = CartItem.objects.filter(cart=cart , is_active = True)
-
+            product = Product.objects.get(id= _cart_id)
 
         for cart_item in cart_items:
             total += (cart_item.product.price * cart_item.quantity)
             quantity += cart_item.quantity
+            if cart_item.quantity > cart_item.product.stock:
+                messages.error(request, f'Not enough stock for {cart_item.product} please check the stock first')
+                return redirect('cart')
 
         tax = (2 * total) / 100
         grand_total = total + tax + shipping

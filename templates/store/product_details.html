@@ -26,6 +26,8 @@
         {% csrf_token %}
         <div class="single-product-info">
             <h1>{{ single_product.product_name }}</h1>
+            <div class="card-badge" style=" background: linear-gradient(135deg, #8f42e1 0%, #059669 100%); margin:10px 0px;"> In Stock : {{single_product.stock}}</div>
+            <br>
             <span>Average Rating</span>
             <div class="review-stars" style="margin-bottom:20px;">
                 {% if single_product.average_review >= 1 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}

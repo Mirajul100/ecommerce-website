@@ -165,7 +165,7 @@ def order_completed(request , order_number):
         product = Product.objects.get(id=item.product_id)
         product.stock -= item.quantity
         product.save()
-
+        
 
     # Deleted the user cart item
     cart_items.delete()

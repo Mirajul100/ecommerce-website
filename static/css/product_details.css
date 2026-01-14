@@ -56,9 +56,8 @@
 }
 
 .thumb li {
-    display: flex;
+    display: grid;
     gap: 12px;
-    flex-wrap: wrap;
 }
 
 .thumb a {
@@ -339,11 +338,18 @@
     margin-left: 10px;
 }
 
+@media (max-width: 855px){
+    .reviews-list{
+        margin: 15px
+    }
+}
+
 @media (max-width: 1000px) {
     .thumb{
         position: relative;
         left: -60px;
     }
+
     .single-product-section {
         grid-template-columns: 1fr;
         gap: 20px;
