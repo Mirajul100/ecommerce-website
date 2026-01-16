@@ -133,11 +133,11 @@
 
         <form action="{% url 'cash_on_delivery' order.order_number %}" method="POST">
         {% csrf_token %}
-        <button type="submit" class="sc-btn-checkout" 
-          >Cash On Delivery<i class="fa-regular fa-credit-card"></i
+        <button type="submit" class="sc-btn-continue" 
+          >Cash On Delivery<i class="fa-solid fa-person-biking"></i
         ></button>
         </form>
-        
+
       </div>
     </div>
   </div>

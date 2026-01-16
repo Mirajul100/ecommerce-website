@@ -268,13 +268,13 @@ def cash_on_delivery(request, order_number):
         payment_id=order.order_number,
         payment_method="Cash On Delivery",
         amount_paid=order.order_total,
-        status="PENDING"
+        status="VALID"
     )
 
     # Update order
     order.payment = payment
     order.is_ordered = True
-    order.status = "Pending"
+    order.status = "Accepted"
     order.save()
 
     cart_items = CartItem.objects.filter(user=order.user)
