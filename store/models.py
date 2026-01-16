@@ -24,9 +24,9 @@ class Product(models.Model):
     sub_category = models.ForeignKey('sub_categories.SubCategory', on_delete=models.CASCADE, null=True, blank=True)  # Made nullable
     created_at = models.DateTimeField(auto_now_add=True)
     modify_date = models.DateTimeField(auto_now=True)
-    product_feature_1 = models.CharField(max_length=30 , null=True ,  blank=True)
-    product_feature_2 = models.CharField(max_length=30 , null=True ,  blank=True)
-    product_feature_3 = models.CharField(max_length=30 , null=True ,  blank=True)
+    product_feature_1 = models.CharField(max_length=50 , null=True ,  blank=True)
+    product_feature_2 = models.CharField(max_length=50 , null=True ,  blank=True)
+    product_feature_3 = models.CharField(max_length=50 , null=True ,  blank=True)
 
 
     def __str__(self):

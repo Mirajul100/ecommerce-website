@@ -84,8 +84,6 @@
 
     <div class="checkout-section">
       <div class="sc-summary">
-        <form action="{% url 'payment' order.order_number %}" method="POST">
-        {% csrf_token %}
 
         <h2>Order Summary</h2>
 
@@ -126,10 +124,20 @@
           </button>
         </div>
 
+        <form action="{% url 'payment' order.order_number %}" method="POST">
+        {% csrf_token %}
         <button type="submit" class="sc-btn-checkout" 
           >Make Payment<i class="fa-regular fa-credit-card"></i
         ></button>
         </form>
+
+        <form action="{% url 'cash_on_delivery' order.order_number %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="sc-btn-checkout" 
+          >Cash On Delivery<i class="fa-regular fa-credit-card"></i
+        ></button>
+        </form>
+        
       </div>
     </div>
   </div>

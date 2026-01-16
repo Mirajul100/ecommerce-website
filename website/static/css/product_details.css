@@ -61,9 +61,11 @@
 }
 
 .thumb a {
+    position: relative;
+    left: 15px;
     display: block;
-    width: 90px;
-    height: 90px;
+    width: 80px;
+    height: 80px;
     border-radius: 8px;
     overflow: hidden;
     border: 2px solid #e0e0e0;
@@ -339,6 +341,20 @@
 }
 
 @media (max-width: 855px){
+    .thumb a{
+        position: relative;
+        left: 20px;
+        display: block;
+        width: 65px;
+        height: 65px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 2px solid #e0e0e0;
+        transition: all 0.3s ease;
+        background: white;
+        cursor: pointer;
+    }
+
     .reviews-list{
         margin: 15px
     }

@@ -1,4 +1,4 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render , redirect , get_object_or_404
 from django.http import HttpResponse
 from carts.models import CartItem
 from .forms import OrderForm
@@ -249,3 +249,86 @@ def place_order(request, total=0, quantity=0):
 
         else:
             return redirect('checkout')      
+
+def cash_on_delivery(request, order_number):
+    order = get_object_or_404(
+        Order,
+        order_number=order_number,
+        user=request.user,
+        is_ordered=False
+    )
+
+    # If already processed, redirect safely
+    if order.is_ordered:
+        return redirect('cash_on_delivery', order_number=order.order_number)
+
+    # Create COD payment
+    payment = Payment.objects.create(
+        user=order.user,
+        payment_id=order.order_number,
+        payment_method="Cash On Delivery",
+        amount_paid=order.order_total,
+        status="PENDING"
+    )
+
+    # Update order
+    order.payment = payment
+    order.is_ordered = True
+    order.status = "Pending"
+    order.save()
+
+    cart_items = CartItem.objects.filter(user=order.user)
+
+    # Move cart items to OrderProduct
+    for item in cart_items:
+        order_product = OrderProduct.objects.create(
+            user=order.user,
+            order=order,
+            payment=payment,
+            product=item.product,
+            quantity=item.quantity,
+            product_price=item.product.price,
+            ordered=True,
+        )
+
+        # Set variations
+        order_product.variations.set(item.variations.all())
+
+        # Reduce stock safely
+        product = item.product
+        if product.stock >= item.quantity:
+            product.stock -= item.quantity
+            product.save()
+
+    # Clear cart
+    cart_items.delete()
+
+    order_products = OrderProduct.objects.filter(order=order)
+
+    # Send confirmation email
+    mail_subject = 'Thank you for your order'
+    message = render_to_string(
+        'orders/order_received_email.html',
+        {
+            'user': order.user,
+            'order': order,
+            'order_product': order_products,
+        }
+    )
+
+    EmailMessage(
+        mail_subject,
+        message,
+        to=[order.user.email]
+    ).send()
+
+    context = {
+        'order': order.order_number,
+        'order_product': order_products,
+        'amount': order.order_total,
+        'user': order.user,
+        'created_at': order.created_at,
+        'payment_method':payment.payment_method
+    }
+
+    return render(request, 'orders/cash_on.html', context)
