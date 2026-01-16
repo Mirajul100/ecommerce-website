@@ -163,7 +163,12 @@ def activate(request , uidb64 , token):
 
 @login_required(login_url='login')
 def dashboard(request):
-    return render(request , 'account/dashboard.html')
+    order_product = Order.objects.filter(user=request.user , is_ordered=True).order_by('-created_at')
+
+    context = {
+        'order_product':order_product,
+    }
+    return render(request , 'account/dashboard.html' , context)
 
 def forgot_password(request):
     if request.method == 'POST':
@@ -226,8 +231,7 @@ def reset_password(request):
         return render(request , 'account/reset_password.html')
     
 def product_history(request):
-    order = Order.objects.filter(user=request.user , is_ordered=True).order_by('-created_at')
-    order_product = OrderProduct.objects.filter(order__in=order)
+    order_product = Order.objects.filter(user=request.user , is_ordered=True).order_by('-created_at')
     context = {
         'order_product':order_product,
     }
@@ -241,7 +245,7 @@ def edit_profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request , 'Your Profile Hax Been Updated')
+            messages.success(request , 'Your Profile Has Been Updated')
             return redirect('edit_profile')
         
     else:

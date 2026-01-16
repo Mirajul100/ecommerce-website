@@ -1,105 +1,101 @@
-{% extends 'base.html' %}
-{% load static %}
-
+{% extends 'base.html' %} 
+{% load static %} 
 {% block content %}
 
-<!-- Dashboard html code -->
- <div class="dashboard-page">
-     <div class="order-dashboard">
-         <main class="dashboard-content">
-            {% include 'includes/alert.html' %}
-            <div class="page-header">
-                <div class="order-details">
-                    <h2>Order ID: 6123456789</h2>
-                    <p class="date-info">Order Date: 16 December 2018</p>
-                </div>
+<div class="dashboard-page">
+  <div class="order-dashboard">
+    {% include 'includes/alert.html' %}
+
+    <main class="dashboard-content">
+    {% for order in order_product %}
+        <!-- ===== ORDER HEADER ===== -->
+      {% if order.status != "Completed" %}
+      <div class="page-header">
+        <div class="order-details">
+          <h2>Order ID: {{ order.order_number }}</h2>
+          <p class="date-info">
+            Order Date: {{ order.created_at|date:"F d, Y" }}
+          </p>
+        </div>
+      </div>
+
+      <!-- ===== ORDER INFO ===== -->
+      <div class="info-cards">
+        <div class="info-card">
+          <h3>Delivery to</h3>
+          <div class="info-body">
+            <p><strong>{{ order.full_name }}</strong></p>
+            <p>Phone: {{ order.phone }}</p>
+            <p>Email: {{ order.user.email }}</p>
+            <p>{{ order.city }}, {{ order.full_address }}</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <h3>Payment</h3>
+          <div class="info-body">
+            <div class="card-badge">
+              <span>{{ order.payment.payment_method }}</span>
             </div>
-
-            <div class="info-cards">
-                <div class="info-card">
-                    <h3>Delivery to</h3>
-                    <div class="info-body">
-                        <p><strong>Michael Jackson</strong></p>
-                        <p>Phone: +1234567890</p>
-                        <p>Email: myname@pixsellz.com</p>
-                        <p>Location: Home number, Building name, Street 123, Tashkent, UZB</p>
-                        <p>P.O. Box: 100123</p>
-                    </div>
-                </div>
-
-                <div class="info-card">
-                    <h3>Payment</h3>
-                    <div class="info-body">
-                        <div class="card-badge">
-                            <span>Visa</span>
-                            <span>**** 4216</span>
-                        </div>
-                        <div class="amount-row">
-                            <span>Subtotal:</span>
-                            <span>$356</span>
-                        </div>
-                        <div class="amount-row">
-                            <span>Shipping fee:</span>
-                            <span>$56</span>
-                        </div>
-                        <div class="amount-row final-amount">
-                            <span>Total:</span>
-                            <span>$456</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="amount-row">
+              <span>Subtotal:</span>
+              <span>{{ order.order_total }} tk</span>
             </div>
-
-            <div class="order-items">
-                <div class="order-card">
-                    <div class="item-image">📦</div>
-                    <div class="item-info">
-                        <h4>Product name goes here</h4>
-                        <p>USD 145</p>
-                    </div>
-                    <div class="vendor-info">
-                        <p class="vendor-label">Seller</p>
-                        <p class="vendor-name">Nike clothing</p>
-                    </div>
-                    <div class="card-actions">
-                        <button class="button button-filled">Track order</button>
-                        <button class="button button-outline">Details</button>
-                    </div>
-                </div>
-
-                <div class="order-card">
-                    <div class="item-image">📱</div>
-                    <div class="item-info">
-                        <h4>Another name goes here</h4>
-                        <p>USD 15</p>
-                    </div>
-                    <div class="vendor-info">
-                        <p class="vendor-label">Seller</p>
-                        <p class="vendor-name">ABC shop</p>
-                    </div>
-                    <div class="card-actions">
-                        <button class="button button-filled">Track order</button>
-                        <button class="button button-outline">Details</button>
-                    </div>
-                </div>
-
-                <div class="order-card">
-                    <div class="item-image">🛍️</div>
-                    <div class="item-info">
-                        <h4>The name of the product goes here</h4>
-                        <p>USD 145</p>
-                    </div>
-                    <div class="vendor-info">
-                        <p class="vendor-label">Seller</p>
-                        <p class="vendor-name">Wallmart</p>
-                    </div>
-                    <div class="card-actions">
-                        <button class="button button-filled">Track order</button>
-                        <button class="button button-outline">Details</button>
-                    </div>
-                </div>
+            <div class="amount-row">
+              <span>Shipping fee:</span>
+              <span>40 tk</span>
             </div>
-        </main>
-    </div>
+            <div class="amount-row final-amount">
+              <span>Total:</span>
+              <span>{{ order.payment.amount_paid }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PRODUCTS UNDER THIS ORDER ===== -->
+      <div class="order-items">
+        {% for item in order.orderproduct_set.all %}
+        <div class="order-card">
+          <div>
+            <a href="{{ item.product.get_product_url }}">
+              <img
+                src="{{ item.product.image.url }}"
+                alt="{{ item.product.product_name }}"
+                class="sc-product-img"
+              />
+            </a>
+          </div>
+
+          <div class="item-info">
+            <h3>{{ item.product.product_name }}</h3>
+            <p>
+              {% for v in item.variations.all %} 
+              {{ v.variation_category|capfirst }} : 
+              {{ v.variation_value|capfirst }} <br />
+              {% endfor %}
+            </p>
+          </div>
+
+          <div class="vendor-info">
+            <p class="vendor-label">Seller</p>
+            <p class="vendor-name">ABC Shop</p>
+          </div>
+
+          <div class="card-actions">
+            <button class="button button-filled">Track Order</button>
+            <button class="button button-outline">Details</button>
+          </div>
+        </div>
+        {% endfor %}
+        
+        <hr />
+        {% endif %}
+        {% empty %}
+        <p>No orders found.</p>
+    {% endfor %}
+    </main>
+  </div>
 </div>
+
 {% endblock %}

@@ -24,11 +24,11 @@
       <div class="purchase-details">
       <div class="details-row">
         <span class="row-label">Order Number:</span>
-        <span class="row-value">{{cart_item.order.order_number}}</span>
+        <span class="row-value">{{cart_item.order_number}}</span>
       </div>
       <div class="details-row">
         <span class="row-label">Billing:</span>
-        <span class="row-value">{{cart_item.order.full_name}}</span>
+        <span class="row-value">{{cart_item.full_name}}</span>
       </div>
       <div class="details-row">
         <span class="row-label">Date:</span>
@@ -36,20 +36,21 @@
       </div>
     </div>
 
+    {% for item in cart_item.orderproduct_set.all %}
       <tbody>
         <!-- Cart Item 1 -->
         <tr class="sc-item">
           <td class="sc-product-info">
             <div class="sc-product-container">
-              <a href="{{ cart_item.product.get_product_url }}"
+              <a href="{{ item.product.get_product_url }}"
                 ><img
-                  src="{{cart_item.product.image.url}}"
-                  alt="{{cart_item.product.product_name}}"
+                  src="{{item.product.image.url}}"
+                  alt="{{item.product.product_name}}"
                   class="sc-product-img"
                 />
               </a>
               <div class="sc-product-details">
-                <h3>{{cart_item.product.product_name}}</h3>
+                <h3>{{item.product.product_name}}</h3>
                 <p>
                   {% for item in cart_item.variations.all %}
                   {{item.variation_category | capfirst}} : 
@@ -77,8 +78,9 @@
             </div>
           </td>
         </tr>
-        {% endfor%}
       </tbody>
+      {% endfor %}
+      {% endfor%}
 </div>
 </div>
 </div>
