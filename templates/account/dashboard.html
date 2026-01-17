@@ -5,11 +5,10 @@
 <div class="dashboard-page">
   <div class="order-dashboard">
     {% include 'includes/alert.html' %}
-
+    
     <main class="dashboard-content">
-    {% for order in order_product %}
+      {% for order in order_product %}
         <!-- ===== ORDER HEADER ===== -->
-      {% if order.status != "Completed" %}
       <div class="page-header">
         <div class="order-details">
           <h2>Order ID: {{ order.order_number }}</h2>
@@ -40,10 +39,6 @@
             <div class="amount-row">
               <span>Subtotal:</span>
               <span>{{ order.order_total }} tk</span>
-            </div>
-            <div class="amount-row">
-              <span>Shipping fee:</span>
-              <span>40 tk</span>
             </div>
             <div class="amount-row final-amount">
               <span>Total:</span>
@@ -88,14 +83,19 @@
           </div>
         </div>
         {% endfor %}
-        
-        <hr />
-        {% endif %}
+        <hr/>
         {% empty %}
-        <p>No orders found.</p>
-    {% endfor %}
-    </main>
-  </div>
-</div>
-
+          <div class="sc-title-empty">Dashboard Is Empty !</div>
+          <br>
+          <p style="text-align: center; font-size: 18px; font-weight:600;">To access order tracking and product details, please place an order first. Once the order is confirmed, tracking information and detailed product data will be available.</p>
+          <br>
+          <p style="text-align: center; font-size: 18px; font-weight:600;">Thank you for choosing us.</p>
+          <br>
+          <div class="text-center">
+            <a href="{% url 'store' %}" class="sc-empty" style="text-decoration: none">Continue Shopping<i class="fa-solid fa-cart-arrow-down"></i></a>
+          </div>
+          {% endfor %}
+        </main>
+      </div>
+    </div>
 {% endblock %}

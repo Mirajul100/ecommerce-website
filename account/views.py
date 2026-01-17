@@ -125,7 +125,7 @@ def login(request):
                     next_page = params['next']
                     return redirect(next_page)
             except:
-                return redirect('dashboard')
+                return redirect('home')
         
         else:
             messages.error(request , 'Invalid Login Credential')
@@ -163,8 +163,8 @@ def activate(request , uidb64 , token):
 
 @login_required(login_url='login')
 def dashboard(request):
-    order_product = Order.objects.filter(user=request.user , is_ordered=True).order_by('-created_at')
-
+    order_product = Order.objects.filter(user=request.user , is_ordered=True).exclude(status="Completed").order_by('-created_at')
+    
     context = {
         'order_product':order_product,
     }

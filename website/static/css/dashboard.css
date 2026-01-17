@@ -135,7 +135,7 @@
 }
 
 .amount-row.final-amount span:last-child {
-    color: #4361ee;
+    color: #667eea;
     font-size: 22px;
     font-weight: 800;
 }
@@ -234,9 +234,8 @@
 }
 
 .button-filled {
-    background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+    background: linear-gradient(135deg, #6366f1 0%, #3a0ca3 100%);
     color: #ffffff;
-    border: 2px solid transparent;
     box-shadow: 0 4px 14px rgba(67, 97, 238, 0.4);
 }
 
