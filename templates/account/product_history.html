@@ -34,6 +34,10 @@
         <span class="row-label">Date:</span>
         <span class="row-value">{{cart_item.created_at|date:"F d, Y"}}</span>
       </div>
+      <div class="details-row">
+        <span class="row-label">Total:</span>
+        <span class="row-value">{{cart_item.order_total}}</span>
+      </div>
     </div>
 
     {% for item in cart_item.orderproduct_set.all %}

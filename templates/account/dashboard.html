@@ -16,6 +16,9 @@
             Order Date: {{ order.created_at|date:"F d, Y" }}
           </p>
         </div>
+        <div class="card-badge" style="background: linear-gradient(135deg, #4893be 0%, #5651e6 100%); box-shadow: 0 4px 12px rgb(138 108 250 / 45%);">
+          <span>{{ order.status}}</span>
+        </div>
       </div>
 
       <!-- ===== ORDER INFO ===== -->
@@ -35,10 +38,6 @@
           <div class="info-body">
             <div class="card-badge">
               <span>{{ order.payment.payment_method }}</span>
-            </div>
-            <div class="amount-row">
-              <span>Subtotal:</span>
-              <span>{{ order.order_total }} tk</span>
             </div>
             <div class="amount-row final-amount">
               <span>Total:</span>
