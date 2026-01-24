@@ -6,7 +6,7 @@
   <div class="sc-title-empty">Checkout</div>
 
   <div class="payment-grid">
-    <div class="billing-section" style="height: 1040px">
+    <div class="billing-section">
       <form action="{% url 'place_order' %}" method="POST">
         {% csrf_token %}
 
@@ -89,9 +89,6 @@
         <button type="submit" class="sc-btn-checkout">
           Place Order<i class="fa-solid fa-truck-arrow-right"></i>
         </button>
-        <a href="{% url 'store'%}" class="sc-btn-continue" role="button"
-          >Continue Shopping<i class="fa-solid fa-cart-arrow-down"></i
-        ></a>
       </form>
     </div>
 
