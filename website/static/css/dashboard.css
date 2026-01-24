@@ -357,6 +357,7 @@
 
     .button {
         flex: 1;
+        text-align: center;
         padding: 11px 20px;
     }
 }
