@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
     <link rel="stylesheet" href="{% static 'css/pay_success.css' %}">
+    <link rel="stylesheet" href="{% static 'css/chat_box.css' %}">
     <!-- Icon link -->
     <script src="https://kit.fontawesome.com/d57ab9f7f9.js" crossorigin="anonymous"></script>
     <!-- Js file link -->
@@ -38,7 +39,8 @@
     {% block content %}
     <!-- contend -->
     {% endblock %}
-    
+    {% include 'includes/chat_box.html' %}
+
     {% include 'includes/footer.html' %}
     <!-- footer -->
     

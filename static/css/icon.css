@@ -126,3 +126,16 @@
     text-align: right;
     margin-left: 10px;
 }
+
+.fa-solid.fa-paper-plane{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: -2px;
+    margin-top:4px
+}
+
+.fa-solid.fa-robot{
+    font-size: 20px;
+    color:rgb(228, 210, 246);
+}
