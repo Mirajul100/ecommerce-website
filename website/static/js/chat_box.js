@@ -127,3 +127,4 @@ chatInput.addEventListener('keypress', e => {
         sendMessage();
     }
 });
+
