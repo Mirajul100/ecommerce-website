@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'sub_categories',
     'carts',
     'orders',
+    'chatbot',
 ]
 
 MIDDLEWARE = [
@@ -160,3 +161,6 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=False, cast=bool)
 SSLCOMMERZ_STORE_ID = config('SSLCOMMERZ_STORE_ID')
 SSLCOMMERZ_STORE_PASS = config('SSLCOMMERZ_STORE_PASS')
 SSLCOMMERZ_SANDBOX = config('SSLCOMMERZ_SANDBOX' , cast=bool , default=True)
+
+# Ai api
+GEMINI_API_KEY = config('GEMINI_API_KEY')

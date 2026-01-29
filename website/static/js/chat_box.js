@@ -1,13 +1,4 @@
-// Load bot responses from JSON 
-let botResponses = {};
-
-fetch('/static/json/bot_response.json')
-    .then(res => res.json())
-    .then(data => {
-        botResponses = data;
-    })
-    .catch(err => console.error("JSON load error:", err));
-
+// Elements
 const chatToggle = document.getElementById('chatToggle');
 const chatBox = document.getElementById('chatBox');
 const closeChat = document.getElementById('closeChat');
@@ -16,11 +7,18 @@ const sendButton = document.getElementById('sendButton');
 const chatMessages = document.getElementById('chatMessages');
 const typingIndicator = document.getElementById('typingIndicator');
 
-// Toggle chat
+
 chatToggle.onclick = () => chatBox.classList.toggle('active');
 closeChat.onclick = () => chatBox.classList.remove('active');
 
-// Time
+// Close when clicking outside
+document.addEventListener('click', e => {
+    if (!chatBox.contains(e.target) && !chatToggle.contains(e.target)) {
+        chatBox.classList.remove('active');
+    }
+});
+
+// Time formatter
 function getCurrentTime() {
     return new Date().toLocaleTimeString('en-US', {
         hour: '2-digit',
@@ -28,7 +26,7 @@ function getCurrentTime() {
     });
 }
 
-// Add message
+// Add message to UI
 function addMessage(text, isUser = false) {
     const div = document.createElement('div');
     div.className = `message ${isUser ? 'user' : 'bot'}`;
@@ -48,8 +46,35 @@ function hideTyping() {
     typingIndicator.classList.remove('active');
 }
 
-// Bot logic
-function getBotResponse(userMessage) {
+// CSRF helper (Django)
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + '=')) {
+                cookieValue = decodeURIComponent(
+                    cookie.substring(name.length + 1)
+                );
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// JSON BOT (Fallback)
+let botResponses = {};
+
+fetch('/static/json/bot_response.json')
+    .then(res => res.json())
+    .then(data => {
+        botResponses = data;
+    })
+    .catch(err => console.warn("JSON bot not loaded:", err));
+
+function getJsonBotResponse(userMessage) {
     const msg = userMessage.toLowerCase();
 
     for (const key in botResponses) {
@@ -60,7 +85,7 @@ function getBotResponse(userMessage) {
     return "I'm here to help! Ask me about products, prices, or shipping.";
 }
 
-// Send message
+// Send message (AI first, JSON fallback)
 function sendMessage() {
     const message = chatInput.value.trim();
     if (!message) return;
@@ -69,21 +94,36 @@ function sendMessage() {
     chatInput.value = '';
     showTyping();
 
-    setTimeout(() => {
+    fetch("/chatbot/", {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": getCookie("csrftoken"),
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `message=${encodeURIComponent(message)}`
+    })
+    .then(res => {
+        if (!res.ok) throw new Error("AI failed");
+        return res.json();
+    })
+    .then(data => {
         hideTyping();
-        addMessage(getBotResponse(message));
-    }, 1000);
+        addMessage(data.reply);
+    })
+    .catch(err => {
+        hideTyping();
+        const fallbackReply = getJsonBotResponse(message);
+        addMessage(fallbackReply);
+        console.warn("Using JSON fallback:", err);
+    });
 }
 
+// Events
 sendButton.onclick = sendMessage;
 
 chatInput.addEventListener('keypress', e => {
-    if (e.key === 'Enter') sendMessage();
-});
-
-// Close when clicking outside
-document.addEventListener('click', e => {
-    if (!chatBox.contains(e.target) && !chatToggle.contains(e.target)) {
-        chatBox.classList.remove('active');
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        sendMessage();
     }
 });
