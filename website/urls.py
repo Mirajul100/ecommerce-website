@@ -26,11 +26,10 @@ urlpatterns = [
     path("store/" , include("store.urls")),
     path('cart/' , include("carts.urls")),
     path("account/" , include("account.urls")),
-    # Show the category in home section
-    path("<slug:category_slug>/" , views.home , name="product_by_category"),
-
     # Order urls
     path('orders/' , include('orders.urls')),
+    # Chat bot urls
     path('chatbot/' , include('chatbot.urls')),
-
+    # Show the category in home section
+    path("<slug:category_slug>/" , views.home , name="product_by_category"),
 ] + static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)

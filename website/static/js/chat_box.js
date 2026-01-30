@@ -98,9 +98,9 @@ function sendMessage() {
         method: "POST",
         headers: {
             "X-CSRFToken": getCookie("csrftoken"),
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type": "application/json"
         },
-        body: `message=${encodeURIComponent(message)}`
+        body: JSON.stringify({ message })
     })
     .then(res => {
         if (!res.ok) throw new Error("AI failed");
