@@ -1,5 +1,6 @@
 {% load static %}
 <!-- Chat Box -->
+ {% if user.is_authenticated %}
 <div class="chat-container">
   <button class="chat-button" id="chatToggle"><i class="fa-solid fa-robot"></i></button>
 
@@ -36,5 +37,8 @@
     </div>
   </div>
 </div>
+{% else %}
+
+{% endif %}
 
 <script src="{% static 'js/chat_box.js' %}"></script>
