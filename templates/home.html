@@ -3,7 +3,11 @@
 {% block content %}
 
 <!-- Hero Section -->
-{% include "includes/alert.html" %}
+ <div style="display:flex; justify-content:center;">
+    <div style="width:700px; text-align:center;">
+        {% include "includes/alert.html" %}
+    </div>
+</div>
 <section class="hero">
     <img src="{% static 'image/banner.jpg' %}" alt="Fashion Store Banner" class="hero-banner-img">
     <div class="hero-overlay"></div>
