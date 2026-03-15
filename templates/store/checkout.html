@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %}
 
 <!-- Checkout html -->
 <div class="main-wrapper">
@@ -71,13 +73,7 @@
 
           <div class="form-group">
             <label>State</label>
-            <select name="state" required>
-              <option value="">Select</option>
-              <option value="Badda">Badda</option>
-              <option value="kaliakoir">kaliakoir</option>
-              <option value="Jorapamp">Jorapamp</option>
-              <option value="Shokhipur">Shokhipur</option>
-            </select>
+            <input type="text" name="state" required />
           </div>
         </div>
 
