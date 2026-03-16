@@ -5,6 +5,7 @@ from .models import Cart , CartItem
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from account import forms
 
 def _cart_id(request):
 
@@ -237,6 +238,9 @@ def cart(request , total=0 ,quantity=0 , cart_items= None):
 @login_required(login_url='login')
 def checkout(request , total=0 , quantity=0 , cart_items = None):
     try:
+        user_profile , create = forms.UserProfile.objects.get_or_create(user=request.user)
+        user_profile_form = forms.UserProfileForm(instance=user_profile)
+        user_form = forms.UserForm(instance=request.user)
         tax = 0
         shipping = 40
         grand_total = 0
@@ -267,6 +271,8 @@ def checkout(request , total=0 , quantity=0 , cart_items = None):
         'cart_items' : cart_items,
         'tax' : tax,
         'grand_total' : grand_total,
+        'user_form': user_form,
+        'user_profile_form':user_profile_form,
     }
 
     return render(request , 'store/checkout.html' , context)

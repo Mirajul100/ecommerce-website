@@ -52,7 +52,7 @@ def payment(request, order_number):
         city=order.city,
         postcode='1200',
         country=order.country,
-        phone=order.phone
+        phone=order.phone_number
     )
 
     # Shipping info
@@ -216,7 +216,7 @@ def place_order(request, total=0, quantity=0):
             data.user = current_user
             data.first_name = form.cleaned_data['first_name']
             data.last_name = form.cleaned_data['last_name']
-            data.phone = form.cleaned_data['phone']
+            data.phone_number = form.cleaned_data['phone_number']
             data.email = form.cleaned_data['email']
             data.address_line_1 = form.cleaned_data['address_line_1']
             data.address_line_2 = form.cleaned_data['address_line_2']
@@ -226,6 +226,7 @@ def place_order(request, total=0, quantity=0):
             data.order_note = form.cleaned_data['order_note']
             data.order_total = grand_total
             data.tax = tax
+            # Get IP address
             data.ip = request.META.get('REMOTE_ADDR')
             data.save()
 
