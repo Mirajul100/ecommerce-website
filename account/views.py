@@ -237,25 +237,30 @@ def product_history(request):
     }
     return render(request , 'account/product_history.html' , context)
 
+@login_required(login_url='login')
 def edit_profile(request):
-    user_profile , create = UserProfile.objects.get_or_create(user=request.user)
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+
     if request.method == 'POST':
-        user_form = UserForm(request.POST , instance=request.user)
-        profile_form = UserProfileForm(request.POST , request.FILES , instance=user_profile)
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
+
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request , 'Your Profile Has Been Updated')
+
+            messages.success(request, 'Your Profile Has Been Updated')
             return redirect('edit_profile')
-        
+        else:
+            messages.error(request, "Please correct the errors below.")
+
     else:
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=user_profile)
 
     context = {
-        'user_form':user_form,
-        'profile_form':profile_form,
-        'user_profile':user_profile,
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'user_profile': user_profile,
     }
-    
     return render(request , 'account/edit_profile.html' , context)
