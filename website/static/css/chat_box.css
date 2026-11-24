@@ -241,3 +241,23 @@
         right: 15px;
     }
 }
+
+/* ShopNex support panel */
+.chat-button, .send-button { border: 0; background: var(--accent); box-shadow: none; transition: background-color 140ms var(--ease); }
+.chat-button:hover, .send-button:hover { background: var(--accent-dark); transform: none; }
+.chat-box { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: 0 8px 24px rgba(33, 31, 27, .14); }
+.chat-header { background: var(--surface-raised); color: var(--ink); }
+.chat-header h3, .close-chat { color: var(--ink); }
+.close-chat { border-radius: 6px; transition: background-color 140ms var(--ease); }
+.close-chat:hover { background: var(--page); }
+.chat-messages { background: var(--page); }
+.message-bubble { max-width: 84%; border: 1px solid var(--line); border-radius: 10px; box-shadow: none; }
+.message.bot .message-bubble { background: var(--surface); color: var(--ink); }
+.message.user .message-bubble { border-color: var(--accent); border-bottom-right-radius: 4px; background: var(--accent); color: white; }
+.message-time { color: var(--muted); }
+.chat-input-container { border-color: var(--line); }
+.chat-input { min-height: 44px; border-color: var(--line); border-radius: var(--radius-control); background: var(--surface); }
+.chat-input:focus { border-color: var(--accent); }
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

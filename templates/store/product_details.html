@@ -26,17 +26,17 @@
         {% csrf_token %}
         <div class="single-product-info">
             <h1>{{ single_product.product_name }}</h1>
-            <div class="card-badge" style=" background: linear-gradient(135deg, #8f42e1 0%, #059669 100%); margin:10px 0px;"> In Stock : {{single_product.stock}}</div>
+            <div class="card-badge stock-count">In stock · {{ single_product.stock }}</div>
             <br>
             <span>Average Rating</span>
-            <div class="review-stars" style="margin-bottom:20px;">
+            <div class="review-stars product-rating">
                 {% if single_product.average_review >= 1 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
                 {% if single_product.average_review >= 2 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
                 {% if single_product.average_review >= 3 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
                 {% if single_product.average_review >= 4 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
                 {% if single_product.average_review >= 5 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
             </div>
-            <div class="single-product-price">{{ single_product.price}} tk</div>
+            <div class="single-product-price">৳ {{ single_product.price }}</div>
             <p class="single-product-description">
                 {{ single_product.description }}
             </p>
@@ -81,7 +81,7 @@
                 </div>
 
                 <div class="single-product-actions">
-                    <button type="submit" class="btn single-btn-view" style="text-decoration: none" data-product-id="{{ single_product.id }}">Bay Now</button>
+                    <button type="submit" class="btn single-btn-view" data-product-id="{{ single_product.id }}">Buy Now</button>
                     <button type="submit" class="btn single-btn-add" data-product-id="{{ single_product.id }}" data-product-price="{{ single_product.price }}">Add to Cart<i class="fa-solid fa-cart-shopping"></i></button>
                 </div>
             {% endif %}
@@ -116,7 +116,7 @@
 
             <div class="review-form">
                 <label class="review-label">Subject
-                    <textarea class="subject" name="subject" required style="min-height:75px; margin-bottom:10px" placeholder="Write your Subject..."></textarea>
+                    <textarea class="subject review-subject" name="subject" required placeholder="Write a subject"></textarea>
                 </label>
 
                 <label class="review-label">Review
@@ -127,11 +127,11 @@
                     {% if order_product %}
                         <button type="submit" class="submit-btn">Submit Review</button>
                     {% else %}
-                        <p>You must be perches first to post a review.</p>
+                    <p>You must have purchased this product to post a review.</p>
                     {% endif %}
                 {% else %}
                     <p>You must be logged in to post a review. </p>
-                    <span><a href="{% url 'login' %}" style="text-decoration:none;"><b>Login now</b></a></span>
+                <span><a href="{% url 'login' %}"><b>Sign in to review</b></a></span>
                 {% endif %}
             </div>
         </div>
@@ -145,7 +145,7 @@
     <span>Total Review for this product: {{ single_product.count_review }}</span>
     <br>
     <span>Average Review</span>
-    <div class="review-stars" style="margin-bottom:20px;">
+    <div class="review-stars product-rating">
         {% if single_product.average_review >= 1 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
         {% if single_product.average_review >= 2 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
         {% if single_product.average_review >= 3 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
@@ -154,8 +154,8 @@
     </div>
         {% for review in reviews %}
         <div class="review-item">
-            <a href="#" style="text-decoration: none;">
-                <div class="header-user" style="display:ruby;">
+            <a href="#" class="review-author-link">
+                <div class="header-user review-author">
                     {% if review.user.userprofile.profile_picture %}
                         <div class="user-icon">
                             <img src="{{ review.user.userprofile.profile_picture.url }}" alt="{{user.first_name}}">
@@ -168,7 +168,7 @@
                         </div>
                     {% endif %}
                     <div class="user-text">
-                        <div class="user-name" style="font-size: 12px; margin-left: 3px; position:relative; top:-7px; margin-bottom: 10px;">
+                        <div class="user-name review-author-name">
                             {{ review.user.first_name }} {{ review.user.last_name }}
                         </div>
                     </div>
@@ -186,7 +186,7 @@
                 </div>
                 <div class="review-date">{{ review.updated_at|date:'F,d,Y - h:i A' }}</div>
             </div>
-            <h4 style="margin-bottom: 10px;">{{ review.subject }}</h4>
+            <h4 class="review-subject-title">{{ review.subject }}</h4>
             <div class="review-text">
                 {{ review.review }}
             </div>

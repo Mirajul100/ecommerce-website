@@ -218,3 +218,29 @@
         gap: 5px;
     }
 }
+
+/* Order confirmation and history */
+.success-wrapper { width: min(100% - 48px, 900px); border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--surface); box-shadow: 0 1px 2px rgba(33, 31, 27, .04); }
+.content-section { padding: 40px 32px; }
+.success-badge { width: 64px; height: 64px; margin-bottom: 24px; background: #2f8059; animation: none; }
+.success-icon { width: 32px; height: 32px; border-width: 3px; animation: none; }
+.main-heading { color: var(--ink); font-size: 30px; font-weight: 500; letter-spacing: -.025em; }
+.heading-subtitle, .row-label { color: var(--secondary); }
+.purchase-details { margin: 24px 0; padding: 20px; border: 1px solid var(--line); border-radius: 10px; background: var(--page); }
+.details-row { gap: 16px; border-color: var(--line); }
+.row-value { color: var(--ink); font-weight: 500; font-variant-numeric: tabular-nums; text-align: right; }
+.notification-box { border-left: 3px solid var(--accent); border-radius: 8px; background: var(--surface-raised); }
+.notification-box p { color: var(--secondary); }
+.action-buttons { gap: 12px; margin-top: 24px; }
+.action-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 8px 16px; border-radius: var(--radius-control); transition: color 140ms var(--ease), background-color 140ms var(--ease), border-color 140ms var(--ease); }
+.primary-btn { border: 1px solid var(--accent); background: var(--accent); color: white; }
+.primary-btn:hover { border-color: var(--accent-dark); background: var(--accent-dark); box-shadow: none; transform: none; }
+.secondary-btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+.secondary-btn:hover { background: var(--surface-raised); transform: none; }
+.success-wrapper .sc-table { border-collapse: collapse; }
+.success-wrapper .sc-item { border: 1px solid var(--line); }
+@media (max-width: 760px) {
+    .success-wrapper { width: min(100% - 32px, 900px); }
+    .content-section { padding: 28px 20px; }
+    .main-heading { font-size: 25px; }
+}

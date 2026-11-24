@@ -7,13 +7,13 @@
   <div class="chat-box" id="chatBox">
     <div class="chat-header">
       <h3>Chat Support</h3>
-      <button class="close-chat" id="closeChat">×</button>
+      <button class="close-chat" id="closeChat" aria-label="Close chat">×</button>
     </div>
 
     <div class="chat-messages" id="chatMessages">
       <div class="message bot">
         <div class="message-bubble">
-          Hello! {{user.first_name}} {{user.last_name}} 👋 Welcome to ShopNex! How can I help you today?
+          Hi {{ user.first_name }}. How can I help?
         </div>
         <span class="message-time">Just now</span>
       </div>

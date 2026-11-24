@@ -100,3 +100,14 @@
         }
 
     }
+
+/* Compact navigation for ShopNex */
+.hamburger { display: none; width: 28px; height: 32px; padding: 0; border: 0; background: transparent; }
+.hamburger span { height: 2px; background: var(--ink); border-radius: 2px; transition: transform 160ms var(--ease); }
+.side-menu { background: var(--surface); backdrop-filter: none; box-shadow: 8px 0 24px rgba(33, 31, 27, .12); border-right: 1px solid var(--line); }
+.side-menu a { padding: 10px 12px; margin: 0 0 4px; border-radius: 6px; color: var(--secondary); font-size: 15px; }
+.side-menu a:hover { padding-left: 12px; background: var(--surface-raised); color: var(--ink); }
+.overlay { background: rgba(33, 31, 27, .32); }
+@media (max-width: 1115px) {
+    .hamburger { display: block; flex: 0 0 28px; }
+}

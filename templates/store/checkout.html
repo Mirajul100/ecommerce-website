@@ -73,7 +73,7 @@
 
         <div class="form-group">
           <label>Order Note</label>
-          <input type="text" name="order_note" style="height: 100px" />
+          <input type="text" name="order_note" class="order-note-input" />
         </div>
 
         <button type="submit" class="sc-btn-checkout">
@@ -123,12 +123,11 @@
           <td class="sc-price-cell">
             <div class="sc-price-area">
               <span class="sc-price"
-                >Total Product Price : {{cart_item.sub_total}} tk</span
+                >Total Product Price : ৳ {{ cart_item.sub_total }}</span
               >
               <span
                 class="sc-unit-price"
-                style="border-bottom: 1px solid #e9ecef; margin-bottom: 10px"
-                >Unit price = {{cart_item.product.price}} tk</span
+                >Unit price = ৳ {{ cart_item.product.price }}</span
               >
             </div>
           </td>
@@ -146,19 +145,19 @@
 
       <div class="price-row">
         <span>Total Price : </span>
-        <span>{{total}} tk</span>
+        <span>৳ {{ total }}</span>
       </div>
       <div class="price-row">
         <span>Shipping : </span>
-        <span>40 tk</span>
+        <span>৳ 40</span>
       </div>
       <div class="price-row">
         <span>Tax : </span>
-        <span>{{tax}} tk</span>
+        <span>৳ {{ tax }}</span>
       </div>
       <div class="price-row grand-total">
         <span>Total : </span>
-        <span>{{ grand_total }} tk</span>
+        <span>৳ {{ grand_total }}</span>
       </div>
     </div>
   </div>

@@ -214,3 +214,11 @@
         font-size: 0.8rem;
     }
 }
+
+/* Catalogue pagination */
+.pagination-section { border-top: 1px solid var(--line); background: var(--surface); }
+.pagination-btn, .pagination-number { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--secondary); transition: border-color 140ms var(--ease), color 140ms var(--ease), background-color 140ms var(--ease); }
+.pagination-btn:hover, .pagination-number:hover { border-color: rgba(183, 71, 31, .35); background: var(--surface-raised); color: var(--ink); box-shadow: none; transform: none; }
+.pagination-number.active { border-color: var(--ink); background: var(--ink); color: var(--surface); box-shadow: none; }
+.pagination-btn.disabled { background: var(--page); color: var(--muted); }
+.pagination-info, .pagination-info p { color: var(--muted); }
