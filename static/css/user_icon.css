@@ -37,3 +37,15 @@
     font-size: 8px;
     color: #667eea;
 }
+
+/* Profile identity */
+.user-icon { border: 1px solid var(--line); box-shadow: none; }
+.user-text { text-align: left; }
+.welcome-text { color: var(--muted); font-size: 11px; }
+.user-name { color: var(--ink); font-size: 13px; }
+.profile-preview { width: 152px; height: 152px; margin: 0 auto; border-color: var(--line); }
+.profile-preview-name { margin-top: 12px; color: var(--ink); font-size: 16px; text-align: center; }
+.profile-preview-greeting { color: var(--muted); }
+.profile-preview { width: 152px; height: 152px; border-color: var(--line) !important; }
+.profile-preview-name { margin-top: 12px; font-size: 16px !important; }
+.profile-preview-greeting { margin-top: 0 !important; font-size: 12px !important; }

@@ -6,7 +6,9 @@
     <!-- Category Filter Section -->
     <section class="filter-section">
         <div class="container">
-            <h3>Categories</h3>
+            <div class="section-heading">
+                <div><p class="eyebrow">Browse</p><h3>Shop by category</h3></div>
+            </div>
             <div class="category-filters">
                 {% for sub_category in sub_link %}
                     <a class="filter-btn" href="{{ sub_category.get_sub_category_url }}">{{ sub_category.sub_category_name }}</a>
@@ -18,7 +20,11 @@
     <!-- Products Section -->
     <!-- Product cards will be dynamically generated -->
     {% if products %}
-        <section class="products" id="products" style="margin-bottom: 35;">
+        <section class="products" id="products">
+            <div class="listing-heading">
+                <div><p class="eyebrow">The collection</p><h2>Products to explore</h2></div>
+                <span>{{ product_count }} items</span>
+            </div>
             {% for product in products %}
             <a href="{{ product.get_product_url }}" class="product-card-link">
                 <div class="product-card" data-category="{{ product.category }}">
@@ -32,7 +38,7 @@
                             {% if product.average_review >= 4 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
                             {% if product.average_review >= 5 %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}
                         </div>
-                        <div class="product-price">{{ product.price }} tk</div>
+                        <div class="product-price">৳ {{ product.price }}</div>
                         {% if product.stock <= 0 %}
                         <h2 class="stock_out">Out of Stock</h2>
                         {% endif %}
@@ -42,7 +48,7 @@
             {% endfor %}
         </section>
         {% else %}
-        <div class="sc-title-empty" style="margin-bottom: 70px; margin-top: 58px"><a href="{% url 'store' %}" style="text-decoration :none;">🔍 Search Results Is Not Found Try Again</a></div>
+        <div class="sc-title-empty"><a href="{% url 'store' %}" class="text-link">No products found. Browse the catalogue</a></div>
         {% endif %}
 {% if products.has_other_pages %}
 <section class="pagination-section">

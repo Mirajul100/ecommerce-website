@@ -16,7 +16,7 @@
             Order Date: {{ order.created_at|date:"F d, Y" }}
           </p>
         </div>
-        <div class="card-badge" style="background: linear-gradient(135deg, #4893be 0%, #5651e6 100%); box-shadow: 0 4px 12px rgb(138 108 250 / 45%);">
+        <div class="card-badge">
           <span>{{ order.status}}</span>
         </div>
       </div>
@@ -84,14 +84,12 @@
         {% endfor %}
         <hr/>
         {% empty %}
-          <div class="sc-title-empty">Dashboard Is Empty !</div>
+          <div class="sc-title-empty">No orders yet</div>
           <br>
-          <p style="text-align: center; font-size: 18px; font-weight:600;">To access order tracking and product details, please place an order first. Once the order is confirmed, tracking information and detailed product data will be available.</p>
-          <br>
-          <p style="text-align: center; font-size: 18px; font-weight:600;">Thank you for choosing us.</p>
+          <p class="dashboard-empty-copy">Place an order to see its products and details here.</p>
           <br>
           <div class="text-center">
-            <a href="{% url 'store' %}" class="sc-empty" style="text-decoration: none">Continue Shopping<i class="fa-solid fa-cart-arrow-down"></i></a>
+            <a href="{% url 'store' %}" class="sc-empty">Continue shopping<i class="fa-solid fa-cart-arrow-down"></i></a>
           </div>
           {% endfor %}
         </main>

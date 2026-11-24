@@ -11,7 +11,7 @@
       <div class="success-icon"></div>
     </div>
 
-    <h1 class="main-heading">Purchase Successful!</h1>
+    <h1 class="main-heading">Purchase confirmed</h1>
     <p class="heading-subtitle">
       Thank you for your purchase. Your order has been confirmed and is being
       processed.
@@ -32,12 +32,12 @@
       </div>
       <div class="details-row">
         <span class="row-label">Total Amount:</span>
-        <span class="row-value">{{amount}} tk</span>
+        <span class="row-value">৳ {{ amount }}</span>
       </div>
     </div>
 
     <!-- Ordered product information -->
-    <table class="sc-table" style="text-align:left;">
+    <table class="sc-table order-items-table">
       <tbody>
         {% for cart_item in order_product %}
         <tr class="sc-item">
@@ -67,9 +67,9 @@
           </td>
 
           <td class="sc-price-cell">
-            <div class="sc-price-area" style="flex-direction: row;">
-              <span>Total Product Price : {{cart_item.sub_total}} tk</span><br />
-              <span>Unit price : {{ cart_item.product.price }} tk</span>
+            <div class="sc-price-area sc-price-row">
+              <span>Total Product Price : ৳ {{ cart_item.sub_total }}</span>
+              <span>Unit price : ৳ {{ cart_item.product.price }}</span>
             </div>
           </td>
         </tr>
@@ -80,7 +80,7 @@
 
     <div class="notification-box">
       <p>
-        <strong><i class="fa-solid fa-envelope"></i> Confirmation email sent!</strong><br />
+        <strong><i class="fa-solid fa-envelope"></i> Confirmation email sent</strong><br />
         We've sent a confirmation email to your registered email address <b>{{user}},</b> with
         your order details and tracking information.
       </p>

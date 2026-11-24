@@ -3,15 +3,15 @@
 {% block content %}
 
 {% if not order_product %}
-<div class="sc-title-empty">Order History Is Empty !</div>
+<div class="sc-title-empty">No order history yet</div>
 <br>
 <div class="text-center">
-  <a href="{% url 'store' %}" class="sc-empty" style="text-decoration: none">Continue Shopping<i class="fa-solid fa-cart-arrow-down"></i></a>
+  <a href="{% url 'store' %}" class="sc-empty">Continue shopping<i class="fa-solid fa-cart-arrow-down"></i></a>
 </div>
 {% else %}
 <div class="sc-title-empty">Order History</div>
 <div class="register-page">
-<div class="success-wrapper" style="max-width: 950px;">
+<div class="success-wrapper history-wrapper">
 <div class="cart-details">
       <h2 class="checkout">
         <thead>
@@ -72,12 +72,11 @@
           <td class="sc-price-cell">
             <div class="sc-price-area">
               <span class="sc-price"
-                >Total Product Price : {{item.sub_total}} tk</span
+                >Total Product Price : ৳ {{ item.sub_total }}</span
               >
               <span
                 class="sc-unit-price"
-                style="border-bottom: 1px solid #e9ecef; margin-bottom: 10px"
-                >Unit price = {{item.product.price}} tk</span
+                >Unit price = ৳ {{ item.product.price }}</span
               >
             </div>
           </td>
